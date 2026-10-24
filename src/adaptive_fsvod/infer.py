@@ -24,6 +24,7 @@ def main():
     parser.add_argument("--checkpoint", required=True)
     parser.add_argument("--output", required=True)
     parser.add_argument("--score-threshold", type=float, default=0.3)
+    parser.add_argument("--objectness-beta", type=float, default=0.0)
     parser.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     args = parser.parse_args()
     detector, checkpoint = load_detector(args.checkpoint, args.device)
@@ -65,7 +66,8 @@ def main():
                                            frame["objectness"].to(args.device), memory_quality)
         memory = detected["memory"]
         memory_quality = detected["memory_quality"]
-        predictions = decode(detected, classes, *image.size, args.score_threshold)
+        predictions = decode(detected, classes, *image.size, args.score_threshold,
+                             objectness=frame["objectness"], objectness_beta=args.objectness_beta)
         if str(args.device).startswith("cuda"):
             torch.cuda.synchronize()
         timings.append(time.perf_counter() - started)
@@ -80,6 +82,7 @@ def main():
     # Exclude the first frame for the warm run metric. Keep all timings for review.
     measured = timings[1:] or timings
     write_json(output / "timing.json", {"seconds_per_frame": timings,
+        "objectness_beta": args.objectness_beta,
         "warm_fps": len(measured) / sum(measured), "encoder": signature,
         "timing_scope": "frame read, preprocessing, encoder, temporal heads, decode; support setup and output writing excluded"})
     print(f"Saved detections and annotated frames to {output}")

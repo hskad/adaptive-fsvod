@@ -3,6 +3,7 @@
 import argparse
 import contextlib
 import io
+import math
 import time
 from pathlib import Path
 
@@ -15,9 +16,19 @@ from .model import ModelConfig, TemporalDetector
 
 
 @torch.no_grad()
-def decode(output, classes, width, height, score_floor=0.001, nms_iou=0.5, max_detections=100):
+def decode(output, classes, width, height, score_floor=0.001, nms_iou=0.5, max_detections=100,
+           objectness=None, objectness_beta=0.0):
+    if not math.isfinite(objectness_beta) or objectness_beta < 0:
+        raise ValueError("Objectness exponent must be finite and nonnegative")
     probabilities = output["logits"].softmax(-1)
     scores, labels = probabilities[:, :-1].max(-1)
+    if objectness_beta:
+        if objectness is None or objectness.shape != scores.shape:
+            raise ValueError("Score calibration requires one objectness value per candidate")
+        quality = objectness.to(device=scores.device, dtype=scores.dtype)
+        if not torch.isfinite(quality).all() or (quality < 0).any() or (quality > 1).any():
+            raise ValueError("Objectness values must be finite and in [0, 1]")
+        scores = scores * quality.pow(objectness_beta)
     boxes = pixel_boxes(output["boxes"].clone(), width, height)
     winning_foreground = probabilities.argmax(-1) < len(classes)
     valid = winning_foreground & (scores >= score_floor)
@@ -53,7 +64,10 @@ def coco_metrics(ground_truth, predictions):
 
 
 @torch.inference_mode()
-def evaluate(model, cached, episode_file, device="cpu", score_floor=0.001, nms_iou=0.5):
+def evaluate(model, cached, episode_file, device="cpu", score_floor=0.001, nms_iou=0.5,
+             objectness_beta=0.0):
+    if not math.isfinite(objectness_beta) or objectness_beta < 0:
+        raise ValueError("Objectness exponent must be finite and nonnegative")
     validate_episodes(cached.manifest, episode_file)
     model.eval()
     categories = sorted(cached.manifest.classes)
@@ -69,7 +83,7 @@ def evaluate(model, cached, episode_file, device="cpu", score_floor=0.001, nms_i
     for episode in episode_file["episodes"]:
         frames, support, _, info = cached.load(episode, device)
         outputs = model(frames, support)  # A fresh call resets temporal memory.
-        for output, frame in zip(outputs, info):
+        for output, frame, encoded in zip(outputs, info, frames):
             image_id = len(truth["images"]) + 1
             truth["images"].append({"id": image_id, "width": frame["width"], "height": frame["height"],
                                     "file_name": frame["path"], "episode_id": episode["id"]})
@@ -80,7 +94,8 @@ def evaluate(model, cached, episode_file, device="cpu", score_floor=0.001, nms_i
                     truth["annotations"].append({"id": len(truth["annotations"]) + 1,
                         "image_id": image_id, "category_id": category_map[category], "iscrowd": 0,
                         "bbox": [x1, y1, x2 - x1, y2 - y1], "area": (x2 - x1) * (y2 - y1)})
-            for detection in decode(output, episode["classes"], frame["width"], frame["height"], score_floor, nms_iou):
+            for detection in decode(output, episode["classes"], frame["width"], frame["height"], score_floor, nms_iou,
+                                    objectness=encoded.get("objectness"), objectness_beta=objectness_beta):
                 x1, y1, x2, y2 = detection["bbox"]
                 predictions.append({"image_id": image_id, "category_id": category_map[detection["category_id"]],
                                     "bbox": [x1, y1, x2 - x1, y2 - y1], "score": detection["score"]})
@@ -97,6 +112,7 @@ def evaluate(model, cached, episode_file, device="cpu", score_floor=0.001, nms_i
                     "mean_threshold": sum(thresholds) / len(thresholds),
                     "synthetic": cached.metadata.get("synthetic", False),
                     "score_floor": score_floor, "nms_iou": nms_iou,
+                    "objectness_beta": objectness_beta,
                     "metric": "frame-level COCO bbox AP, IoU 0.50:0.05:0.95, maxDets=100"})
     return metrics, truth, predictions
 
@@ -117,6 +133,7 @@ def main():
     parser.add_argument("--output", required=True)
     parser.add_argument("--score-floor", type=float, default=0.001)
     parser.add_argument("--nms-iou", type=float, default=0.5)
+    parser.add_argument("--objectness-beta", type=float, default=0.0)
     parser.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     args = parser.parse_args()
     cached = CachedEpisodes(VideoManifest(args.manifest), args.cache)
@@ -124,7 +141,8 @@ def main():
     if checkpoint["cache_signature"] != cache_signature(cached.metadata):
         raise ValueError("Evaluation features differ from the training encoder settings")
     episodes = read_json(args.episodes)
-    result, truth, predictions = evaluate(model, cached, episodes, args.device, args.score_floor, args.nms_iou)
+    result, truth, predictions = evaluate(model, cached, episodes, args.device, args.score_floor, args.nms_iou,
+                                           args.objectness_beta)
     result.update({"checkpoint": str(Path(args.checkpoint).resolve()), "training_step": checkpoint["step"],
                    "checkpoint_sha256": checksum(args.checkpoint), "manifest_sha256": checksum(args.manifest),
                    "episodes_sha256": checksum(args.episodes), "model_config": checkpoint["model_config"],
