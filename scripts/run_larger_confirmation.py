@@ -14,6 +14,7 @@ from adaptive_fsvod.cache import FrozenEncoder, build_cache
 from adaptive_fsvod.data import (VideoManifest, checksum, read_json, support_pool,
                                 validate_episodes, validate_splits, write_json)
 from adaptive_fsvod.download_frames import SOURCE, RangeReader, download_frames, frame_index
+from adaptive_fsvod.train import environment
 from prepare_confirmation import immutable, prior_confirmation_path
 from run_revision import measure
 
@@ -163,8 +164,8 @@ def verify(root):
             raise ValueError(f"Frozen protocol changed: {name}")
     validate_splits(exclusions(root) + [VideoManifest(directory / "confirmation.json")])
     for row in read_json(directory / "models.json"):
-        if checksum(row["checkpoint"]) != row["checkpoint_sha256"]:
-            raise ValueError("Frozen checkpoint changed")
+        if checksum(row["checkpoint"]) != row["checkpoint_sha256"] or checksum(row["config"]) != row["config_sha256"]:
+            raise ValueError("Frozen checkpoint or configuration changed")
 
 
 def download(root):
@@ -174,29 +175,51 @@ def download(root):
     print(VideoManifest(directory / "confirmation.json").validate_images(), flush=True)
 
 
-def cache(root, device):
+def cache(root, device, backend="sdpa"):
     verify(root)
     directory = root / STUDY
     manifest = VideoManifest(directory / "confirmation.json")
-    encoder = FrozenEncoder(device=device, revision=ENCODER_REVISION, candidates=128)
-    metadata = build_cache(manifest, directory / "cache", encoder, per_class=4, pool_seed=42)
-    if read_json(directory / "cache/support_pool.json") != read_json(directory / "support_pool.json"):
+    # A separate directory keeps the incomplete native-kernel timing trial intact.
+    immutable(directory / "extraction_settings.json", {"attention_backend": backend,
+              "device": device, "cache_directory": "cache_sdpa" if backend == "sdpa" else "cache",
+              "note": "Equivalent attention equation; fp32 kernel may differ in rounding. Shared by all nine models."})
+    cache_path = cache_directory(root)
+    encoder = FrozenEncoder(device=device, revision=ENCODER_REVISION, candidates=128, attention_backend=backend)
+    metadata = build_cache(manifest, cache_path, encoder, per_class=4, pool_seed=42)
+    if read_json(cache_path / "support_pool.json") != read_json(directory / "support_pool.json"):
         raise ValueError("Cache support pool differs from the frozen protocol")
     print("COMPLETE CACHE", metadata, flush=True)
+
+
+def cache_directory(root):
+    directory = root / STUDY
+    return directory / read_json(directory / "extraction_settings.json")["cache_directory"]
 
 
 def score(root):
     verify(root)
     directory = root / STUDY
+    frozen_cache = read_json(directory / "cache_artifact_sha256.json")
+    if checksum(directory / "extraction_settings.json") != frozen_cache["extraction_settings_sha256"]:
+        raise ValueError("Frozen extraction settings changed")
+    for name, digest in frozen_cache["files"].items():
+        if checksum(cache_directory(root) / name) != digest:
+            raise ValueError("Frozen feature cache changed")
+    execution = {"environment": environment(), "threads": torch.get_num_threads(),
+                 "cache_artifact_manifest_sha256": checksum(directory / "cache_artifact_sha256.json")}
+    immutable(directory / "evaluation_environment.json", execution)
     rows = []
     for row in read_json(directory / "models.json"):
         output = directory / "evaluations" / f"{row['method']}_seed{row['seed']}"
         if (output / "metrics.json").exists():
             metrics = read_json(output / "metrics.json")
-            if metrics["checkpoint_sha256"] != row["checkpoint_sha256"]:
-                raise ValueError("Stored evaluation used a different model")
+            expected = {"checkpoint_sha256": row["checkpoint_sha256"],
+                        "manifest_sha256": checksum(directory / "confirmation.json"),
+                        "episodes_sha256": checksum(directory / "episodes.json")}
+            if any(metrics.get(k) != v for k, v in expected.items()):
+                raise ValueError("Stored evaluation used a different model or protocol")
         else:
-            metrics = measure(row["checkpoint"], directory / "confirmation.json", directory / "cache",
+            metrics = measure(row["checkpoint"], directory / "confirmation.json", cache_directory(root),
                               directory / "episodes.json", output)
         rows.append({"method": row["method"], "seed": row["seed"], **metrics})
     summary = {}
@@ -207,6 +230,31 @@ def score(root):
                            for key in ("AP", "AP50", "AP75")}
     write_json(directory / "results.json", {"rows": rows, "summary": summary})
     print("LARGER CONFIRMATION", summary, flush=True)
+
+
+def freeze_cache(root, target):
+    verify(root)
+    directory = root / STUDY
+    cache_path = cache_directory(root)
+    metadata = read_json(cache_path / "metadata.json")
+    if not metadata.get("complete") or metadata["synthetic"] or metadata["feature_dim"] != 512:
+        raise ValueError("Expected a complete real-data feature cache")
+    paths = sorted(cache_path.rglob("*.pt"))
+    if len(paths) != 216:
+        raise ValueError("Expected 192 query tensors and 24 support tensors")
+    record = {"extraction_settings_sha256": checksum(directory / "extraction_settings.json"),
+              "files": {path.relative_to(cache_path).as_posix(): checksum(path) for path in paths},
+              "metadata_sha256": checksum(cache_path / "metadata.json"),
+              "support_pool_sha256": checksum(cache_path / "support_pool.json")}
+    immutable(directory / "cache_artifact_sha256.json", record)
+    target.mkdir(parents=True, exist_ok=True)
+    for name in ("cache_artifact_sha256.json", "extraction_settings.json"):
+        shutil.copyfile(directory / name, target / name)
+    output = target / "cache_metadata"
+    output.mkdir(parents=True, exist_ok=True)
+    for name in ("metadata.json", "support_pool.json"):
+        shutil.copyfile(cache_path / name, output / name)
+    print("Frozen", len(paths), "feature tensors before model scoring", flush=True)
 
 
 def publish_protocol(root, target):
@@ -221,16 +269,19 @@ def publish_protocol(root, target):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--experiment-dir", type=Path, required=True)
-    parser.add_argument("--stage", choices=("prepare", "download", "cache", "evaluate", "publish-protocol"), required=True)
+    parser.add_argument("--stage", choices=("prepare", "download", "cache", "freeze-cache", "evaluate", "publish-protocol"), required=True)
     parser.add_argument("--output", type=Path, default=Path("results/larger_confirmation/protocol"))
     parser.add_argument("--device", default="cpu")
+    parser.add_argument("--attention-backend", choices=("eager", "sdpa"), default="sdpa")
     parser.add_argument("--threads", type=int, default=4)
     args = parser.parse_args()
     torch.set_num_threads(args.threads)
     root = args.experiment_dir.resolve()
     if args.stage == "cache":
-        cache(root, args.device)
+        cache(root, args.device, args.attention_backend)
     elif args.stage == "publish-protocol":
         publish_protocol(root, args.output)
+    elif args.stage == "freeze-cache":
+        freeze_cache(root, args.output)
     else:
         {"prepare": prepare, "download": download, "evaluate": score}[args.stage](root)

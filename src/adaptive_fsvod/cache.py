@@ -22,7 +22,7 @@ def save_tensor(path, value):
 
 class FrozenEncoder:
     def __init__(self, model_id="google/owlv2-base-patch16-ensemble", device="cpu",
-                 revision=None, candidates=128, model=None, processor=None):
+                 revision=None, candidates=128, model=None, processor=None, attention_backend="eager"):
         if model is None or processor is None:
             os.environ.setdefault("USE_TF", "0")
             from transformers import Owlv2ForObjectDetection, Owlv2Processor
@@ -30,6 +30,12 @@ class FrozenEncoder:
             model = Owlv2ForObjectDetection.from_pretrained(model_id, revision=revision, use_safetensors=True)
         self.model = model.to(device).eval()
         self.model.requires_grad_(False)
+        if attention_backend not in ("eager", "sdpa"):
+            raise ValueError("Unknown encoder attention backend")
+        self.attention_backend = attention_backend
+        if attention_backend == "sdpa":
+            from .encoder_attention import enable_sdpa
+            enable_sdpa(self.model)
         self.processor = processor
         self.device = torch.device(device)
         self.candidates = candidates
@@ -62,9 +68,14 @@ def build_cache(manifest, output, encoder, per_class=32, pool_seed=42):
                  "encoder": encoder.model_id, "revision": encoder.revision,
                  "candidates": encoder.candidates, "pool_seed": pool_seed,
                  "support_per_class": per_class, "synthetic": False}
+    backend = getattr(encoder, "attention_backend", "eager")
+    if backend != "eager":
+        signature["attention_backend"] = backend
     metadata_file = output / "metadata.json"
     if metadata_file.exists():
         previous = read_json(metadata_file)
+        if previous.get("attention_backend", "eager") != backend:
+            raise ValueError("Cache attention backend differs. Use a different output directory.")
         if any(previous.get(k) != v for k, v in signature.items()):
             raise ValueError("Cache settings differ. Use a different output directory.")
     write_json(metadata_file, {**signature, "complete": False})

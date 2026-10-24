@@ -53,3 +53,22 @@ An interval containing zero means this test does not establish an improvement.
 Do not claim better converged accuracy or a speedup of the frozen encoder.
 Whatever the outcome, retain the fixed models, report the result, and stop
 method selection on these confirmation data.
+
+## Extraction implementation check, before scoring
+
+Native eager attention took about 23--26 seconds per image on the local CPU.
+Changing the CPU thread count did not resolve the cost. An optional PyTorch
+SDPA adapter preserves the same attention equation, weights, projection and
+Q scaling, native image size, masks, and fp32 inputs. It avoids materializing
+the full attention matrix. Eager remains the project's default.
+
+Use SDPA for this set's single shared cache, in a separate `cache_sdpa` directory;
+do not reuse any frames from the incomplete eager timing trial. On three
+unscored images, extraction took about 9.2--9.4 seconds per image. Largest
+differences from eager were 0.0002442 in saved fp16 features, 0.00000236 in
+normalized box coordinates, and 0.00000232 in objectness. These are kernel
+rounding differences. Attention unit tests also check masks, unchanged weights,
+and fallback for requested attention matrices. This is an implementation
+choice shared by every method, not a new research contribution or a claimed
+encoder speed advantage of feature centering. Preserve the backend setting,
+comparison record, and cache hashes before model scoring.

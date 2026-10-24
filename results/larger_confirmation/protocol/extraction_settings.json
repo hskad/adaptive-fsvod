@@ -1,0 +1,6 @@
+{
+  "attention_backend": "sdpa",
+  "device": "cpu",
+  "cache_directory": "cache_sdpa",
+  "note": "Equivalent attention equation; fp32 kernel may differ in rounding. Shared by all nine models."
+}

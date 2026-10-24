@@ -61,6 +61,39 @@ The export contains all three seeds for both methods. It omits optimizer state; 
 
 ## Cache real data
 
+### Larger confirmation without further training
+
+After the limited-budget study has supplied its six checkpoints, the existing
+`revision_v2` tuned fixed checkpoints supply the 300-update reference. They are
+`fixed_tau060_seed42`, `fixed_tau060_seed43`, and `fixed_tau060_seed44`, selected
+on validation. The larger test uses none of its own labels for model selection.
+Its exact published protocol is in `results/larger_confirmation/protocol/` and
+its pre-score plan is [LARGER_CONFIRMATION_PLAN.md](LARGER_CONFIRMATION_PLAN.md).
+
+```bash
+python scripts/run_larger_confirmation.py --experiment-dir "$EXPERIMENT" --stage prepare
+python scripts/run_larger_confirmation.py --experiment-dir "$EXPERIMENT" --stage download
+python scripts/run_larger_confirmation.py --experiment-dir "$EXPERIMENT" --stage cache --device cpu --attention-backend sdpa --threads 4
+python scripts/run_larger_confirmation.py --experiment-dir "$EXPERIMENT" --stage freeze-cache --output results/larger_confirmation/protocol
+python scripts/run_larger_confirmation.py --experiment-dir "$EXPERIMENT" --stage evaluate --threads 4
+python scripts/analyse_larger_confirmation.py --experiment-dir "$EXPERIMENT" --output results/larger_confirmation
+```
+
+Use `--device cuda` only for caching if a GPU is available. SDPA implements the
+same frozen attention equation with different floating-point rounding. The
+actual backend, cache hashes, model hashes, and package versions are recorded.
+The historical eager default remains available; it requires a separate cache.
+Keep the model files fixed. The last command recomputes AP from saved detections
+and runs the predeclared 1,000-draw paired, class-stratified query-video bootstrap.
+This resamples videos rather than treating related frames as independent.
+
+Model paths in the archived source `models.json` describe the original machine.
+Fresh runs generate a manifest with the new experiment directory's paths and
+verify each model against the locally created replication records. Reproducing
+GPU caches may have small numerical differences from the recorded CPU tensors;
+the frozen data and episodes, not bitwise cross-hardware equality, define the
+evaluation protocol.
+
 Complete [data preparation](DATA.md) first. Its downloader retrieves and verifies only the selected RGB frames from a pinned public archive. The native OWLv2 image processing uses a 960-pixel padded square. The top 128 objectness tokens are kept after encoder inference. This reduces head training cost; it does not reduce the encoder's own image size or extraction cost.
 
 Optional real-data integration check before constructing the full cache:
