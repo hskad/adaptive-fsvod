@@ -112,7 +112,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--experiment-dir", type=Path, required=True)
     parser.add_argument("--stage", choices=("prepare", "cache"), required=True)
-    parser.add_argument("--study", choices=("revision_v2", "revision_v3", "revision_v4"), default="revision_v2")
+    parser.add_argument("--study", choices=("revision_v2", "revision_v3", "revision_v4", "revision_v5"), default="revision_v2")
     parser.add_argument("--threads", type=int, default=4)
     args = parser.parse_args()
     torch.set_num_threads(args.threads)

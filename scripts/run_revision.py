@@ -32,7 +32,8 @@ def measure(checkpoint_path, manifest_path, cache_path, episodes_path, output):
     metrics, truth, predictions = evaluate(model, cached, episodes, "cpu")
     metrics.update({"checkpoint_sha256": checksum(checkpoint_path), "training_step": checkpoint["step"],
                     "training_seed": checkpoint["arguments"]["seed"],
-                    "training_budget": checkpoint["arguments"]["steps"],
+                    "training_budget": checkpoint["arguments"].get("stop_after") or checkpoint["arguments"]["steps"],
+                    "training_schedule_budget": checkpoint["arguments"]["steps"],
                     "training_git": checkpoint["environment"]["git"],
                     "model_config": checkpoint["model_config"],
                     "cache_signature": checkpoint["cache_signature"],
@@ -43,7 +44,7 @@ def measure(checkpoint_path, manifest_path, cache_path, episodes_path, output):
     return metrics
 
 
-def training_run(root, config_path, name, seed, study="revision_v2"):
+def training_run(root, config_path, name, seed, study="revision_v2", stop_after=None):
     output = root / study / "runs" / f"{name}_seed{seed}"
     flags = {
         "train-manifest": root / "pilot/train.json", "val-manifest": root / "pilot/val.json",
@@ -51,6 +52,8 @@ def training_run(root, config_path, name, seed, study="revision_v2"):
         "train-episodes": root / "pilot/train_episodes.json", "val-episodes": root / "pilot/val_episodes.json",
         "config": config_path, "output": output, "steps": 300, "eval-every": 50,
         "seed": seed, "device": "cpu"}
+    if stop_after is not None:
+        flags["stop-after"] = stop_after
     if (output / "last.pt").exists():
         flags["resume"] = output / "last.pt"
     command = [part for key, value in flags.items() for part in ("--" + key, str(value))]

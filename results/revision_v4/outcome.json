@@ -1,0 +1,7 @@
+{
+  "stage": "300-update family stopped after validation",
+  "best_centered_AP": 59.70401829206467,
+  "best_tuned_baseline_AP": 59.77592108804185,
+  "confirmation_evaluated": false,
+  "subsequent_hypothesis": "Same feature centering at an equal 50-update cap, motivated by validation curves; see FAST_ADAPTATION_PLAN.md."
+}

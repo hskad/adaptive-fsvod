@@ -1,0 +1,125 @@
+{
+  "stage": "validation_selection",
+  "search_seed": 42,
+  "seeds_to_replicate": [
+    43,
+    44
+  ],
+  "candidates": [
+    {
+      "name": "centered_tau060",
+      "seed": 42,
+      "config": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v4\\configs\\centered_tau060.json",
+      "config_sha256": "4c2db11937e91baf8314a67747a7bb4aef4b62bd90b1cddbac459a5b01cae613",
+      "checkpoint": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v4\\runs\\centered_tau060_seed42\\best.pt",
+      "checkpoint_sha256": "107a37a79019a83872676e85031baf7c6dbad55081141b9da42ffb4cb9559b03",
+      "validation_AP": 59.370615206865374,
+      "method": "centered",
+      "memory_threshold": 0.6
+    },
+    {
+      "name": "centered_tau070",
+      "seed": 42,
+      "config": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v4\\configs\\centered_tau070.json",
+      "config_sha256": "d42ec2f1d17718f10f478d24157869c4fd5621a990b7cfe9e43bcb974712c887",
+      "checkpoint": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v4\\runs\\centered_tau070_seed42\\best.pt",
+      "checkpoint_sha256": "dd2511fe842cf70ba6eba0465b837c5720399747d2781386cdeaa130b18d1053",
+      "validation_AP": 59.43488364965047,
+      "method": "centered",
+      "memory_threshold": 0.7
+    },
+    {
+      "name": "centered_tau080",
+      "seed": 42,
+      "config": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v4\\configs\\centered_tau080.json",
+      "config_sha256": "f930ca80ccf6a4b24db84e9558987b96a4bf3c5686903f9f07e49718d608797c",
+      "checkpoint": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v4\\runs\\centered_tau080_seed42\\best.pt",
+      "checkpoint_sha256": "a24e62a67903dd09e87d25a9f1573760b3ce74f55304f72083a27c9d036e95b3",
+      "validation_AP": 59.70401829206467,
+      "method": "centered",
+      "memory_threshold": 0.8
+    }
+  ],
+  "selected": {
+    "fixed": {
+      "name": "fixed_tau060",
+      "seed": 42,
+      "config": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v2\\configs\\fixed_tau060.json",
+      "config_sha256": "c55af762e57875c314ef067e9cec9199928592b5beb33d36db0383d41f130d80",
+      "checkpoint": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v2\\runs\\fixed_tau060_seed42\\best.pt",
+      "checkpoint_sha256": "07804b393b4fa55e97107fbd24a756d7474c8fcd81ae04ed2f106b5fc22f185f",
+      "validation_AP": 59.77592108804185,
+      "method": "fixed",
+      "memory_threshold": 0.6
+    },
+    "centered": {
+      "name": "centered_tau080",
+      "seed": 42,
+      "config": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v4\\configs\\centered_tau080.json",
+      "config_sha256": "f930ca80ccf6a4b24db84e9558987b96a4bf3c5686903f9f07e49718d608797c",
+      "checkpoint": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v4\\runs\\centered_tau080_seed42\\best.pt",
+      "checkpoint_sha256": "a24e62a67903dd09e87d25a9f1573760b3ce74f55304f72083a27c9d036e95b3",
+      "validation_AP": 59.70401829206467,
+      "method": "centered",
+      "memory_threshold": 0.8
+    },
+    "none": {
+      "name": "none",
+      "seed": 42,
+      "config": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v2\\configs\\none.json",
+      "config_sha256": "8e0af87c30e8d235276d472029e06f72adf6799d41ccd329ea870559d8ce9cfd",
+      "checkpoint": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v2\\runs\\none_seed42\\best.pt",
+      "checkpoint_sha256": "06b0dd032ded67604ea852007998e862388ebc6893624f15d139d7838f973b7b",
+      "validation_AP": 62.40062994391479
+    },
+    "centered_none": {
+      "name": "centered_none",
+      "seed": 42,
+      "config": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v4\\configs\\centered_none.json",
+      "config_sha256": "cdaae3677168426bc78e81b56c449283a9aed8b15ca3e5c6da69900dd6d52322",
+      "checkpoint": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v4\\runs\\centered_none_seed42\\best.pt",
+      "checkpoint_sha256": "84be7a9217d57f2f68e5024b1c44a913d708356946de2f97053f69059e9ac138",
+      "validation_AP": 60.148231556911234
+    }
+  },
+  "reused_baseline_search": [
+    {
+      "name": "fixed_tau060",
+      "seed": 42,
+      "config": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v2\\configs\\fixed_tau060.json",
+      "config_sha256": "c55af762e57875c314ef067e9cec9199928592b5beb33d36db0383d41f130d80",
+      "checkpoint": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v2\\runs\\fixed_tau060_seed42\\best.pt",
+      "checkpoint_sha256": "07804b393b4fa55e97107fbd24a756d7474c8fcd81ae04ed2f106b5fc22f185f",
+      "validation_AP": 59.77592108804185,
+      "method": "fixed",
+      "memory_threshold": 0.6
+    },
+    {
+      "name": "fixed_tau070",
+      "seed": 42,
+      "config": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v2\\configs\\fixed_tau070.json",
+      "config_sha256": "a5d9800de0b5dd9f1be73828336bd04876730b01cd9b8219fe9ab389ab0f34ed",
+      "checkpoint": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v2\\runs\\fixed_tau070_seed42\\best.pt",
+      "checkpoint_sha256": "d9b603bc07695b2ff703f6e4a7a1f0f110fc46c394197bd7dc0a13eeb545b37e",
+      "validation_AP": 59.33240824293663,
+      "method": "fixed",
+      "memory_threshold": 0.7
+    },
+    {
+      "name": "fixed_tau080",
+      "seed": 42,
+      "config": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v2\\configs\\fixed_tau080.json",
+      "config_sha256": "893ff7ff515f60da7cb2d10c79a7d09993e19dc1ba8f783e0e94f9126d45c6d3",
+      "checkpoint": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v2\\runs\\fixed_tau080_seed42\\best.pt",
+      "checkpoint_sha256": "526e1af4ab6af8dbf0c170de2eff1c362f4cf100f7e060669f00d3ff443856af",
+      "validation_AP": 59.24174470060335,
+      "method": "fixed",
+      "memory_threshold": 0.8
+    }
+  ],
+  "reference_selection_sha256": "cc313c13927a589a9372d6fbea51dd093afb693897234e424887f8899667c857",
+  "train_manifest_sha256": "1912d3d1c9dacfbf6fcd0c67a52fb45e8728ee68e2d34357bc4ebf4cc4f2e173",
+  "val_manifest_sha256": "996053807b8f431f864eb371139e19eb25df4d3221f4072eedec2fe1398a254c",
+  "train_episodes_sha256": "dcaad2c1e5ed79d3b59a0a9f0e6fbe827f2f60d8423b99acd00e9947e8872bd7",
+  "val_episodes_sha256": "4f6c8233a28bb0797cece63ce0d24e5104e9efb615c0a55cf1d5dd01ed9d3110"
+}

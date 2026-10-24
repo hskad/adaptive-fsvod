@@ -130,7 +130,8 @@ def main():
                    "episodes_sha256": checksum(args.episodes), "model_config": checkpoint["model_config"],
                    "cache_signature": checkpoint["cache_signature"],
                    "training_seed": checkpoint["arguments"]["seed"],
-                   "training_budget": checkpoint["arguments"]["steps"],
+                   "training_budget": checkpoint["arguments"].get("stop_after") or checkpoint["arguments"]["steps"],
+                   "training_schedule_budget": checkpoint["arguments"]["steps"],
                    "training_git": checkpoint["environment"].get("git")})
     for name, value in [("metrics", result), ("ground_truth", truth), ("predictions", predictions)]:
         write_json(Path(args.output) / f"{name}.json", value)

@@ -106,6 +106,8 @@ def train(args):
         for key in ("steps", "lr", "weight_decay", "seed"):
             if previous["arguments"][key] != vars(args)[key]:
                 raise ValueError(f"Resume training argument differs: {key}")
+        if previous["arguments"].get("stop_after") != args.stop_after:
+            raise ValueError("Resume actual update budget differs: stop_after")
         model.load_state_dict(previous["model"])
         optimizer.load_state_dict(previous["optimizer"])
         scheduler.load_state_dict(previous["scheduler"])
@@ -119,7 +121,10 @@ def train(args):
     started = time.perf_counter()
     if args.steps < 1 or args.eval_every < 1:
         raise ValueError("Training steps and evaluation interval must be positive")
-    for step in range(first_step, args.steps + 1):
+    actual_stop = args.stop_after if args.stop_after is not None else args.steps
+    if not 1 <= actual_stop <= args.steps:
+        raise ValueError("stop_after must be positive and no larger than the schedule budget")
+    for step in range(first_step, actual_stop + 1):
         model.train()
         episode = training["episodes"][(step - 1) % len(training["episodes"])]
         frames, support, targets, _ = train_cache.load(episode, args.device)
@@ -137,7 +142,7 @@ def train(args):
                   "lr": optimizer.param_groups[0]["lr"], "elapsed_seconds": time.perf_counter() - started,
                   "mean_memory_tokens": float(np.mean([o["memory"].shape[0] for o in outputs])),
                   "synthetic": train_cache.metadata.get("synthetic", False)}
-        if step % args.eval_every == 0 or step == args.steps:
+        if step % args.eval_every == 0 or step == actual_stop:
             metrics, _, _ = evaluate(model, val_cache, validation, args.device)
             record["validation"] = metrics
             improved = metrics["AP"] > best_ap
@@ -165,6 +170,7 @@ def parser():
     for name in ("train-manifest", "val-manifest", "train-cache", "val-cache", "train-episodes", "val-episodes", "config", "output"):
         result.add_argument("--" + name, required=True)
     result.add_argument("--steps", type=int, default=300)
+    result.add_argument("--stop-after", type=int, help="Actual optimizer update limit; retain --steps for the LR schedule")
     result.add_argument("--eval-every", type=int, default=50)
     result.add_argument("--lr", type=float, default=1e-4)
     result.add_argument("--weight-decay", type=float, default=0.01)
