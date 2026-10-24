@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "adaptive-fsvod"
+version = "0.1.0"
+description = "A controlled study of adaptive temporal confidence filtering for few-shot video detection"
+requires-python = ">=3.10"
+dependencies = [
+  "torch>=2.2,<3", "transformers==4.46.3", "safetensors>=0.4.5",
+  "numpy>=1.26,<3", "scipy>=1.11,<2", "Pillow>=10,<13",
+  "tqdm>=4.66,<5", "pycocotools>=2.0.8,<3", "matplotlib>=3.8,<4",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10"]
+download = ["gdown>=5.2,<7"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
