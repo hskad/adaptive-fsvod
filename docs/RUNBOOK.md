@@ -74,6 +74,23 @@ The inference bundle is `exports/score_calibration_inference.zip`. It contains
 three shared heads and two explicit postprocessing presets. Both methods use
 the SAME trained head file. To evaluate one exported head:
 
+For evaluation without training or recreating old experiments, unzip the shared
+head bundle to `$EXPERIMENT/exports/score_calibration_inference`, then prepare only
+the published confirmation protocol and its features:
+
+```bash
+mkdir -p "$EXPERIMENT/score_calibration/confirmation"
+cp results/score_calibration/confirmation_protocol/confirmation.json "$EXPERIMENT/score_calibration/confirmation/confirmation.json"
+cp results/score_calibration/confirmation_protocol/episodes.json "$EXPERIMENT/score_calibration/confirmation/episodes.json"
+python -m adaptive_fsvod.download_frames --manifests "$EXPERIMENT/score_calibration/confirmation/confirmation.json" --images-root "$EXPERIMENT/score_calibration/confirmation/images" --range-cache "$EXPERIMENT/download_ranges"
+python -m adaptive_fsvod.cache --manifest "$EXPERIMENT/score_calibration/confirmation/confirmation.json" --output "$EXPERIMENT/score_calibration/confirmation/cache" --device cpu --revision cfd3195ba4ea9592eec887ded089f4c08eff231d --candidates 128 --support-per-class 4 --attention-backend sdpa
+```
+
+Use `--device cuda` for encoder caching when available. Run the two evaluation
+commands below for each exported head. The published support pool is generated
+deterministically by the same manifest, cap, and default pool seed 42. This path
+does not require the original optimizer checkpoints or absolute source paths.
+
 ```bash
 python -m adaptive_fsvod.evaluate --manifest "$EXPERIMENT/score_calibration/confirmation/confirmation.json" --cache "$EXPERIMENT/score_calibration/confirmation/cache" --episodes "$EXPERIMENT/score_calibration/confirmation/episodes.json" --checkpoint "$EXPERIMENT/exports/score_calibration_inference/shared_seed42.pt" --objectness-beta 0 --output "$EXPERIMENT/eval/baseline_seed42" --device cpu
 python -m adaptive_fsvod.evaluate --manifest "$EXPERIMENT/score_calibration/confirmation/confirmation.json" --cache "$EXPERIMENT/score_calibration/confirmation/cache" --episodes "$EXPERIMENT/score_calibration/confirmation/episodes.json" --checkpoint "$EXPERIMENT/exports/score_calibration_inference/shared_seed42.pt" --objectness-beta 1 --output "$EXPERIMENT/eval/objectness_seed42" --device cpu

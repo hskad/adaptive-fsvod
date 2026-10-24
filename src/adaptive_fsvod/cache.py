@@ -176,9 +176,11 @@ def main():
     parser.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     parser.add_argument("--candidates", type=int, default=128)
     parser.add_argument("--support-per-class", type=int, default=32)
+    parser.add_argument("--attention-backend", choices=("eager", "sdpa"), default="eager")
     args = parser.parse_args()
     manifest = VideoManifest(args.manifest, args.images_root)
-    encoder = FrozenEncoder(args.model, args.device, args.revision, args.candidates)
+    encoder = FrozenEncoder(args.model, args.device, args.revision, args.candidates,
+                            attention_backend=args.attention_backend)
     print(build_cache(manifest, args.output, encoder, args.support_per_class))
 
 
