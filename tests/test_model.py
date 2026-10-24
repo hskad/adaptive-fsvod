@@ -3,7 +3,7 @@ import torch
 from adaptive_fsvod.cache import CachedEpisodes
 from adaptive_fsvod.data import VideoManifest, read_json
 from adaptive_fsvod.loss import DetectionLoss
-from adaptive_fsvod.model import ModelConfig, TemporalDetector, select_memory
+from adaptive_fsvod.model import ModelConfig, TemporalDetector, confidence_gate, select_memory
 
 
 def test_memory_excludes_background_and_limits_each_class():
@@ -67,3 +67,46 @@ def test_empty_frame_supervises_background():
     loss = DetectionLoss()({"logits": logits, "boxes": boxes}, target)["total"]
     loss.backward()
     assert logits.grad[0, 0] > 0 and logits.grad[0, 1] < 0
+
+
+def test_confidence_gate_margin_and_background():
+    probabilities = torch.tensor([[.8, .1, .1], [.6, .3, .1], [.2, .1, .7], [1., 0., 0.]])
+    gate = confidence_gate(probabilities, .7)
+    torch.testing.assert_close(gate, torch.tensor([1 / 3, 0., 0., 1.]))
+
+
+def test_zero_gate_preserves_single_frame_predictions():
+    from dataclasses import replace
+    cfg = ModelConfig(input_dim=16, hidden_dim=16, dropout=0, fusion_gate="confidence")
+    model = TemporalDetector(cfg).eval()
+    # Make the temporal residual nonzero so this check cannot pass just because
+    # its final layer was initialized to zero.
+    torch.nn.init.normal_(model.ffn[-1].weight, std=.2)
+    model.background_head.bias.data.fill_(100)
+    features = torch.randn(8, 16)
+    boxes = torch.full((8, 4), .3)
+    prototypes = torch.nn.functional.normalize(torch.randn(2, 16), dim=-1)
+    with torch.no_grad():
+        gated = model.forward_frame(features, boxes, prototypes, torch.randn(5, 16))
+        plain = model.forward_frame(features, boxes, prototypes, None)
+    assert gated["fusion_gate"].count_nonzero() == 0
+    assert torch.equal(gated["logits"], plain["logits"])
+    assert torch.equal(gated["boxes"], plain["boxes"])
+    legacy = TemporalDetector(replace(cfg, fusion_gate="none"))
+    assert set(legacy.state_dict()) == set(model.state_dict())
+    assert sum(p.numel() for p in legacy.parameters()) == sum(p.numel() for p in model.parameters())
+
+
+def test_gated_temporal_branch_gets_gradients(corpus):
+    cache = CachedEpisodes(VideoManifest(corpus / "train.json"), corpus / "cache/train")
+    episode = read_json(corpus / "train_episodes.json")["episodes"][0]
+    frames, support, targets, _ = cache.load(episode)
+    model = TemporalDetector(ModelConfig(input_dim=16, hidden_dim=16, fixed_threshold=0,
+                                        dropout=0, fusion_gate="confidence", gate_threshold=0))
+    outputs = model(frames, support)
+    assert outputs[0]["fusion_gate"].count_nonzero() == 0
+    assert outputs[1]["fusion_gate"].max() > 0
+    loss = sum(DetectionLoss()(out, target)["total"] for out, target in zip(outputs, targets))
+    loss.backward()
+    assert model.attention.in_proj_weight.grad is not None
+    assert model.attention.in_proj_weight.grad.abs().sum() > 0

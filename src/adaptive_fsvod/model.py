@@ -1,6 +1,7 @@
 """Small trainable heads over frozen OWLv2 class features.
 
-The only difference between fixed and adaptive runs is select_memory().
+Fixed and adaptive runs differ in select_memory(). The optional confidence
+gate controls the complete temporal residual and adds no learned parameters.
 This is a reduced adaptation, not the authors' original model.
 """
 
@@ -24,6 +25,8 @@ class ModelConfig:
     threshold_min: float = 0.5
     threshold_max: float = 0.95
     max_memory_per_class: int = 16
+    fusion_gate: str = "none"
+    gate_threshold: float = 0.7
 
     def __post_init__(self):
         if self.memory_mode not in {"none", "fixed", "adaptive"}:
@@ -36,6 +39,17 @@ class ModelConfig:
             raise ValueError("Invalid memory parameters")
         if self.alpha < 0:
             raise ValueError("alpha must be nonnegative")
+        if self.fusion_gate not in {"none", "confidence"}:
+            raise ValueError("fusion_gate must be none or confidence")
+        if not 0 <= self.gate_threshold < 1:
+            raise ValueError("gate_threshold must be in [0, 1)")
+
+
+def confidence_gate(probabilities, threshold):
+    """Detached foreground confidence margin; background winners get no update."""
+    scores = probabilities[:, :-1].max(-1).values
+    foreground_wins = probabilities.argmax(-1) < probabilities.shape[-1] - 1
+    return ((scores - threshold) / (1 - threshold)).clamp(0, 1) * foreground_wins
 
 
 def select_memory(probabilities, config):
@@ -92,10 +106,23 @@ class TemporalDetector(nn.Module):
 
     def forward_frame(self, features, boxes, prototypes, memory=None):
         current = F.normalize(self.project(features), dim=-1)
+        gate = current.new_zeros(current.shape[0])
         if memory is not None and memory.shape[0] and self.config.memory_mode != "none":
             context, _ = self.attention(current[None], memory[None], memory[None], need_weights=False)
-            current = current + self.memory_scale * context[0]
-            current = current + self.ffn(current)
+            updated = current + self.memory_scale * context[0]
+            updated = updated + self.ffn(updated)
+            if self.config.fusion_gate == "confidence":
+                # Gate the full residual, including the FFN. Gating attention
+                # alone would still let an unreliable temporal FFN change x.
+                with torch.no_grad():
+                    base_features = self.class_features(current)
+                    base_foreground = self.logit_scale.exp().clamp(1, 100) * (base_features @ prototypes.T)
+                    base_logits = torch.cat((base_foreground, self.background_head(current)), dim=-1)
+                    gate = confidence_gate(base_logits.softmax(-1), self.config.gate_threshold)
+                current = current + gate[:, None] * (updated - current)
+            else:
+                current = updated
+                gate = current.new_ones(current.shape[0])
         classified = self.class_features(current)
         temperature = self.logit_scale.exp().clamp(1, 100)
         foreground_logits = temperature * (classified @ prototypes.T)
@@ -104,7 +131,7 @@ class TemporalDetector(nn.Module):
         predicted_boxes = torch.sigmoid(torch.logit(boxes.clamp(1e-5, 1 - 1e-5)) + self.box_head(current))
         selected, thresholds = select_memory(logits.detach().softmax(-1), self.config)
         return {"logits": logits, "boxes": predicted_boxes, "memory": classified[selected],
-                "memory_indices": selected, "thresholds": thresholds}
+                "memory_indices": selected, "thresholds": thresholds, "fusion_gate": gate}
 
     def forward(self, frames, support):
         if not frames or not support:
