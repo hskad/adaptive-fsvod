@@ -32,6 +32,8 @@ an additional confirmation, not a new method search. Keep all earlier results.
 
 Report frame-level COCO box AP/AP50/AP75 for every seed, means and training-seed
 sample standard deviations, and all three paired 50-update AP differences.
+Also report native COCO AP by class to show whether the gain is concentrated
+in a few classes. This is diagnostic; it does not select a subset or model.
 The primary effect is mean(centered AP - fixed AP) at the matched 50-update
 budget. Do not treat training-seed SD as uncertainty over test videos.
 

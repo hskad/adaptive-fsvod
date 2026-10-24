@@ -47,6 +47,10 @@ def test_weighted_ap_matches_literal_duplicates_including_ties_and_empty_frames(
     frozen = copy.deepcopy(predictions)
     accumulator = ClusterCocoAP(truth, predictions, mapping, clusters)
     assert predictions == frozen
+    categories = accumulator.metrics([1, 1, 1, 1], by_category=True)
+    assert set(categories) == {1, 2}
+    for name in ("AP", "AP50", "AP75"):
+        assert np.mean([c[name] for c in categories.values()]) == pytest.approx(accumulator.metrics([1, 1, 1, 1])[name], abs=1e-10)
     for weights in ([1, 1, 1, 1], [0, 3, 1, 0], [2, 0, 0, 2], [0, 0, 1, 3]):
         repeated_truth, repeated_predictions = duplicated(truth, predictions, mapping, clusters, weights)
         direct = coco_metrics(repeated_truth, repeated_predictions)

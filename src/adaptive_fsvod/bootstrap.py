@@ -34,6 +34,7 @@ class ClusterCocoAP:
         self.recall_thresholds = evaluation.params.recThrs.copy()
         self.iou_thresholds = evaluation.params.iouThrs.copy()
         self.categories = []
+        self.category_ids = list(evaluation.params.catIds)
         image_ids = evaluation.params.imgIds
         area_count = len(evaluation.params.areaRng)
         image_count = len(image_ids)
@@ -62,12 +63,13 @@ class ClusterCocoAP:
                 tp = fp = np.zeros((len(self.iou_thresholds), 0), dtype=bool)
             self.categories.append((tp, fp, np.asarray(scores), image_ranges, gt_counts))
 
-    def metrics(self, multiplicities):
+    def metrics(self, multiplicities, by_category=False):
         weights = np.asarray(multiplicities)
         if weights.shape != (len(self.clusters),) or np.any(weights < 0) or np.any(weights != np.floor(weights)):
             raise ValueError("Cluster multiplicities must be nonnegative integers")
         precision = []
-        for tp, fp, scores, image_ranges, gt_counts in self.categories:
+        category_precision = {}
+        for category, (tp, fp, scores, image_ranges, gt_counts) in zip(self.category_ids, self.categories):
             positive_count = float(gt_counts @ weights)
             if positive_count == 0:
                 continue
@@ -87,12 +89,16 @@ class ClusterCocoAP:
                 valid = positions < pr.shape[1]
                 sampled[index, valid] = pr[index, positions[valid]]
             precision.append(sampled)
+            category_precision[category] = sampled
         if not precision:
             raise ValueError("No ground truth in this bootstrap draw")
-        values = np.stack(precision).mean(axis=(0, 2)) * 100
-        return {"AP": float(values.mean()),
-                "AP50": float(values[np.flatnonzero(np.isclose(self.iou_thresholds, .5))[0]]),
-                "AP75": float(values[np.flatnonzero(np.isclose(self.iou_thresholds, .75))[0]])}
+        def summarize(values):
+            return {"AP": float(values.mean()),
+                    "AP50": float(values[np.flatnonzero(np.isclose(self.iou_thresholds, .5))[0]]),
+                    "AP75": float(values[np.flatnonzero(np.isclose(self.iou_thresholds, .75))[0]])}
+        if by_category:
+            return {category: summarize(values.mean(1) * 100) for category, values in category_precision.items()}
+        return summarize(np.stack(precision).mean(axis=(0, 2)) * 100)
 
 
 def stratified_video_draws(video_classes, count=1000, seed=20261030):

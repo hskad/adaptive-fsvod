@@ -29,7 +29,7 @@ def analyse(root, target):
     video_classes = {vid: next(iter({str(o["category_id"]) for f in v["frames"] for o in f["objects"]}))
                      for vid, v in manifest.videos.items()}
     clusters, draws = stratified_video_draws(video_classes, count=1000, seed=20261030)
-    hashes, bootstrap, video_metrics = {}, {}, {}
+    hashes, bootstrap, video_metrics, category_metrics = {}, {}, {}, {}
     common_truth, reference = None, None
     started = time.perf_counter()
     for row in results["rows"]:
@@ -53,6 +53,9 @@ def analyse(root, target):
         mapping = {image["id"]: by_episode[image["episode_id"]] for image in truth["images"]}
         accumulator = ClusterCocoAP(truth, predictions, mapping, clusters)
         fast = accumulator.metrics(np.ones(len(clusters), dtype=int))
+        category_metrics[key] = accumulator.metrics(np.ones(len(clusters), dtype=int), by_category=True)
+        if abs(np.mean([v["AP"] for v in category_metrics[key].values()]) - full["AP"]) > 1e-9:
+            raise ValueError("Category AP does not average to overall AP")
         for name in full:
             if abs(full[name] - fast[name]) > 1e-9:
                 raise ValueError("Cached COCO accumulation differs from standard COCO")
@@ -90,6 +93,13 @@ def analyse(root, target):
         per_video.append({"video_id": vid, "class_id": video_classes[vid],
                           "class_name": manifest.classes[video_classes[vid]], **values,
                           "difference": values["centered_50"] - values["fixed_50"]})
+    per_class = []
+    for index, category in enumerate(sorted(manifest.classes), 1):
+        values = {method: float(np.mean([category_metrics[f"{method}_seed{seed}"][index]["AP"]
+                                        for seed in (42, 43, 44)]))
+                  for method in ("fixed_50", "centered_50", "fixed_300")}
+        per_class.append({"class_id": category, "class_name": manifest.classes[category], **values,
+                          "difference": values["centered_50"] - values["fixed_50"]})
     summary = {"summary": results["summary"], "paired": paired,
                "primary_mean_AP_difference": mean_effect,
                "paired_seed_wins": sum(r["AP_difference"] > 0 for r in paired),
@@ -102,6 +112,7 @@ def analyse(root, target):
                "distinct_frames": sum(len(v["frames"]) for v in manifest.videos.values()),
                "episodes": len(episodes["episodes"]), "episode_frame_instances": results["rows"][0]["frames"],
                "per_video_AP": per_video,
+               "per_class_AP": per_class,
                "per_video_note": "Diagnostic single-query-video AP; its mean is not aggregate COCO AP.",
                "protocol": reference}
     write_json(target / "verified_summary.json", summary)
@@ -113,7 +124,7 @@ def analyse(root, target):
                                                AP_sample_SD=values["AP"]["sample_std"],
                                                AP50=values["AP50"]["mean"], AP75=values["AP75"]["mean"])
                                             for method, values in results["summary"].items()]),
-                       ("paired.csv", paired), ("per_video.csv", per_video)]:
+                       ("paired.csv", paired), ("per_video.csv", per_video), ("per_class.csv", per_class)]:
         with (target / name).open("w", newline="", encoding="utf-8") as stream:
             writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
             writer.writeheader()
