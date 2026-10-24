@@ -70,6 +70,18 @@ on validation. The larger test uses none of its own labels for model selection.
 Its exact published protocol is in `results/larger_confirmation/protocol/` and
 its pre-score plan is [LARGER_CONFIRMATION_PLAN.md](LARGER_CONFIRMATION_PLAN.md).
 
+For a fresh reproduction, create the three fixed reference models using the
+already selected threshold. This helper keeps checksum-verified existing runs
+and does not repeat the failed gate search:
+
+```bash
+python scripts/train_fixed_reference.py --experiment-dir "$EXPERIMENT" --threads 4
+```
+
+The measured larger confirmation reused the existing three reference models;
+it did not execute any new training. Both the six `revision_v5` models and the
+three fixed reference models must exist before the following commands:
+
 ```bash
 python scripts/run_larger_confirmation.py --experiment-dir "$EXPERIMENT" --stage prepare
 python scripts/run_larger_confirmation.py --experiment-dir "$EXPERIMENT" --stage download
@@ -77,6 +89,7 @@ python scripts/run_larger_confirmation.py --experiment-dir "$EXPERIMENT" --stage
 python scripts/run_larger_confirmation.py --experiment-dir "$EXPERIMENT" --stage freeze-cache --output results/larger_confirmation/protocol
 python scripts/run_larger_confirmation.py --experiment-dir "$EXPERIMENT" --stage evaluate --threads 4
 python scripts/analyse_larger_confirmation.py --experiment-dir "$EXPERIMENT" --output results/larger_confirmation
+python scripts/export_frozen_confirmation_models.py --experiment-dir "$EXPERIMENT"
 ```
 
 Use `--device cuda` only for caching if a GPU is available. SDPA implements the
@@ -93,6 +106,11 @@ verify each model against the locally created replication records. Reproducing
 GPU caches may have small numerical differences from the recorded CPU tensors;
 the frozen data and episodes, not bitwise cross-hardware equality, define the
 evaluation protocol.
+
+The export command writes `exports/larger_confirmation_inference.zip` with all
+nine heads, their model settings and source hashes, and the test protocol. It
+checks that every model tensor survives export and reload exactly. The archive
+omits optimizer state, the public encoder, source RGB images, and feature caches.
 
 Complete [data preparation](DATA.md) first. Its downloader retrieves and verifies only the selected RGB frames from a pinned public archive. The native OWLv2 image processing uses a 960-pixel padded square. The top 128 objectness tokens are kept after encoder inference. This reduces head training cost; it does not reduce the encoder's own image size or extraction cost.
 
