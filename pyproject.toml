@@ -10,7 +10,7 @@ requires-python = ">=3.10"
 dependencies = [
   "torch>=2.2,<3", "transformers==4.46.3", "safetensors>=0.4.5",
   "numpy>=1.26,<3", "scipy>=1.11,<2", "Pillow>=10,<13",
-  "tqdm>=4.66,<5", "pycocotools>=2.0.8,<3", "matplotlib>=3.8,<4", "ijson>=3.3,<4",
+  "tqdm>=4.66,<5", "pycocotools>=2.0.8,<3", "matplotlib>=3.8,<4", "ijson>=3.3,<4", "requests>=2.31,<3",
 ]
 
 [project.optional-dependencies]
