@@ -1,0 +1,20 @@
+{
+  "environment": {
+    "python": "3.12.3",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "packages": {
+      "torch": "2.9.1",
+      "transformers": "4.46.3",
+      "numpy": "1.26.4",
+      "scipy": "1.13.0",
+      "Pillow": "10.3.0",
+      "pycocotools": "2.0.11"
+    },
+    "cuda": null,
+    "gpu": null,
+    "git": "eb70cd6f2190da662011975f33b64163a3890f6f",
+    "git_dirty": false
+  },
+  "threads": 4,
+  "feature_manifest_sha256": "8468c0d721c06933ff9c9152f2ad7d94c10d8147974760a9dcb56e48c249da0e"
+}

@@ -136,6 +136,9 @@ def write_readme(target, summary):
     lines += ["", "## Class AP", "", "| Class | Baseline | Objectness | Difference |", "|---|---:|---:|---:|"]
     for row in summary["per_class_AP"]:
         lines.append(f"| {row['class_name']} | {row['baseline']:.3f} | {row['objectness']:.3f} | {row['difference']:+.3f} |")
+    largest = max(summary["per_class_AP"], key=lambda r: r["difference"])
+    wins = sum(r["difference"] > 0 for r in summary["per_class_AP"])
+    lines += ["", f"{wins} of {len(summary['per_class_AP'])} class means improved. The largest gain was {largest['class_name']} ({largest['difference']:+.3f} points). Interpret the aggregate mean together with the class table."]
     lines += ["", "## Protocol and limits", "",
               f"Six unused classes: {', '.join(summary['classes'].values())}; {summary['distinct_videos']} videos; {summary['distinct_frames']} distinct frames; {summary['episodes']} balanced two-way one-shot episodes. All prior classes and videos were excluded. Model hashes, selected beta, data, episodes, and the complete shared feature cache were frozen in Git before scoring.",
               "", "Both methods use the SAME three 300-update-budget baseline heads, with original validation-selected checkpoints (steps 250, 250, 300). No additional head training, encoder pass, trainable parameter, or label is introduced by score calibration. The score uses each proposal's frozen encoder objectness before learned box refinement.",
@@ -145,6 +148,7 @@ def write_readme(target, summary):
               "`protocol.json` and `validation/` preserve the pre-score plan and all seven validation evaluations. `confirmation_protocol/` contains the unused-class selection, episodes, support pool, verified image records, and complete feature hashes. `evaluations/` contains all six raw metric/prediction/ground-truth sets. Every AP/AP50/AP75 value was recomputed exactly. `bootstrap_draws.json` stores all multiplicities and per-model AP draws. `confirmation_artifact_sha256.json` verifies raw source bytes. `per_video.csv` is a diagnostic; its mean is not aggregate COCO AP.",
               "", "![Score calibration results](score_calibration.png)", "",
               "See [the pre-score plan](../../docs/SCORE_CALIBRATION_PLAN.md) and [the runbook](../../docs/RUNBOOK.md). The same trained heads support both methods; evaluation must set `--objectness-beta 0` for baseline or `--objectness-beta 1` for the proposed score. Encoder weights are public and pinned. Head weights are verified locally; public download links remain required before final submission.",
+              "", "The shared head training configurations and complete logs are in [fixed seed 42](../revision_v2/source_runs/fixed_tau060_seed42/), [seed 43](../revision_v2/source_runs/fixed_tau060_seed43/), and [seed 44](../revision_v2/source_runs/fixed_tau060_seed44/). They record the original CPU environment, hyperparameters, and validation checkpoint selection. No separate proposed-head training log exists because the proposed method performs no additional training.",
               "", "All earlier unsuccessful memory and centering studies remain in the repository. They are not replaced by this result.", ""]
     (target / "README.md").write_text("\n".join(lines), encoding="utf-8")
 

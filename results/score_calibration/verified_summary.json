@@ -1,0 +1,295 @@
+{
+  "summary": {
+    "baseline": {
+      "AP": {
+        "mean": 47.439707193811884,
+        "sample_std": 0.09062079899543021
+      },
+      "AP50": {
+        "mean": 62.43520868583399,
+        "sample_std": 0.1069680692435558
+      },
+      "AP75": {
+        "mean": 50.85190661296912,
+        "sample_std": 0.11420281821939961
+      }
+    },
+    "objectness": {
+      "AP": {
+        "mean": 58.297585129234996,
+        "sample_std": 0.18155375065293014
+      },
+      "AP50": {
+        "mean": 75.0437942483292,
+        "sample_std": 0.26403496042144275
+      },
+      "AP75": {
+        "mean": 62.79780120227118,
+        "sample_std": 0.25237459307330545
+      }
+    }
+  },
+  "paired": [
+    {
+      "seed": 42,
+      "baseline_AP": 47.39498276861465,
+      "objectness_AP": 58.13050731920335,
+      "difference": 10.7355245505887
+    },
+    {
+      "seed": 43,
+      "baseline_AP": 47.38014307637153,
+      "objectness_AP": 58.27146310947623,
+      "difference": 10.891320033104698
+    },
+    {
+      "seed": 44,
+      "baseline_AP": 47.54399573644946,
+      "objectness_AP": 58.49078495902541,
+      "difference": 10.946789222575951
+    }
+  ],
+  "mean_AP_gain": 10.857877935423117,
+  "paired_seed_wins": 3,
+  "selected_beta": 1.0,
+  "training_budget": 300,
+  "additional_training_updates": 0,
+  "distinct_videos": 24,
+  "distinct_frames": 192,
+  "episodes": 120,
+  "episode_frame_instances": 960,
+  "classes": {
+    "13": "fox",
+    "18": "horse",
+    "2": "bear",
+    "35": "tiger",
+    "6": "deer",
+    "8": "duck"
+  },
+  "per_class_AP": [
+    {
+      "class_id": "13",
+      "class_name": "fox",
+      "baseline": 60.70330766745631,
+      "objectness": 65.81893039896327,
+      "difference": 5.115622731506967
+    },
+    {
+      "class_id": "18",
+      "class_name": "horse",
+      "baseline": 49.033542186605324,
+      "objectness": 54.68266298746951,
+      "difference": 5.649120800864189
+    },
+    {
+      "class_id": "2",
+      "class_name": "bear",
+      "baseline": 15.103841791764301,
+      "objectness": 58.65740910501054,
+      "difference": 43.55356731324623
+    },
+    {
+      "class_id": "35",
+      "class_name": "tiger",
+      "baseline": 63.60598416451786,
+      "objectness": 68.22276688419667,
+      "difference": 4.616782719678817
+    },
+    {
+      "class_id": "6",
+      "class_name": "deer",
+      "baseline": 46.05118653930479,
+      "objectness": 50.84094200622985,
+      "difference": 4.789755466925065
+    },
+    {
+      "class_id": "8",
+      "class_name": "duck",
+      "baseline": 50.1403808132227,
+      "objectness": 51.562799393540125,
+      "difference": 1.4224185803174265
+    }
+  ],
+  "per_video_AP": [
+    {
+      "video_id": "20c6d8b362",
+      "class_name": "horse",
+      "baseline": 91.56370696666572,
+      "objectness": 91.99284074630292,
+      "difference": 0.4291337796371977
+    },
+    {
+      "video_id": "2abc8d66d2",
+      "class_name": "bear",
+      "baseline": 44.082354342852845,
+      "objectness": 80.64365540141064,
+      "difference": 36.561301058557795
+    },
+    {
+      "video_id": "2cbcd5ccd1",
+      "class_name": "tiger",
+      "baseline": 55.78510897166447,
+      "objectness": 58.851705040659475,
+      "difference": 3.066596068995004
+    },
+    {
+      "video_id": "3332334ac4",
+      "class_name": "fox",
+      "baseline": 86.8325263509294,
+      "objectness": 93.53346476401641,
+      "difference": 6.700938413087016
+    },
+    {
+      "video_id": "3373891cdc",
+      "class_name": "deer",
+      "baseline": 64.98144383067674,
+      "objectness": 66.76877928297938,
+      "difference": 1.7873354523026421
+    },
+    {
+      "video_id": "3ab9b1a85a",
+      "class_name": "horse",
+      "baseline": 11.28040381847893,
+      "objectness": 16.344764282629296,
+      "difference": 5.064360464150365
+    },
+    {
+      "video_id": "4cad2e93bc",
+      "class_name": "fox",
+      "baseline": 95.54100584692249,
+      "objectness": 97.93094694084793,
+      "difference": 2.3899410939254437
+    },
+    {
+      "video_id": "4d67c59727",
+      "class_name": "tiger",
+      "baseline": 86.39161308702144,
+      "objectness": 89.01927528660201,
+      "difference": 2.62766219958057
+    },
+    {
+      "video_id": "59fe33e560",
+      "class_name": "deer",
+      "baseline": 42.70493088943861,
+      "objectness": 45.490614402861894,
+      "difference": 2.7856835134232867
+    },
+    {
+      "video_id": "65bd5eb4f5",
+      "class_name": "deer",
+      "baseline": 34.55506788662207,
+      "objectness": 40.84842019905656,
+      "difference": 6.293352312434493
+    },
+    {
+      "video_id": "7151c53b32",
+      "class_name": "fox",
+      "baseline": 68.9997469324126,
+      "objectness": 70.71450374122813,
+      "difference": 1.7147568088155225
+    },
+    {
+      "video_id": "7f3658460e",
+      "class_name": "bear",
+      "baseline": 15.510943609847402,
+      "objectness": 59.07802313313136,
+      "difference": 43.56707952328396
+    },
+    {
+      "video_id": "89363acf76",
+      "class_name": "fox",
+      "baseline": 46.259839490158946,
+      "objectness": 52.231864194892125,
+      "difference": 5.97202470473318
+    },
+    {
+      "video_id": "957f7bc48b",
+      "class_name": "deer",
+      "baseline": 73.4844544278214,
+      "objectness": 79.63582253080953,
+      "difference": 6.15136810298813
+    },
+    {
+      "video_id": "ab23b78715",
+      "class_name": "duck",
+      "baseline": 50.887405512922555,
+      "objectness": 53.062347125596034,
+      "difference": 2.1749416126734786
+    },
+    {
+      "video_id": "b220939e93",
+      "class_name": "duck",
+      "baseline": 51.85989481352368,
+      "objectness": 54.75021494209991,
+      "difference": 2.890320128576228
+    },
+    {
+      "video_id": "c279e641ee",
+      "class_name": "bear",
+      "baseline": 16.48114633007345,
+      "objectness": 84.08234455174815,
+      "difference": 67.60119822167471
+    },
+    {
+      "video_id": "c3641dfc5a",
+      "class_name": "duck",
+      "baseline": 80.44280112843434,
+      "objectness": 93.25954565577644,
+      "difference": 12.816744527342095
+    },
+    {
+      "video_id": "e470345ede",
+      "class_name": "tiger",
+      "baseline": 79.99680456491028,
+      "objectness": 80.55217060167556,
+      "difference": 0.5553660367652782
+    },
+    {
+      "video_id": "e4eaa63aab",
+      "class_name": "horse",
+      "baseline": 85.50397651845442,
+      "objectness": 86.12069778406413,
+      "difference": 0.6167212656097121
+    },
+    {
+      "video_id": "e699da0cdf",
+      "class_name": "duck",
+      "baseline": 39.68142472642983,
+      "objectness": 40.49671134049445,
+      "difference": 0.8152866140646182
+    },
+    {
+      "video_id": "ea065cc205",
+      "class_name": "tiger",
+      "baseline": 50.140171436736544,
+      "objectness": 64.64781341108808,
+      "difference": 14.507641974351536
+    },
+    {
+      "video_id": "f9d3e04c4f",
+      "class_name": "bear",
+      "baseline": 29.65664430442081,
+      "objectness": 29.80876154429564,
+      "difference": 0.15211723987482983
+    },
+    {
+      "video_id": "fdc6e3d581",
+      "class_name": "horse",
+      "baseline": 78.68119160220964,
+      "objectness": 79.3786507806791,
+      "difference": 0.6974591784694582
+    }
+  ],
+  "video_bootstrap": {
+    "draws": 1000,
+    "seed": 20261102,
+    "percentile_95_interval": [
+      5.960226643749342,
+      14.850412557099135
+    ],
+    "includes_zero": false,
+    "conditional_on": "fixed six classes, fixed support episodes, and the three trained seed pairs",
+    "does_not_cover": "new class identities, changed support examples, or model-development uncertainty"
+  },
+  "scope": "Reduced FSYTV adaptation; final-score extension using the same frozen heads. No original-paper benchmark reproduction or global novelty claim."
+}

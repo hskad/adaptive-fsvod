@@ -4,15 +4,15 @@ A course project on feature calibration and temporal memory for few-shot video o
 
 The starting point is [Temporal Object-Aware Vision Transformer for Few-Shot Video Object Detection](https://ojs.aaai.org/index.php/AAAI/article/view/37497) by Yogesh Kumar and Anand Mishra (AAAI 2026). The [authors' implementation](https://github.com/yogesh-iitj/fs-video-vit) is the reference.
 
-This project uses a smaller, documented adaptation. It does not reproduce the paper's full model or claim its published scores. The image encoder is frozen. A small temporal decoder and detection heads are trained. The current contribution is class-balanced training-feature centering for limited-update adaptation. Earlier memory-rule proposals remain as negative experiments.
+This project uses a smaller, documented adaptation. It does not reproduce the paper's full model or claim its published scores. The image encoder is frozen. A small temporal decoder and detection heads are trained. The current extension combines class confidence with the frozen encoder's objectness when ranking detections. Earlier memory and centering proposals remain as unsuccessful experiments.
 
 ## Status
 
-**Current result: the larger test did not confirm the centering gain.** On six further unseen classes, 24 videos, and 192 distinct frames, the frozen 50-update fixed/centered models averaged **38.61/35.14 AP** (seed SD **0.29/0.13**). Centering was lower in all three seed pairs, by **3.47 AP points on average**. The separately tuned 300-update baseline reference averaged **55.10 AP**. [Larger confirmation, uncertainty analysis, and source records](results/larger_confirmation/README.md).
+**Current result: objectness in the final score improved the separate confirmation AP.** On six unused classes, 24 videos, and 192 distinct frames, baseline/objectness AP averaged **47.44/58.30** (seed SD **0.09/0.18**). The mean paired gain was **10.86 AP points**, with all three training-seed pairs positive. The paired, class-stratified video-bootstrap 95% interval was **[+5.96, +14.85]**, conditional on these classes, support episodes, and fixed trained seed pairs. [Verified results, source predictions, class differences, and limits](results/score_calibration/README.md).
 
-The larger set's paired, class-stratified video-bootstrap 95% interval was **[-7.29, +0.20] AP points**, conditional on these classes, support episodes, and trained seeds. It includes zero: this check establishes neither a significant gain nor a significant loss.
+Both methods use the same three validation-selected fixed heads with a 300-update training budget. The new rule is `score = class_score * objectness`; it adds zero training updates and no encoder pass or trainable parameter. Validation selected exponent 1 from {0, 0.5, 1} before the unused classes were scored. This applies a known detection idea to this reduced pipeline; no global novelty or full-paper benchmark gain is claimed. All six classes improved, but the bear class accounts for most of the mean gain. Shared head tensors and decoder presets are verified and bundled locally; public weight links remain pending.
 
-The earlier three-class, six-video, 18-frame subset gave fixed/centered AP **51.43/52.04**, with two positive pairs. [That small-set result](results/revision_v5/README.md) remains available, but it does not support a general faster-adaptation claim after this larger check. All nine inference heads are verified and bundled locally; public weight links remain pending.
+The earlier centering study had a small six-video gain that failed its larger check: fixed/centered 50-update AP was **38.61/35.14**, with a conditional 95% interval **[-7.29, +0.20]** for the difference. [Those records](results/larger_confirmation/README.md) and the [earlier small set](results/revision_v5/README.md) remain unchanged. The score study uses further unused classes, so its absolute AP must not be compared directly with that older set's AP.
 
 The first software milestone is implemented:
 
@@ -28,16 +28,17 @@ Local tests and synthetic end-to-end training passed. Public pretrained extracti
 
 ## Start
 
-Use the setup notebook through feature caching and episode generation, then run the current study:
+Use the [score-study notebook in Colab](https://colab.research.google.com/github/hskad/adaptive-fsvod/blob/main/notebooks/score_calibration.ipynb), or upload [the notebook](notebooks/score_calibration.ipynb) to Kaggle. Enable a GPU for feature extraction and choose persistent storage. After the original data caches and episodes exist, the initial commands are:
 
 ```bash
-python -u scripts/run_fast_study.py --experiment-dir /path/to/adaptive-fsvod-experiment --stage all --threads 4
-python scripts/export_fast_results.py --experiment-dir /path/to/adaptive-fsvod-experiment --output results/revision_v5
+python scripts/train_fixed_reference.py --experiment-dir /path/to/adaptive-fsvod-experiment --threads 4
+python scripts/run_score_calibration.py --experiment-dir /path/to/adaptive-fsvod-experiment --stage freeze
+python scripts/run_score_calibration.py --experiment-dir /path/to/adaptive-fsvod-experiment --stage validate --threads 4
 ```
 
-This searches and repeats both 50-update methods, prepares the fresh confirmation subset, caches its features, freezes inputs, and evaluates. It runs on CPU by default. The existing notebook's fixed/adaptive training section and `pilot` runner below reproduce the historical threshold experiment. [Current method, results, and exact budget](results/revision_v5/README.md).
+The [runbook](docs/RUNBOOK.md#objectness-score-study) provides the remaining preparation, frozen confirmation, bootstrap verification, shared-head export, and evaluation-only commands. The notebook runs those stages automatically if the validation gate passes. Existing heads are kept and the proposed score needs no further training. CPU feature extraction is supported; it is slower than GPU extraction.
 
-[Open the current notebook in Colab](https://colab.research.google.com/github/hskad/adaptive-fsvod/blob/main/notebooks/fast_adaptation.ipynb), or upload [the notebook](notebooks/fast_adaptation.ipynb) to Kaggle. Enable a GPU for the initial encoder cache and select persistent storage. It prepares data and runs the current study automatically. The [historical notebook](notebooks/colab_kaggle_pilot.ipynb) reproduces the earlier threshold pilot.
+The [centering notebook](notebooks/fast_adaptation.ipynb) and [initial threshold notebook](notebooks/colab_kaggle_pilot.ipynb) reproduce the earlier experiments.
 
 For local software checks:
 
@@ -61,7 +62,8 @@ Use `--action collect` to summarize and archive completed runs without training 
 
 - Encoder: `google/owlv2-base-patch16-ensemble`.
 - Baseline: a fixed threshold selects object features for the next frame.
-- Tested modification: class-balanced training-feature centering, intended to improve limited-update adaptation; see `configs/fast_adaptation/`. The larger check did not confirm a gain.
+- Current modification: objectness in final detection scores; see [the fixed plan](docs/SCORE_CALIBRATION_PLAN.md). Use `--objectness-beta 0` for baseline or `--objectness-beta 1` for the selected score.
+- Earlier modification: training-feature centering, whose larger check did not confirm a gain.
 - Historical proposal: a bounded, class-dependent confidence threshold. It did not improve the initial test scores.
 - Controls: the same cached features, episodes, model size, token cap, optimizer, and evaluation procedure.
 - Data: a verified custom FSYTV-40 subset from YouTube-VIS 2019. It has 6/3/3 classes, 18/9/9 videos, and 131/50/68 frames for train/validation/test. Matching RGB frames come from a pinned YouTube-VOS archive mirror.

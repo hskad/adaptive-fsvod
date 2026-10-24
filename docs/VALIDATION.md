@@ -38,6 +38,25 @@ also passing its two targeted tests. All nine packaged inference checkpoints
 passed exact model-tensor reload checks. See [the full larger-set record](../results/larger_confirmation/README.md)
 for predictions and the paired, class-stratified query-video bootstrap.
 
+The later score-calibration study used the same three 300-update-budget fixed
+heads for baseline and proposed ranking. beta=0 exactly reproduced all three
+archived validation AP values. Validation selected beta=1 from {0, 0.5, 1}; its
+mean validation gain was 15.267 AP points. On a further class/video-disjoint set
+of six classes, 24 videos, and 192 distinct frames, baseline/objectness AP was
+47.440/58.298. All three paired gains were positive. The predeclared 1,000-draw
+class-stratified query-video bootstrap interval was [+5.960, +14.850] AP points,
+conditional on fixed classes, support episodes, and trained seed pairs. All six
+class means improved, with the largest effect for bear. All six AP/AP50/AP75
+sets were recomputed exactly and the cached COCO accumulator matched the direct
+metrics. Every feature, model, setting, and episode was frozen before scoring.
+
+All 48 local software tests passed. The later unit-quality control also passed
+its 11 targeted score tests. Three shared inference heads survived export and
+reload with every model tensor exactly equal. No new training was performed
+for the proposed score. The new notebook's code cells passed syntax checks;
+its component stages ran locally, but a new cloud notebook session has not
+been tested end to end. [Full records](../results/score_calibration/README.md).
+
 31 tests passed after the new model and update-cap changes. Checks include class-balanced training-only centering, checkpoint mean storage, rejection of changed centers on resume, preservation of the learning-rate schedule prefix under a shorter actual budget, attention-quality ratios, zero-residual identity, and backward compatibility. A real saved baseline reproduced its validation AP exactly after the additions.
 
 Still pending: accessible checkpoint links and peak GPU memory. The final report is deferred at the user's request. Notebook cells are syntax checked locally. GitHub Actions uses CPU checks and does not download public model weights.

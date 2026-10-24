@@ -1,0 +1,69 @@
+{
+  "AP": 47.38014307637153,
+  "AP50": 62.4121059127144,
+  "AP75": 50.79407346440933,
+  "frames": 960,
+  "episodes": 120,
+  "seconds": 10.017788900062442,
+  "cached_pipeline_fps": 95.82952980712302,
+  "timing_scope": "cached feature IO, trainable heads, decoding; encoder excluded",
+  "mean_memory_tokens": 4.217708333333333,
+  "mean_threshold": 0.6000000238418579,
+  "synthetic": false,
+  "score_floor": 0.001,
+  "nms_iou": 0.5,
+  "objectness_beta": 0.0,
+  "metric": "frame-level COCO bbox AP, IoU 0.50:0.05:0.95, maxDets=100",
+  "checkpoint_sha256": "297ea9f537e25642d58d3ff702543339f1b7edf4e83522905deddac0b36ebe4c",
+  "manifest_sha256": "cf5e4104f109fc2beb0024c12b207b545439171ae9e11358ab72b81189bd2bee",
+  "episodes_sha256": "52cb9edf43da3d412ec7415c8e145daf00b4f8f0e842f55b10dd54e98c3bd3ce",
+  "feature_manifest_sha256": "8468c0d721c06933ff9c9152f2ad7d94c10d8147974760a9dcb56e48c249da0e",
+  "training_seed": 43,
+  "training_budget": 300,
+  "checkpoint_step": 250,
+  "training_git": "d2bd6c472a06a370b7bb2fb1857f2ba0f04688c6",
+  "model_config": {
+    "input_dim": 512,
+    "hidden_dim": 512,
+    "attention_heads": 4,
+    "dropout": 0.1,
+    "memory_mode": "fixed",
+    "fixed_threshold": 0.6,
+    "alpha": 1.0,
+    "threshold_min": 0.5,
+    "threshold_max": 0.95,
+    "max_memory_per_class": 16,
+    "fusion_gate": "none",
+    "gate_threshold": 0.7
+  },
+  "cache_signature": {
+    "encoder": "google/owlv2-base-patch16-ensemble",
+    "revision": "cfd3195ba4ea9592eec887ded089f4c08eff231d",
+    "candidates": 128,
+    "feature_dim": 512,
+    "synthetic": false
+  },
+  "encoder_attention_backend": "sdpa",
+  "study_protocol_sha256": "36c731bc1896a043503fd648e7273d8263e069a69cbbd52d616adde9c45a6515",
+  "fresh_selection_sha256": "a636e4a240c7b6486f5928ef03488bc83f6200b308d6127ebc13c285875bfcbc",
+  "evaluation_environment": {
+    "environment": {
+      "python": "3.12.3",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "packages": {
+        "torch": "2.9.1",
+        "transformers": "4.46.3",
+        "numpy": "1.26.4",
+        "scipy": "1.13.0",
+        "Pillow": "10.3.0",
+        "pycocotools": "2.0.11"
+      },
+      "cuda": null,
+      "gpu": null,
+      "git": "eb70cd6f2190da662011975f33b64163a3890f6f",
+      "git_dirty": false
+    },
+    "threads": 4,
+    "feature_manifest_sha256": "8468c0d721c06933ff9c9152f2ad7d94c10d8147974760a9dcb56e48c249da0e"
+  }
+}

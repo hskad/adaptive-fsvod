@@ -1,0 +1,20 @@
+{
+  "evaluations/baseline_seed42/metrics.json": "2e63e1775850de33544a59f9ad2f448708ce0241393affddaeb2a37da96b4ebe",
+  "evaluations/baseline_seed42/ground_truth.json": "344a7ae4f20e8c048a610ab9a5a1f6a5488eafee6795cb151a2ab1209415783d",
+  "evaluations/baseline_seed42/predictions.json": "24dd6760a03bd54079acaaf2ebae8a947fa8b28117862ea7f37942fb7157494d",
+  "evaluations/objectness_seed42/metrics.json": "1e0c31499c5064d6cc4f265838227b144cb29b08297b97e3f6fb0a5f6a7b6960",
+  "evaluations/objectness_seed42/ground_truth.json": "344a7ae4f20e8c048a610ab9a5a1f6a5488eafee6795cb151a2ab1209415783d",
+  "evaluations/objectness_seed42/predictions.json": "ad6da22e951156ca520b0b485b5eb94c85a310a4f4662c38a77d95850ac5a670",
+  "evaluations/baseline_seed43/metrics.json": "9d0a481d648796752540b3db41487d196a6cf5376b6e0ea2189ff9f121f74edf",
+  "evaluations/baseline_seed43/ground_truth.json": "344a7ae4f20e8c048a610ab9a5a1f6a5488eafee6795cb151a2ab1209415783d",
+  "evaluations/baseline_seed43/predictions.json": "29694a85515d39d7098dbb15145e0f0c4768f09db78dbded3ce93d34e8a82209",
+  "evaluations/objectness_seed43/metrics.json": "2b56a8853d33c3edcd61fa98cf0eda8266fe627fee93f20700b8151141fabf08",
+  "evaluations/objectness_seed43/ground_truth.json": "344a7ae4f20e8c048a610ab9a5a1f6a5488eafee6795cb151a2ab1209415783d",
+  "evaluations/objectness_seed43/predictions.json": "8ef118399397612a6a0691bb5ce1a61f14e9c88bc4652803b10e1ec17960d3e5",
+  "evaluations/baseline_seed44/metrics.json": "4b7b5cd1d3b122ea8d30d9dbf36d50da27ea298c347e43722340fd73ac8ff7c3",
+  "evaluations/baseline_seed44/ground_truth.json": "344a7ae4f20e8c048a610ab9a5a1f6a5488eafee6795cb151a2ab1209415783d",
+  "evaluations/baseline_seed44/predictions.json": "70a96c285f301f596eb87e6ef7041550bc37b7f9355d85ef8e907574e1c01696",
+  "evaluations/objectness_seed44/metrics.json": "09641b75c92d4cf0a6265480162cc56b90b68184e100b687a8bab142ae5a7ad1",
+  "evaluations/objectness_seed44/ground_truth.json": "344a7ae4f20e8c048a610ab9a5a1f6a5488eafee6795cb151a2ab1209415783d",
+  "evaluations/objectness_seed44/predictions.json": "4ebb76071c5a2573c1b0ac698ee679decf725890a068287f3e3726b65ddcd163"
+}
