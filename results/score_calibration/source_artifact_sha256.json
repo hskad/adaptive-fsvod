@@ -1,0 +1,23 @@
+{
+  "validation/beta000_seed42/metrics.json": "cbecb2fa04dae4343d1458a3ad82f896f27b48ba74f232e3c3a98e86efc19938",
+  "validation/beta000_seed42/ground_truth.json": "cecedbf2f3f2ac5e2fa6e9fbc31ce3a2e3d42d637ed1ac516fe68f5e4133e9a2",
+  "validation/beta000_seed42/predictions.json": "7075fb3a7272f6c1a0af092a8efe2c318ad1f2300a014e19975911cffe6b9432",
+  "validation/beta050_seed42/metrics.json": "0c67ff031b6e5dc57cfac6b4e8f992b4cd95e4bca239b79a4ee839e742d24687",
+  "validation/beta050_seed42/ground_truth.json": "cecedbf2f3f2ac5e2fa6e9fbc31ce3a2e3d42d637ed1ac516fe68f5e4133e9a2",
+  "validation/beta050_seed42/predictions.json": "c71fbd9232f226005faf25b71f17bdaffdc824ee76306c38c41b3264805e19f5",
+  "validation/beta100_seed42/metrics.json": "f27821641d442924c4b241125d30383e38d0fca665fd6e19c1a77a85a1e4807b",
+  "validation/beta100_seed42/ground_truth.json": "cecedbf2f3f2ac5e2fa6e9fbc31ce3a2e3d42d637ed1ac516fe68f5e4133e9a2",
+  "validation/beta100_seed42/predictions.json": "46b1429dbf0306269a0b9df96f916ec1ccfefa200677180bc92e1ce49770337b",
+  "validation/beta000_seed43/metrics.json": "7ff5774681f29789dcd23a751b03fe5862b8da38c12d7d818e7864aba809bc61",
+  "validation/beta000_seed43/ground_truth.json": "cecedbf2f3f2ac5e2fa6e9fbc31ce3a2e3d42d637ed1ac516fe68f5e4133e9a2",
+  "validation/beta000_seed43/predictions.json": "7cf679c326b21799b06df5d82540e6d5024d76013f7418e512a327fa1f68814a",
+  "validation/beta100_seed43/metrics.json": "fa4df45570916aa0fa3b803ecd1637486362fbea453f7a6d6a82a80e0f3edbb9",
+  "validation/beta100_seed43/ground_truth.json": "cecedbf2f3f2ac5e2fa6e9fbc31ce3a2e3d42d637ed1ac516fe68f5e4133e9a2",
+  "validation/beta100_seed43/predictions.json": "43c2a263245638f8c06a05fa40d1417d2c04e4bc8b9f79943a84506952691f90",
+  "validation/beta000_seed44/metrics.json": "676a537f09f57fb5b2392cc5c524b36051e533d7b5cf4164a7177aa2163758bb",
+  "validation/beta000_seed44/ground_truth.json": "cecedbf2f3f2ac5e2fa6e9fbc31ce3a2e3d42d637ed1ac516fe68f5e4133e9a2",
+  "validation/beta000_seed44/predictions.json": "119eea27f5150b9e32a079741a297e4dbc44df224fae0b1ce8daf7b5ad0dd1c2",
+  "validation/beta100_seed44/metrics.json": "e660b15407aedbc3cf82f2108bdfe33e8dc0d2cc0c09e8f1271b46abddad5d55",
+  "validation/beta100_seed44/ground_truth.json": "cecedbf2f3f2ac5e2fa6e9fbc31ce3a2e3d42d637ed1ac516fe68f5e4133e9a2",
+  "validation/beta100_seed44/predictions.json": "b3d9b79656ea927432a6758aca3f48a4b3b8737cb4c814857d753c497aec9e5e"
+}

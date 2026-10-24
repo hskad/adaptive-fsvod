@@ -29,8 +29,8 @@ def exclusions(root):
         VideoManifest(root / "revision_v5/confirmation/confirmation.json")]
 
 
-def balanced_episodes(manifest, pool):
-    rng = random.Random(20261029)
+def balanced_episodes(manifest, pool, seed=20261029):
+    rng = random.Random(seed)
     episodes = []
     for vid, video in sorted(manifest.videos.items()):
         present = {str(o["category_id"]) for f in video["frames"] for o in f["objects"]}
@@ -43,7 +43,7 @@ def balanced_episodes(manifest, pool):
                        for c in classes}
             episodes.append({"id": len(episodes), "video_id": vid, "classes": classes,
                              "support": support, "frame_indices": list(range(len(video["frames"])))})
-    result = {"manifest_sha256": checksum(manifest.path), "seed": 20261029,
+    result = {"manifest_sha256": checksum(manifest.path), "seed": seed,
               "n_way": 2, "k_shot": 1, "episodes": episodes}
     validate_episodes(manifest, result)
     return result

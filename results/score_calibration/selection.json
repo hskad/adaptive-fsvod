@@ -1,0 +1,20 @@
+{
+  "selected_beta": 1.0,
+  "search_seed": 42,
+  "selected_validation_AP": 74.94427504100992,
+  "search_records": [
+    {
+      "beta": 0.0,
+      "AP": 59.77592108804185
+    },
+    {
+      "beta": 0.5,
+      "AP": 72.01953528551657
+    },
+    {
+      "beta": 1.0,
+      "AP": 74.94427504100992
+    }
+  ],
+  "checkpoint_sha256": "07804b393b4fa55e97107fbd24a756d7474c8fcd81ae04ed2f106b5fc22f185f"
+}

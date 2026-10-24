@@ -1,0 +1,64 @@
+{
+  "AP": 75.22130504372662,
+  "AP50": 87.35754207915932,
+  "AP75": 79.25171204229355,
+  "frames": 114,
+  "episodes": 20,
+  "seconds": 0.9516818999545649,
+  "cached_pipeline_fps": 119.78792494156144,
+  "timing_scope": "cached feature IO, trainable heads, decoding; encoder excluded",
+  "mean_memory_tokens": 4.298245614035087,
+  "mean_threshold": 0.6000000238418579,
+  "synthetic": false,
+  "score_floor": 0.001,
+  "nms_iou": 0.5,
+  "objectness_beta": 1.0,
+  "metric": "frame-level COCO bbox AP, IoU 0.50:0.05:0.95, maxDets=100",
+  "training_seed": 44,
+  "checkpoint_sha256": "3aa8fe4d2e4981613f44ba5761811e53f715e22b178cdc43d6ef42f784f294df",
+  "training_budget": 300,
+  "checkpoint_step": 300,
+  "model_config": {
+    "input_dim": 512,
+    "hidden_dim": 512,
+    "attention_heads": 4,
+    "dropout": 0.1,
+    "memory_mode": "fixed",
+    "fixed_threshold": 0.6,
+    "alpha": 1.0,
+    "threshold_min": 0.5,
+    "threshold_max": 0.95,
+    "max_memory_per_class": 16,
+    "fusion_gate": "none",
+    "gate_threshold": 0.7
+  },
+  "cache_signature": {
+    "encoder": "google/owlv2-base-patch16-ensemble",
+    "revision": "cfd3195ba4ea9592eec887ded089f4c08eff231d",
+    "candidates": 128,
+    "feature_dim": 512,
+    "synthetic": false
+  },
+  "manifest_sha256": "996053807b8f431f864eb371139e19eb25df4d3221f4072eedec2fe1398a254c",
+  "episodes_sha256": "4f6c8233a28bb0797cece63ce0d24e5104e9efb615c0a55cf1d5dd01ed9d3110",
+  "study_protocol_sha256": "36c731bc1896a043503fd648e7273d8263e069a69cbbd52d616adde9c45a6515",
+  "evaluation_environment": {
+    "environment": {
+      "python": "3.12.3",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "packages": {
+        "torch": "2.9.1",
+        "transformers": "4.46.3",
+        "numpy": "1.26.4",
+        "scipy": "1.13.0",
+        "Pillow": "10.3.0",
+        "pycocotools": "2.0.11"
+      },
+      "cuda": null,
+      "gpu": null,
+      "git": "514450baaf230c4665654e95334bb286c00c2297",
+      "git_dirty": false
+    },
+    "threads": 4
+  }
+}

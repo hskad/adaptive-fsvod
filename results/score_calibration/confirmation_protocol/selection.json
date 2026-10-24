@@ -1,0 +1,102 @@
+{
+  "selection_seed": 20261031,
+  "episode_seed": 20261101,
+  "pool_seed": 42,
+  "bootstrap_seed": 20261102,
+  "bootstrap_draws": 1000,
+  "selected_beta": 1.0,
+  "classes": {
+    "13": "fox",
+    "18": "horse",
+    "2": "bear",
+    "35": "tiger",
+    "6": "deer",
+    "8": "duck"
+  },
+  "videos": 24,
+  "frames": 192,
+  "excluded_manifests": [
+    {
+      "path": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\pilot\\train.json",
+      "sha256": "1912d3d1c9dacfbf6fcd0c67a52fb45e8728ee68e2d34357bc4ebf4cc4f2e173",
+      "classes": {
+        "10": "earless_seal",
+        "24": "owl",
+        "25": "parrot",
+        "3": "boat",
+        "36": "train",
+        "9": "eagle"
+      }
+    },
+    {
+      "path": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\pilot\\val.json",
+      "sha256": "996053807b8f431f864eb371139e19eb25df4d3221f4072eedec2fe1398a254c",
+      "classes": {
+        "11": "elephant",
+        "30": "skateboard",
+        "4": "cat"
+      }
+    },
+    {
+      "path": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\pilot\\test.json",
+      "sha256": "ccf91da244f24fb2f9d3151d9140ea6b13b00a9c9ddd7c34948720403594fc29",
+      "classes": {
+        "21": "monkey",
+        "28": "sedan",
+        "32": "snowboard"
+      }
+    },
+    {
+      "path": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v2\\confirmation\\confirmation.json",
+      "sha256": "29909a7bf4d359e67a6dd18b6eecfbbc05c96a2dec388b3a2e1094de4e36195e",
+      "classes": {
+        "17": "hand",
+        "22": "motorbike",
+        "37": "truck"
+      }
+    },
+    {
+      "path": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v5\\confirmation\\confirmation.json",
+      "sha256": "9c66ddaee6f64b71019e4dc1e35c2af8a6d5b23ca36128c1810d3c2dd79180c7",
+      "classes": {
+        "1": "ape",
+        "29": "shark",
+        "7": "dog"
+      }
+    },
+    {
+      "path": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\larger_confirmation\\confirmation.json",
+      "sha256": "71e342c029711cb5bdc757d97258e44f811b68469964376465a5db5075569b0f",
+      "classes": {
+        "16": "giraffe",
+        "20": "lizard",
+        "23": "mouse",
+        "27": "rabbit",
+        "38": "turtle",
+        "39": "zebra"
+      }
+    }
+  ],
+  "annotation_sha256": "604642602494557a3e5a0cb6a6b93616389c6b83b3571dda4507d20de812ce93",
+  "source": {
+    "dataset": "YouTube-VOS training RGB frames",
+    "mirror": "JiaHuang01/Youtubevos_train",
+    "revision": "7855adf7e2e8e9386b578f58d490f25c1886368d",
+    "archive": "Youtube_vos_train.zip",
+    "archive_bytes": 8957125671,
+    "url": "https://huggingface.co/datasets/JiaHuang01/Youtubevos_train/resolve/7855adf7e2e8e9386b578f58d490f25c1886368d/Youtube_vos_train.zip"
+  },
+  "encoder": "google/owlv2-base-patch16-ensemble",
+  "revision": "cfd3195ba4ea9592eec887ded089f4c08eff231d",
+  "candidates": 128,
+  "feature_dim": 512,
+  "attention_backend": "sdpa",
+  "support_per_class": 4,
+  "validation_results_sha256": "87002ea2d0d2bfaefcf9b5b7d49d55a5570b4e6c978c466348ecdf7dc7e63f32",
+  "model_protocol_sha256": "36c731bc1896a043503fd648e7273d8263e069a69cbbd52d616adde9c45a6515",
+  "files": {
+    "confirmation.json": "cf5e4104f109fc2beb0024c12b207b545439171ae9e11358ab72b81189bd2bee",
+    "support_pool.json": "fd51a94ace8003e666017c6813b44c05c960d0dec409d8145799ea19fa9026e6",
+    "episodes.json": "52cb9edf43da3d412ec7415c8e145daf00b4f8f0e842f55b10dd54e98c3bd3ce"
+  }
+}
