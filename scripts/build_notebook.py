@@ -36,7 +36,8 @@ import sys
 from pathlib import Path
 
 os.environ["USE_TF"] = "0"
-BASE = Path("/kaggle/working") if Path("/kaggle").exists() else Path("/content")
+BASE = (Path("/content") if Path("/content").is_dir() else
+        Path("/kaggle/working") if Path("/kaggle/working").is_dir() else Path.cwd())
 REPO = BASE / "adaptive-fsvod"
 if not (REPO / ".git").exists():
     subprocess.run(["git", "clone", "https://github.com/hskad/adaptive-fsvod.git", str(REPO)], check=True)
@@ -44,7 +45,10 @@ os.chdir(REPO)
 subprocess.run([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"], check=True)
 # Editable installation affects new Python processes. Also expose src to the
 # notebook kernel, which was already running when pip created its .pth file.
-SOURCE_PATH = str(REPO / "src")
+PACKAGE_FILE = Path(subprocess.check_output(
+    [sys.executable, "-c", "import adaptive_fsvod; print(adaptive_fsvod.__file__)"],
+    text=True).strip()).resolve()
+SOURCE_PATH = str(PACKAGE_FILE.parent.parent)
 if SOURCE_PATH not in sys.path:
     sys.path.insert(0, SOURCE_PATH)
 import importlib
