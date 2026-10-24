@@ -205,13 +205,20 @@ def score(root):
     for name, digest in frozen_cache["files"].items():
         if checksum(cache_directory(root) / name) != digest:
             raise ValueError("Frozen feature cache changed")
+    for name, key in (("metadata.json", "metadata_sha256"), ("support_pool.json", "support_pool_sha256")):
+        if checksum(cache_directory(root) / name) != frozen_cache[key]:
+            raise ValueError("Frozen cache metadata changed")
     execution = {"environment": environment(), "threads": torch.get_num_threads(),
                  "cache_artifact_manifest_sha256": checksum(directory / "cache_artifact_sha256.json")}
-    immutable(directory / "evaluation_environment.json", execution)
+    environment_path = directory / "evaluation_environment.json"
+    if not environment_path.exists():
+        immutable(environment_path, execution)
+    elif read_json(environment_path)["cache_artifact_manifest_sha256"] != execution["cache_artifact_manifest_sha256"]:
+        raise ValueError("Previous evaluation used different frozen features")
     rows = []
     for row in read_json(directory / "models.json"):
         output = directory / "evaluations" / f"{row['method']}_seed{row['seed']}"
-        if (output / "metrics.json").exists():
+        if all((output / name).exists() for name in ("metrics.json", "ground_truth.json", "predictions.json")):
             metrics = read_json(output / "metrics.json")
             expected = {"checkpoint_sha256": row["checkpoint_sha256"],
                         "manifest_sha256": checksum(directory / "confirmation.json"),
@@ -221,6 +228,9 @@ def score(root):
         else:
             metrics = measure(row["checkpoint"], directory / "confirmation.json", cache_directory(root),
                               directory / "episodes.json", output)
+            metrics["evaluation_environment"] = execution
+            metrics["encoder_attention_backend"] = read_json(directory / "extraction_settings.json")["attention_backend"]
+            write_json(output / "metrics.json", metrics)
         rows.append({"method": row["method"], "seed": row["seed"], **metrics})
     summary = {}
     for method in ("fixed_50", "centered_50", "fixed_300"):

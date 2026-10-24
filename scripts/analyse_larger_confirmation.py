@@ -1,6 +1,7 @@
 """Verify larger-set outputs and quantify paired uncertainty across videos."""
 
 import argparse
+import copy
 import csv
 import shutil
 import time
@@ -44,7 +45,8 @@ def analyse(root, target):
         if reference is not None and protocol != reference:
             raise ValueError("Evaluation settings differ between models")
         reference = protocol
-        full = coco_metrics(truth, predictions)
+        # pycocotools adds fields to its input dictionaries; keep raw records intact.
+        full = coco_metrics(copy.deepcopy(truth), copy.deepcopy(predictions))
         for name in full:
             if abs(full[name] - row[name]) > 1e-9:
                 raise ValueError("Stored metric does not match saved detections")
