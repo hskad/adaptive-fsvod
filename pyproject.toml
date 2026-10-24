@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "adaptive-fsvod"
 version = "0.1.0"
-description = "A controlled study of adaptive temporal confidence filtering for few-shot video detection"
+description = "A controlled study of objectness scoring and temporal memory for few-shot video detection"
 requires-python = ">=3.10"
 dependencies = [
   "torch>=2.2,<3", "transformers==4.46.3", "safetensors>=0.4.5",

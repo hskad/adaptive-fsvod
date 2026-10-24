@@ -1,5 +1,7 @@
 # Runbook
 
+For the final submission, start with [REPRODUCE.md](REPRODUCE.md). It provides public weights, measured features, a CPU evaluation command, exact shared-head training commands, and raw-image preparation. The older study commands below are preserved for the experiment history.
+
 Commands below are for a Linux Colab or Kaggle GPU session. The notebook provides the same steps. Run from the repository root. Enable internet access in Kaggle for data and model downloads.
 
 ## Install
@@ -83,7 +85,7 @@ mkdir -p "$EXPERIMENT/score_calibration/confirmation"
 cp results/score_calibration/confirmation_protocol/confirmation.json "$EXPERIMENT/score_calibration/confirmation/confirmation.json"
 cp results/score_calibration/confirmation_protocol/episodes.json "$EXPERIMENT/score_calibration/confirmation/episodes.json"
 python -m adaptive_fsvod.download_frames --manifests "$EXPERIMENT/score_calibration/confirmation/confirmation.json" --images-root "$EXPERIMENT/score_calibration/confirmation/images" --range-cache "$EXPERIMENT/download_ranges"
-python -m adaptive_fsvod.cache --manifest "$EXPERIMENT/score_calibration/confirmation/confirmation.json" --output "$EXPERIMENT/score_calibration/confirmation/cache" --device cpu --revision cfd3195ba4ea9592eec887ded089f4c08eff231d --candidates 128 --support-per-class 4 --attention-backend sdpa
+python -m adaptive_fsvod.cache --manifest "$EXPERIMENT/score_calibration/confirmation/confirmation.json" --images-root "$EXPERIMENT/score_calibration/confirmation/images" --output "$EXPERIMENT/score_calibration/confirmation/cache" --device cpu --revision cfd3195ba4ea9592eec887ded089f4c08eff231d --candidates 128 --support-per-class 4 --attention-backend sdpa
 ```
 
 Use `--device cuda` for encoder caching when available. Run the two evaluation
@@ -276,4 +278,4 @@ Outputs are annotated PNGs, `detections.json`, and `timing.json`. Memory is rese
 
 Save caches, manifests, episodes, checkpoints, and logs to persistent storage before a free session ends. The notebook lets you set a persistent experiment directory. Publish real `best.pt` files through GitHub Releases or another public download location. Include the matching config, data manifest, episode files, `training.jsonl`, evaluation JSON, Git commit, environment versions, and SHA-256 for each weight file. Do not commit datasets or weights directly to Git.
 
-The GPU-session pilot has trained real-video checkpoints and measured results for seeds 42/43/44; see [the result record](PILOT_RESULTS.md). Public checkpoint links and imported source artifacts are still pending. Add links after a fresh download has been checked.
+The final score study has public shared-head and measured-feature bundles in [release v1.0-results](https://github.com/hskad/adaptive-fsvod/releases/tag/v1.0-results). Both score methods use the same heads. The older pilot and failed studies retain their source records; their checkpoints can be retrained with the historical commands.

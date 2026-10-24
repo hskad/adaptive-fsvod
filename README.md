@@ -1,104 +1,116 @@
 # Adaptive FSVOD
 
-A course project on feature calibration and temporal memory for few-shot video object detection.
+[![Software checks](https://github.com/hskad/adaptive-fsvod/actions/workflows/checks.yml/badge.svg)](https://github.com/hskad/adaptive-fsvod/actions/workflows/checks.yml)
 
-The starting point is [Temporal Object-Aware Vision Transformer for Few-Shot Video Object Detection](https://ojs.aaai.org/index.php/AAAI/article/view/37497) by Yogesh Kumar and Anand Mishra (AAAI 2026). The [authors' implementation](https://github.com/yogesh-iitj/fs-video-vit) is the reference.
+**Objectness in the final detection score improves a small few-shot video detection pipeline from 47.44 to 58.30 AP.** This course project starts from [Temporal Object-Aware Vision Transformer for Few-Shot Video Object Detection](https://ojs.aaai.org/index.php/AAAI/article/view/37497), Yogesh Kumar and Anand Mishra, AAAI 2026, and the [authors' implementation](https://github.com/yogesh-iitj/fs-video-vit).
 
-This project uses a smaller, documented adaptation. It does not reproduce the paper's full model or claim its published scores. The image encoder is frozen. A small temporal decoder and detection heads are trained. The current extension combines class confidence with the frozen encoder's objectness when ranking detections. Earlier memory and centering proposals remain as unsuccessful experiments.
+We use a documented smaller adaptation with a frozen OWLv2 encoder and trained temporal heads. We do not reproduce the paper's full model or benchmark scores. Our contribution is the implementation and controlled test of an objectness score in this reduced pipeline. Objectness scoring is an established detection idea; we do not claim to have invented it. Earlier unsuccessful experiments remain available.
 
-## Status
+## Method and results
 
-**Current result: objectness in the final score improved the separate confirmation AP.** On six unused classes, 24 videos, and 192 distinct frames, baseline/objectness AP averaged **47.44/58.30** (seed SD **0.09/0.18**). The mean paired gain was **10.86 AP points**, with all three training-seed pairs positive. The paired, class-stratified video-bootstrap 95% interval was **[+5.96, +14.85]**, conditional on these classes, support episodes, and fixed trained seed pairs. [Verified results, source predictions, class differences, and limits](results/score_calibration/README.md).
+For candidate j, the baseline ranks detections by foreground class confidence p_j. Our change uses **`s_j = p_j * q_j^beta`**, where q_j is the frozen encoder's objectness for the same candidate. Validation selected beta=1 from {0, 0.5, 1}. We apply the product before the existing score filter and class-wise NMS. Foreground/background decisions, boxes, temporal memory, encoder, and trained weights stay fixed. Both methods use the **same three checkpoints**; the proposed score adds no training, encoder pass, or trainable parameter.
 
-Both methods use the same three validation-selected fixed heads with a 300-update training budget. The new rule is `score = class_score * objectness`; it adds zero training updates and no encoder pass or trainable parameter. Validation selected exponent 1 from {0, 0.5, 1} before the unused classes were scored. This applies a known detection idea to this reduced pipeline; no global novelty or full-paper benchmark gain is claimed. All six classes improved, but the bear class accounts for most of the mean gain. Shared head tensors and decoder presets are verified and bundled locally; public weight links remain pending.
+For positive scores, `log(s_j) = log(p_j) + beta * log(q_j)`: proposals with weak evidence of an object receive a lower rank. This is a ranking heuristic, not a calibrated joint probability. See [the study plan](docs/SCORE_CALIBRATION_PLAN.md) and [modified decoder](src/adaptive_fsvod/evaluate.py).
 
-The earlier centering study had a small six-video gain that failed its larger check: fixed/centered 50-update AP was **38.61/35.14**, with a conditional 95% interval **[-7.29, +0.20]** for the difference. [Those records](results/larger_confirmation/README.md) and the [earlier small set](results/revision_v5/README.md) remain unchanged. The score study uses further unused classes, so its absolute AP must not be compared directly with that older set's AP.
+| Method | AP mean +/- seed SD | AP50 | AP75 |
+|---|---:|---:|---:|
+| Baseline, beta=0 | 47.440 +/- 0.091 | 62.435 | 50.852 |
+| Objectness score, beta=1 | **58.298 +/- 0.182** | **75.044** | **62.798** |
 
-The first software milestone is implemented:
+The mean paired gain is **10.858 AP points**. All three training-seed pairs and all six class means improved. The 1,000-draw paired, class-stratified query-video bootstrap interval is **[+5.960, +14.850]** AP points. It is conditional on the fixed classes, support episodes, and trained seed pairs. Bear supplies most of the mean gain. These results do not establish the same gain on other classes or the paper's full benchmarks.
 
-- Data conversion, validated manifests, and deterministic support/query episodes.
-- Frozen OWLv2 feature extraction with resumable caches.
-- Fixed and adaptive temporal memory rules with the same trainable heads.
-- Training, validation checkpoint selection, resume, inference, COCO box evaluation, and paired result plots.
-- A Colab/Kaggle notebook and CPU checks in GitHub Actions.
+The fresh confirmation has six previously unused classes, 24 videos, 192 distinct frames, and 120 two-way one-shot episodes (960 episode/frame instances). Metrics are frame-level COCO **box** AP at IoU 0.50:0.05:0.95, AP50, and AP75, maxDets=100. Models, settings, data, episodes, and shared features were frozen before scoring. [Raw results, class effects, uncertainty, and checksums](results/score_calibration/README.md).
 
-Local tests and synthetic end-to-end training passed. Public pretrained extraction and a real-data training update for both methods also passed. See [validation records](docs/VALIDATION.md).
+## Install and reproduce
 
-**The first real-video pilot is complete for three training seeds.** All 249 selected RGB frames passed verification. On the 30 fixed test episodes, fixed/adaptive AP averaged 45.64/45.34, with sample standard deviations 0.32/0.22. Adaptive test AP was lower for every seed. [Source logs, configurations, predictions, and locally verified results](results/pilot_20261024/README.md) are now included. Checkpoints are verified locally; public download links remain pending. Synthetic outputs and the single-update integration check are not research results.
-
-## Start
-
-Use the [score-study notebook in Colab](https://colab.research.google.com/github/hskad/adaptive-fsvod/blob/main/notebooks/score_calibration.ipynb), or upload [the notebook](notebooks/score_calibration.ipynb) to Kaggle. Enable a GPU for feature extraction and choose persistent storage. After the original data caches and episodes exist, the initial commands are:
+Use Python 3.12. The measured final environment used PyTorch 2.9.1+cpu, Transformers 4.46.3, NumPy 1.26.4, SciPy 1.13.0, Pillow 10.3.0, and pycocotools 2.0.11 on Windows 11, Intel i5-1340P, 16 GB RAM, four CPU threads. **No CUDA is required for saved-feature evaluation or shared-head training.** Initial pilot features used a Tesla T4, PyTorch 2.11.0+cu130, CUDA 13.0; final confirmation features used CPU SDPA. Each run includes its recorded environment.
 
 ```bash
-python scripts/train_fixed_reference.py --experiment-dir /path/to/adaptive-fsvod-experiment --threads 4
-python scripts/run_score_calibration.py --experiment-dir /path/to/adaptive-fsvod-experiment --stage freeze
-python scripts/run_score_calibration.py --experiment-dir /path/to/adaptive-fsvod-experiment --stage validate --threads 4
+git clone https://github.com/hskad/adaptive-fsvod.git
+cd adaptive-fsvod
+python -m venv .venv
 ```
 
-The [runbook](docs/RUNBOOK.md#objectness-score-study) provides the remaining preparation, frozen confirmation, bootstrap verification, shared-head export, and evaluation-only commands. The notebook runs those stages automatically if the validation gate passes. Existing heads are kept and the proposed score needs no further training. CPU feature extraction is supported; it is slower than GPU extraction.
-
-The [centering notebook](notebooks/fast_adaptation.ipynb) and [initial threshold notebook](notebooks/colab_kaggle_pilot.ipynb) reproduce the earlier experiments.
-
-For local software checks:
+Activate with `source .venv/bin/activate` on Linux or `.venv\Scripts\Activate.ps1` in PowerShell, then:
 
 ```bash
-python -m pip install -r requirements.txt
-python -m pytest -q
-python -m adaptive_fsvod.smoke --output runs/synthetic_check --steps 4
+python -m pip install torch==2.9.1 --index-url https://download.pytorch.org/whl/cpu
+python -m pip install -r requirements-reproduce.txt
+python scripts/download_artifacts.py --experiment-dir ../fsvod-reproduction
+python scripts/reproduce_results.py --experiment-dir ../fsvod-reproduction --threads 4
 ```
 
-The [runbook](docs/RUNBOOK.md) contains exact preparation, training, inference, and evaluation commands. The [data guide](docs/DATA.md) records sources, checksums, the directory layout, and the image access issue.
+The downloader verifies archive/file SHA-256 and prepares the measured features, fixed episodes, model files, and selected configuration. The last command evaluates all three heads with both scores, saves metrics/predictions, and checks them against the table. Outputs: `../fsvod-reproduction/reproduced/`; summary: `reproduced/summary.json`.
 
-After preparation and caching, one command can resume the paired training matrix, evaluate, summarize, and archive it:
+**[Complete evaluator instructions](docs/REPRODUCE.md)** include Windows/Linux installation, directory layout, raw-image preparation, direct training/evaluation/inference commands, resume, and expected outputs. For Colab/Kaggle, retain the matched PyTorch/CUDA installation and use `requirements.txt`. The [full training notebook](https://colab.research.google.com/github/hskad/adaptive-fsvod/blob/main/notebooks/score_calibration.ipynb) prepares data and runs the study; its encoder cells use a GPU.
+
+## Dataset and preprocessing
+
+Data are a custom FSYTV-40 subset derived from YouTube-VIS 2019. Head training/validation use 6/3 classes, 18/9 videos, and 131/50 frames. The final six-class confirmation is disjoint from training, validation, and all earlier tests. It is not the paper's standard split. Public encoder pretraining may include test object classes.
+
+- [FSYTV annotations](https://drive.google.com/drive/folders/1a1PpfAxeYL7AbxYViDDnx7ACFtRohVL5), linked by [FewX](https://github.com/fanq15/FewX).
+- RGB archive: [JiaHuang01/Youtubevos_train](https://huggingface.co/datasets/JiaHuang01/Youtubevos_train), revision `7855adf7e2e8e9386b578f58d490f25c1886368d`.
+- [Original provider](https://youtube-vos.org/dataset/vis/) and [research-use terms](https://youtube-vos.org/dataset/term/).
+- [Download/preparation commands, checksums, and image layout](docs/DATA.md); [exact final feature rebuild](docs/REPRODUCE.md#5-prepare-rgb-data-and-rebuild-features).
+
+The downloader retrieves selected ZIP ranges and checks CRC, dimensions, decoding, and SHA-256. Native 960-pixel padded-square processing supplies the top 128 candidate features (dimension 512). Query features are float16; support features are float32. Support crops come from other videos. Preserve frozen manifest bytes; use `--images-root` to relocate images. RGB images and public encoder weights are not in the repository or release bundles.
+
+## Train baseline and proposed method
+
+After the artifact download above, reproduce the three shared heads:
 
 ```bash
-python -u -m adaptive_fsvod.pilot --experiment-dir /path/to/adaptive-fsvod-experiment --action run --seeds 42 43 44 --device cuda
+python scripts/train_fixed_reference.py --experiment-dir ../fsvod-reproduction --threads 4
 ```
 
-Use `--action collect` to summarize and archive completed runs without training or GPU evaluation. See the [automation instructions](docs/RUNBOOK.md#automated-pilot).
+This trains seeds 42/43/44 for 300 episode updates each with the [selected configuration](results/revision_v2/configs/fixed_tau060.json), validates every 50 updates, and selects `best.pt` by validation AP. Settings: AdamW, learning rate 1e-4, weight decay 0.01, 5% warmup, cosine decay, gradient cap 0.1, classification/box loss weights 2/5, Hungarian L1+GIoU matching, memory threshold 0.6, and 16-token cap per class. The frozen encoder uses pinned public [weights](https://huggingface.co/google/owlv2-base-patch16-ensemble/tree/cfd3195ba4ea9592eec887ded089f4c08eff231d). The heads have 2,103,815 trainable parameters.
 
-## Experiment
+The proposed method uses these heads unchanged. Set beta=0 for baseline and beta=1 for the proposed score at evaluation. No second training run is needed. [Direct training commands and resume](docs/REPRODUCE.md#3-reproduce-shared-head-training).
 
-- Encoder: `google/owlv2-base-patch16-ensemble`.
-- Baseline: a fixed threshold selects object features for the next frame.
-- Current modification: objectness in final detection scores; see [the fixed plan](docs/SCORE_CALIBRATION_PLAN.md). Use `--objectness-beta 0` for baseline or `--objectness-beta 1` for the selected score.
-- Earlier modification: training-feature centering, whose larger check did not confirm a gain.
-- Historical proposal: a bounded, class-dependent confidence threshold. It did not improve the initial test scores.
-- Controls: the same cached features, episodes, model size, token cap, optimizer, and evaluation procedure.
-- Data: a verified custom FSYTV-40 subset from YouTube-VIS 2019. It has 6/3/3 classes, 18/9/9 videos, and 131/50/68 frames for train/validation/test. Matching RGB frames come from a pinned YouTube-VOS archive mirror.
-- Metrics: frame-level COCO box AP, AP50, AP75, and measured run time. This is not video mask AP.
+## Checkpoints, configurations, logs, and evaluation
 
-See [the experiment plan](docs/EXPERIMENT_PLAN.md) for the scope and evaluation rules.
+**[Public release v1.0-results](https://github.com/hskad/adaptive-fsvod/releases/tag/v1.0-results)**:
 
-## Code organization
+- [Trained heads and score presets, 23.4 MB](https://github.com/hskad/adaptive-fsvod/releases/download/v1.0-results/score_calibration_inference.zip): seeds 42/43/44, selected steps 250/250/300, shared by both methods. [SHA-256 manifest](results/score_calibration/inference_bundle.manifest.json).
+- [Measured train/validation/confirmation features and episodes, 211.8 MB](https://github.com/hskad/adaptive-fsvod/releases/download/v1.0-results/score_calibration_features.zip). [SHA-256 manifest](results/score_calibration/features_bundle.manifest.json). Derived features retain dataset research-use terms.
+- Training configurations/logs: [seed 42](results/revision_v2/source_runs/fixed_tau060_seed42/), [43](results/revision_v2/source_runs/fixed_tau060_seed43/), [44](results/revision_v2/source_runs/fixed_tau060_seed44/).
+- [Validation search](results/score_calibration/validation.csv), [six final evaluations](results/score_calibration/evaluations/), [mean comparison](results/score_calibration/comparison.csv), [per-class results](results/score_calibration/per_class.csv), [bootstrap records](results/score_calibration/bootstrap_draws.json), [frozen data/episodes/cache](results/score_calibration/confirmation_protocol/).
+
+Inference exports omit optimizer/RNG state. Fresh training writes full resumable `best.pt` and `last.pt`. No separate proposed training log exists because the score needs no extra training.
+
+`python -m adaptive_fsvod.evaluate` accepts the manifest, cache, episodes, checkpoint, score exponent, output path, and device. `python -m adaptive_fsvod.infer` processes ordered frames and support crops, and writes annotated frames, `detections.json`, and `timing.json`. [Exact executable commands](docs/REPRODUCE.md#4-evaluate-or-infer-with-an-individual-checkpoint). Cached FPS excludes the encoder; no end-to-end speed gain is claimed.
+
+## Code organization and verification
 
 ```text
-configs/                  Paired fixed/adaptive model configurations
-notebooks/                Colab/Kaggle pilot
 src/adaptive_fsvod/
-  convert_fsytv.py         Streaming annotation conversion
-  download_frames.py       Verified partial RGB downloads from a pinned archive
-  prepare.py              Class and video split preparation
-  data.py, episodes.py     Manifest checks and fixed episodes
-  cache.py                Frozen encoder and feature caches
-  model.py                Shared detector, memory rules, and optional feature centering
-  loss.py                 Hungarian matching and detection losses
-  train.py                Training, validation, checkpoints, and resume
-  evaluate.py, compare.py  Frame-level box AP and paired result files
-  pilot.py                Resume, evaluate, summarize, and archive a paired pilot
-  infer.py                Ordered-frame inference and timing
-  smoke.py                Clearly labeled synthetic software check
-tests/                    Data, memory, gradient, coordinate, and metric checks
-docs/                     Experiment plan, data guide, runbook, and validation
+  convert_fsytv.py, prepare.py, download_frames.py  Annotation/subset/image preparation
+  data.py, episodes.py                            Manifest and support/query checks
+  cache.py, encoder_attention.py                  Frozen features, optional SDPA
+  model.py, loss.py, train.py                     Temporal detector and training
+  evaluate.py                                    Proposed score in decode(); COCO AP
+  infer.py                                       Raw-frame inference with score flag
+  bootstrap.py                                   Paired video resampling
+scripts/
+  download_artifacts.py, reproduce_results.py     Public CPU reproduction
+  train_fixed_reference.py                        Three shared reference heads
+  run_score_calibration.py                        Frozen validation selection
+  prepare_score_confirmation.py                   New-class data and feature freeze
+  evaluate_score_confirmation.py                  Paired final evaluation
+  analyse_score_confirmation.py                   Verification, uncertainty, plots
+  export_score_models.py                         Shared inference head export
+  export_reproduction_features.py                 Measured feature export
+notebooks/score_calibration.ipynb                  Full cloud preparation/training
+results/score_calibration/                        Final evidence and protocols
+tests/                                           Software and metric checks
+docs/                                            Data, reproduction, experiment plans
 ```
 
-## Checkpoints and results
+```bash
+python -m pytest -q
+python -m adaptive_fsvod.smoke --output ../fsvod-reproduction/synthetic_check --steps 4
+```
 
-The frozen public encoder is downloaded from [Hugging Face](https://huggingface.co/google/owlv2-base-patch16-ensemble), revision `cfd3195ba4ea9592eec887ded089f4c08eff231d`. Our temporal heads require training.
+Synthetic scores check software only. [Validation records](docs/VALIDATION.md) state tested paths and platform limits. Commit history, versions, configuration/data hashes, and seeds preserve provenance. Weights, images, and caches stay out of Git; release assets supply measured artifacts.
 
-Real baseline and adaptive checkpoints: **trained and locally checksum-verified; public links pending**. [Complete source result records](results/pilot_20261024/README.md) include evaluation JSON, matching configurations, logs, checksums, and episode manifests. Saved test detections reproduce all six reported metric sets exactly. Free runtime outputs need persistent storage.
-
-## Version control
-
-Use small commits for setup, data preparation, the baseline, the adaptive rule, and evaluation. Record the Git commit, configuration, seed, package versions, and data manifest for each experiment. Keep datasets, credentials, caches, and model weights out of Git. Publish research checkpoints through an accessible download location when they exist.
+Earlier studies: [adaptive threshold](results/pilot_20261024/README.md), [small centering test](results/revision_v5/README.md), and [larger centering check](results/larger_confirmation/README.md). Their negative results remain. The historical [runbook](docs/RUNBOOK.md) contains their commands.

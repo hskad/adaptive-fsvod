@@ -1,0 +1,58 @@
+"""A damaged or unsafe public artifact must not replace user files."""
+
+import hashlib
+import zipfile
+
+import pytest
+
+from scripts.download_artifacts import download, extract
+
+
+def test_verified_archive_extracts_and_reuses_without_overwrite(tmp_path):
+    archive = tmp_path / "valid.zip"
+    with zipfile.ZipFile(archive, "w") as bundle:
+        bundle.writestr("nested/model.pt", b"model bytes")
+    target = tmp_path / "output"
+    extract(archive, target)
+    extract(archive, target)
+    path = target / "nested/model.pt"
+    path.write_bytes(b"user file")
+    with pytest.raises(ValueError, match="overwrite"):
+        extract(archive, target)
+    assert path.read_bytes() == b"user file"
+
+
+@pytest.mark.parametrize("name", ["../outside.pt", "/absolute.pt", "C:/outside.pt", "nested\\outside.pt"])
+def test_archive_rejects_unsafe_paths(tmp_path, name):
+    archive = tmp_path / "unsafe.zip"
+    with zipfile.ZipFile(archive, "w") as bundle:
+        # Bypass ZipInfo's Windows path normalization to test the raw ZIP name.
+        entry = zipfile.ZipInfo()
+        entry.filename = name
+        bundle.writestr(entry, b"bad")
+    with pytest.raises(ValueError, match="Unsafe"):
+        extract(archive, tmp_path / "output")
+    assert not (tmp_path / "outside.pt").exists()
+
+
+def test_bad_download_is_rejected_and_original_file_preserved(tmp_path, monkeypatch):
+    class Response:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            return False
+
+        def raise_for_status(self):
+            pass
+
+        def iter_content(self, _):
+            yield b"damaged download"
+
+    monkeypatch.setattr("scripts.download_artifacts.requests.get", lambda *args, **kwargs: Response())
+    path = tmp_path / "model.zip"
+    path.write_bytes(b"existing file")
+    with pytest.raises(ValueError, match="checksum"):
+        download("https://example.test/weights.zip", path, hashlib.sha256(b"expected").hexdigest())
+    assert path.read_bytes() == b"existing file"
+    assert not path.with_suffix(".part").exists()

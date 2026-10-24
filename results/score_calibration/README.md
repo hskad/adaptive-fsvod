@@ -52,7 +52,7 @@ The 1,000 paired bootstrap draws resample query videos within each fixed class a
 
 ![Score calibration results](score_calibration.png)
 
-See [the pre-score plan](../../docs/SCORE_CALIBRATION_PLAN.md) and [the runbook](../../docs/RUNBOOK.md). The same trained heads support both methods; evaluation must set `--objectness-beta 0` for baseline or `--objectness-beta 1` for the proposed score. Encoder weights are public and pinned. Head weights are verified locally; public download links remain required before final submission.
+See [the pre-score plan](../../docs/SCORE_CALIBRATION_PLAN.md) and [the runbook](../../docs/RUNBOOK.md). The same trained heads support both methods; evaluation must set `--objectness-beta 0` for baseline or `--objectness-beta 1` for the proposed score. Encoder weights are public and pinned. Shared head weights and measured features are public in [release v1.0-results](https://github.com/hskad/adaptive-fsvod/releases/tag/v1.0-results). See [the evaluator guide](../../docs/REPRODUCE.md) for checksum-verified downloads and CPU reproduction.
 
 The shared head training configurations and complete logs are in [fixed seed 42](../revision_v2/source_runs/fixed_tau060_seed42/), [seed 43](../revision_v2/source_runs/fixed_tau060_seed43/), and [seed 44](../revision_v2/source_runs/fixed_tau060_seed44/). They record the original CPU environment, hyperparameters, and validation checkpoint selection. No separate proposed-head training log exists because the proposed method performs no additional training.
 
