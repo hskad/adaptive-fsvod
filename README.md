@@ -18,7 +18,7 @@ The first software milestone is implemented:
 
 Local tests and synthetic end-to-end training passed. Public pretrained extraction and a real-data training update for both methods also passed. See [validation records](docs/VALIDATION.md).
 
-**The pilot dataset is available.** All 249 selected RGB frames downloaded and passed verification through an alternative public source. The notebook fetches only those frames with HTTP byte ranges. There are no real-video accuracy results or trained research checkpoints yet. Synthetic outputs and the single real-data integration update must not be used as research results.
+**The first real-video pilot is complete.** All 249 selected RGB frames passed verification. On the 30 fixed test episodes, the fixed and adaptive methods scored 45.36 and 45.09 AP, respectively. The adaptive rule did not improve test AP in this single-seed run. See [pilot results and limitations](docs/PILOT_RESULTS.md). Checkpoints were saved in the experiment Drive directory; public download links and source logs are still pending. Synthetic outputs and the single-update integration check are not research results.
 
 ## Start
 
@@ -70,7 +70,7 @@ docs/                     Experiment plan, data guide, runbook, and validation
 
 The frozen public encoder is downloaded from [Hugging Face](https://huggingface.co/google/owlv2-base-patch16-ensemble), revision `cfd3195ba4ea9592eec887ded089f4c08eff231d`. Our temporal heads require training.
 
-Real baseline checkpoint: **pending**. Real adaptive checkpoint: **pending**. Real comparison results: **pending**. Publish these with matching configurations, logs, checksums, and episode manifests after the measured experiments. Free runtime outputs need persistent storage.
+Real baseline and adaptive checkpoints: **trained in the GPU session; public links pending**. The [first comparison](docs/PILOT_RESULTS.md) records values supplied from that session. Publish the source evaluation JSON, matching configurations, logs, checksums, and episode manifests with the checkpoints. Free runtime outputs need persistent storage.
 
 ## Version control
 
