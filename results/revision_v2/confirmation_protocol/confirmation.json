@@ -1,0 +1,387 @@
+{
+  "schema_version": 1,
+  "dataset": "FSYTV-40-fresh-confirmation",
+  "split": "confirmation",
+  "images_root": "images",
+  "classes": {
+    "17": "hand",
+    "22": "motorbike",
+    "37": "truck"
+  },
+  "videos": [
+    {
+      "id": "6c5123e4bc",
+      "frames": [
+        {
+          "path": "6c5123e4bc/00000.jpg",
+          "source_index": 0,
+          "width": 1280,
+          "height": 720,
+          "objects": [
+            {
+              "category_id": "17",
+              "bbox": [
+                0.0,
+                161.0,
+                1280,
+                720
+              ],
+              "track_id": "1556"
+            }
+          ]
+        },
+        {
+          "path": "6c5123e4bc/00050.jpg",
+          "source_index": 10,
+          "width": 1280,
+          "height": 720,
+          "objects": [
+            {
+              "category_id": "17",
+              "bbox": [
+                0.0,
+                281.0,
+                1280,
+                720
+              ],
+              "track_id": "1556"
+            }
+          ]
+        },
+        {
+          "path": "6c5123e4bc/00095.jpg",
+          "source_index": 19,
+          "width": 1280,
+          "height": 720,
+          "objects": [
+            {
+              "category_id": "17",
+              "bbox": [
+                0.0,
+                289.0,
+                1280,
+                720
+              ],
+              "track_id": "1556"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6dd36705b9",
+      "frames": [
+        {
+          "path": "6dd36705b9/00000.jpg",
+          "source_index": 0,
+          "width": 1280,
+          "height": 720,
+          "objects": [
+            {
+              "category_id": "37",
+              "bbox": [
+                408.0,
+                168.0,
+                1280,
+                466.0
+              ],
+              "track_id": "1576"
+            }
+          ]
+        },
+        {
+          "path": "6dd36705b9/00050.jpg",
+          "source_index": 10,
+          "width": 1280,
+          "height": 720,
+          "objects": [
+            {
+              "category_id": "37",
+              "bbox": [
+                469.0,
+                168.0,
+                1280,
+                480.0
+              ],
+              "track_id": "1576"
+            }
+          ]
+        },
+        {
+          "path": "6dd36705b9/00130.jpg",
+          "source_index": 20,
+          "width": 1280,
+          "height": 720,
+          "objects": [
+            {
+              "category_id": "37",
+              "bbox": [
+                420.0,
+                78.0,
+                1280,
+                396.0
+              ],
+              "track_id": "1576"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7550949b1d",
+      "frames": [
+        {
+          "path": "7550949b1d/00000.jpg",
+          "source_index": 0,
+          "width": 960,
+          "height": 720,
+          "objects": [
+            {
+              "category_id": "22",
+              "bbox": [
+                0.0,
+                371.0,
+                960,
+                720
+              ],
+              "track_id": "1681"
+            }
+          ]
+        },
+        {
+          "path": "7550949b1d/00050.jpg",
+          "source_index": 9,
+          "width": 960,
+          "height": 720,
+          "objects": [
+            {
+              "category_id": "22",
+              "bbox": [
+                0.0,
+                380.0,
+                960,
+                720
+              ],
+              "track_id": "1681"
+            }
+          ]
+        },
+        {
+          "path": "7550949b1d/00095.jpg",
+          "source_index": 18,
+          "width": 960,
+          "height": 720,
+          "objects": [
+            {
+              "category_id": "22",
+              "bbox": [
+                0.0,
+                380.0,
+                960,
+                720
+              ],
+              "track_id": "1681"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7ba3ce3485",
+      "frames": [
+        {
+          "path": "7ba3ce3485/00000.jpg",
+          "source_index": 0,
+          "width": 1280,
+          "height": 720,
+          "objects": [
+            {
+              "category_id": "22",
+              "bbox": [
+                8.0,
+                393.0,
+                459.0,
+                720
+              ],
+              "track_id": "1771"
+            },
+            {
+              "category_id": "22",
+              "bbox": [
+                481.0,
+                383.0,
+                515.0,
+                422.0
+              ],
+              "track_id": "1772"
+            }
+          ]
+        },
+        {
+          "path": "7ba3ce3485/00050.jpg",
+          "source_index": 10,
+          "width": 1280,
+          "height": 720,
+          "objects": [
+            {
+              "category_id": "22",
+              "bbox": [
+                0.0,
+                368.0,
+                445.0,
+                720
+              ],
+              "track_id": "1771"
+            },
+            {
+              "category_id": "22",
+              "bbox": [
+                449.0,
+                376.0,
+                482.0,
+                411.0
+              ],
+              "track_id": "1772"
+            }
+          ]
+        },
+        {
+          "path": "7ba3ce3485/00095.jpg",
+          "source_index": 19,
+          "width": 1280,
+          "height": 720,
+          "objects": [
+            {
+              "category_id": "22",
+              "bbox": [
+                34.0,
+                361.0,
+                1000.0,
+                720
+              ],
+              "track_id": "1771"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "964ad23b44",
+      "frames": [
+        {
+          "path": "964ad23b44/00000.jpg",
+          "source_index": 0,
+          "width": 1280,
+          "height": 720,
+          "objects": [
+            {
+              "category_id": "37",
+              "bbox": [
+                276.0,
+                0.0,
+                1280,
+                617.0
+              ],
+              "track_id": "2157"
+            }
+          ]
+        },
+        {
+          "path": "964ad23b44/00045.jpg",
+          "source_index": 9,
+          "width": 1280,
+          "height": 720,
+          "objects": [
+            {
+              "category_id": "37",
+              "bbox": [
+                164.0,
+                0.0,
+                1280,
+                719.0
+              ],
+              "track_id": "2157"
+            }
+          ]
+        },
+        {
+          "path": "964ad23b44/00090.jpg",
+          "source_index": 18,
+          "width": 1280,
+          "height": 720,
+          "objects": [
+            {
+              "category_id": "37",
+              "bbox": [
+                222.0,
+                12.0,
+                1208.0,
+                720
+              ],
+              "track_id": "2157"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ce5641b195",
+      "frames": [
+        {
+          "path": "ce5641b195/00000.jpg",
+          "source_index": 0,
+          "width": 1280,
+          "height": 720,
+          "objects": [
+            {
+              "category_id": "17",
+              "bbox": [
+                453.0,
+                0.0,
+                868.0,
+                380.0
+              ],
+              "track_id": "2961"
+            }
+          ]
+        },
+        {
+          "path": "ce5641b195/00090.jpg",
+          "source_index": 18,
+          "width": 1280,
+          "height": 720,
+          "objects": [
+            {
+              "category_id": "17",
+              "bbox": [
+                531.0,
+                0.0,
+                1025.0,
+                531.0
+              ],
+              "track_id": "2961"
+            }
+          ]
+        },
+        {
+          "path": "ce5641b195/00175.jpg",
+          "source_index": 35,
+          "width": 1280,
+          "height": 720,
+          "objects": [
+            {
+              "category_id": "17",
+              "bbox": [
+                630.0,
+                0.0,
+                1145.0,
+                194.0
+              ],
+              "track_id": "2961"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

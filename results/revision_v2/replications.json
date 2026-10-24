@@ -1,0 +1,94 @@
+[
+  {
+    "name": "fixed_tau060",
+    "seed": 42,
+    "config": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v2\\configs\\fixed_tau060.json",
+    "config_sha256": "c55af762e57875c314ef067e9cec9199928592b5beb33d36db0383d41f130d80",
+    "checkpoint": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v2\\runs\\fixed_tau060_seed42\\best.pt",
+    "checkpoint_sha256": "07804b393b4fa55e97107fbd24a756d7474c8fcd81ae04ed2f106b5fc22f185f",
+    "validation_AP": 59.77592108804185,
+    "method": "fixed",
+    "memory_threshold": 0.6
+  },
+  {
+    "name": "gated_tau060",
+    "seed": 42,
+    "config": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v2\\configs\\gated_tau060.json",
+    "config_sha256": "92f85697526611dba5bb682d6143e0d3d16ca6281b100b98465e70d6809dacb7",
+    "checkpoint": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v2\\runs\\gated_tau060_seed42\\best.pt",
+    "checkpoint_sha256": "c8057e491e5d6679e50adfe210093a2b04ccf9b79f73b0d08e0fe17a98c6a41a",
+    "validation_AP": 60.17722701251456,
+    "method": "gated",
+    "memory_threshold": 0.6
+  },
+  {
+    "name": "none",
+    "seed": 42,
+    "config": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v2\\configs\\none.json",
+    "config_sha256": "8e0af87c30e8d235276d472029e06f72adf6799d41ccd329ea870559d8ce9cfd",
+    "checkpoint": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v2\\runs\\none_seed42\\best.pt",
+    "checkpoint_sha256": "06b0dd032ded67604ea852007998e862388ebc6893624f15d139d7838f973b7b",
+    "validation_AP": 62.40062994391479,
+    "method": "none"
+  },
+  {
+    "name": "fixed_tau060",
+    "seed": 43,
+    "config": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v2\\configs\\fixed_tau060.json",
+    "config_sha256": "c55af762e57875c314ef067e9cec9199928592b5beb33d36db0383d41f130d80",
+    "checkpoint": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v2\\runs\\fixed_tau060_seed43\\best.pt",
+    "checkpoint_sha256": "297ea9f537e25642d58d3ff702543339f1b7edf4e83522905deddac0b36ebe4c",
+    "validation_AP": 59.947402929180306,
+    "method": "fixed"
+  },
+  {
+    "name": "gated_tau060",
+    "seed": 43,
+    "config": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v2\\configs\\gated_tau060.json",
+    "config_sha256": "92f85697526611dba5bb682d6143e0d3d16ca6281b100b98465e70d6809dacb7",
+    "checkpoint": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v2\\runs\\gated_tau060_seed43\\best.pt",
+    "checkpoint_sha256": "7b01fee4ccfe1aceeb6069be626e643d89299b46a346ab2eb19d1849e4f4aea1",
+    "validation_AP": 60.278158314584964,
+    "method": "gated"
+  },
+  {
+    "name": "none",
+    "seed": 43,
+    "config": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v2\\configs\\none.json",
+    "config_sha256": "8e0af87c30e8d235276d472029e06f72adf6799d41ccd329ea870559d8ce9cfd",
+    "checkpoint": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v2\\runs\\none_seed43\\best.pt",
+    "checkpoint_sha256": "4b0a1895dc609d2f7bdc1109571866731fcabd57bfec14b05b6d9400f8857b35",
+    "validation_AP": 62.40280699930329,
+    "method": "none"
+  },
+  {
+    "name": "fixed_tau060",
+    "seed": 44,
+    "config": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v2\\configs\\fixed_tau060.json",
+    "config_sha256": "c55af762e57875c314ef067e9cec9199928592b5beb33d36db0383d41f130d80",
+    "checkpoint": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v2\\runs\\fixed_tau060_seed44\\best.pt",
+    "checkpoint_sha256": "3aa8fe4d2e4981613f44ba5761811e53f715e22b178cdc43d6ef42f784f294df",
+    "validation_AP": 59.88999581987039,
+    "method": "fixed"
+  },
+  {
+    "name": "gated_tau060",
+    "seed": 44,
+    "config": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v2\\configs\\gated_tau060.json",
+    "config_sha256": "92f85697526611dba5bb682d6143e0d3d16ca6281b100b98465e70d6809dacb7",
+    "checkpoint": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v2\\runs\\gated_tau060_seed44\\best.pt",
+    "checkpoint_sha256": "1be7eb57538dd39fd76776154449cb861cb338578160d2537052934b5b1cd2e3",
+    "validation_AP": 60.28727419648124,
+    "method": "gated"
+  },
+  {
+    "name": "none",
+    "seed": 44,
+    "config": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v2\\configs\\none.json",
+    "config_sha256": "8e0af87c30e8d235276d472029e06f72adf6799d41ccd329ea870559d8ce9cfd",
+    "checkpoint": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v2\\runs\\none_seed44\\best.pt",
+    "checkpoint_sha256": "8e9fdcdb9589a4c7ec4bb1d286f49cedfab19ea8e7032b2e5e0d24074089323d",
+    "validation_AP": 62.39519316113233,
+    "method": "none"
+  }
+]
