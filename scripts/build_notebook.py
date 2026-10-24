@@ -42,6 +42,15 @@ if not (REPO / ".git").exists():
     subprocess.run(["git", "clone", "https://github.com/hskad/adaptive-fsvod.git", str(REPO)], check=True)
 os.chdir(REPO)
 subprocess.run([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"], check=True)
+# Editable installation affects new Python processes. Also expose src to the
+# notebook kernel, which was already running when pip created its .pth file.
+SOURCE_PATH = str(REPO / "src")
+if SOURCE_PATH not in sys.path:
+    sys.path.insert(0, SOURCE_PATH)
+import importlib
+importlib.invalidate_caches()
+import adaptive_fsvod
+print("Project imports:", adaptive_fsvod.__file__)
 subprocess.run(["git", "rev-parse", "HEAD"], check=True)
 """)
 
