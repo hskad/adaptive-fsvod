@@ -126,7 +126,50 @@ def analyse(root, target):
     shutil.copyfile(source / "evaluation_environment.json", target / "evaluation_environment.json")
     shutil.copyfile(source / "images/download_manifest.json", target / "download_manifest.json")
     plot(target, summary, mean_effects)
+    write_readme(target, summary)
     print("FINAL LARGER SUMMARY", summary, flush=True)
+
+
+def write_readme(target, summary):
+    interval = summary["video_bootstrap"]["percentile_95_interval"]
+    gain = summary["primary_mean_AP_difference"]
+    if interval[0] > 0:
+        interpretation = "The interval is positive on this protocol. This supports a matched-budget gain on these fixed classes and support episodes."
+    elif interval[1] < 0:
+        interpretation = "The interval is negative on this protocol. Centering reduced AP on this larger confirmation set at the matched budget."
+    else:
+        interpretation = "The interval includes zero. This larger check does not establish an improvement at the matched budget."
+    lines = ["# Larger confirmation of frozen feature centering", "",
+             f"The primary paired effect is **{gain:+.3f} AP points** at equal 50-update budgets.",
+             f"The paired, class-stratified query-video bootstrap 95% interval is **[{interval[0]:+.3f}, {interval[1]:+.3f}]**.",
+             interpretation, "", "## Aggregate results", "",
+             "| Method | Training budget | AP mean ± seed SD | AP50 mean | AP75 mean |",
+             "|---|---:|---:|---:|---:|"]
+    for method, label, budget in [("fixed_50", "Fixed", 50), ("centered_50", "Centered", 50), ("fixed_300", "Fixed reference", 300)]:
+        values = summary["summary"][method]
+        lines.append(f"| {label} | {budget} | {values['AP']['mean']:.3f} ± {values['AP']['sample_std']:.3f} | {values['AP50']['mean']:.3f} | {values['AP75']['mean']:.3f} |")
+    lines += ["", "Three training seeds: 42, 43, 44. Seed SD is not uncertainty over new data.",
+              "The reference has a 300-update training budget and uses validation-selected checkpoints. The primary pair has exactly 50 updates and a shared 300-update learning-rate schedule.",
+              "", "| Seed | Fixed 50 AP | Centered 50 AP | Difference | Fixed 300 reference AP |", "|---|---:|---:|---:|---:|"]
+    for row in summary["paired"]:
+        lines.append(f"| {row['seed']} | {row['fixed_50_AP']:.3f} | {row['centered_50_AP']:.3f} | {row['AP_difference']:+.3f} | {row['fixed_300_AP']:.3f} |")
+    lines += ["", "## Fixed protocol and limits", "",
+              f"Six fresh classes: {', '.join(summary['classes'].values())}. There are 24 distinct videos, 192 distinct frames, 120 balanced two-way one-shot episodes, and {summary['episode_frame_instances']} episode-frame instances. Repeated frames are not independent samples.",
+              "", "Every class and video is disjoint from the original splits and both earlier fresh confirmations. All nine checkpoints, thresholds, and the training-only feature center were fixed before scoring. Every query video is tested against every other class. Its support crops come from other videos. A video can supply support to another query episode.",
+              "", "The bootstrap uses 1,000 shared draws with seed 20261030. Each draw resamples four query videos within each of the six fixed classes, retaining all related frames and episodes. The interval is conditional on the fixed class identities, support episodes, and trained seed pairs. It excludes uncertainty from new classes, new support examples, and model development. It is not an unconditional significance claim.",
+              "", "All methods use one shared frozen OWLv2 SDPA feature cache. The optional kernel preserves the attention equation and differs slightly in floating-point rounding from native eager attention. The pre-score kernel check and complete cache hashes are in `protocol/`. The historical eager cache and all earlier results remain intact.",
+              "", "## Records and reproduction", "",
+              "- `protocol/`: pre-score selection, manifest, episodes, support pool, model hashes, cache hashes, and extraction checks.",
+              "- `evaluations/`: nine metric files with exact predictions and ground truth. All AP/AP50/AP75 values were recomputed from these records.",
+              "- `verified_summary.json`, `comparison.csv`, and `paired.csv`: aggregate and paired results.",
+              "- `bootstrap_draws.json`: actual query-video multiplicities, per-model AP draws, and paired effects.",
+              "- `per_video.csv`: diagnostic single-query-video AP; its average is not aggregate COCO AP.",
+              "- `evaluation_environment.json`, `cache_metadata/`, and `download_manifest.json`: software, encoder, image CRCs, dimensions, and hashes.",
+              "- `source_artifact_sha256.json`: hashes of the copied raw metric and detection records.",
+              "", "![Larger confirmation](larger_confirmation.png)", "",
+              "See the [pre-score plan](../../docs/LARGER_CONFIRMATION_PLAN.md) and [executable runbook](../../docs/RUNBOOK.md#larger-confirmation-without-further-training). The source head training records are in [revision_v5](../revision_v5/README.md) and [revision_v2](../revision_v2/README.md). Weights are retained locally; a public weight download is still required for final submission. No source RGB images or model tensors are stored in Git.",
+              "", "Keep the earlier +0.612 AP small-set result and the failed full-budget centering and memory-rule experiments. This larger check does not replace those records. No model was changed after reading these scores.", ""]
+    (target / "README.md").write_text("\n".join(lines), encoding="utf-8")
 
 
 def plot(target, summary, effects):
