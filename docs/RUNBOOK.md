@@ -1,6 +1,6 @@
 # Runbook
 
-Commands below are for a Linux Colab or Kaggle GPU session. The notebook provides the same steps. Run from the repository root. Enable internet access in Kaggle if model downloads are needed.
+Commands below are for a Linux Colab or Kaggle GPU session. The notebook provides the same steps. Run from the repository root. Enable internet access in Kaggle for data and model downloads.
 
 ## Install
 
@@ -32,7 +32,15 @@ This checks both methods, gradients, checkpoint loading, and COCO evaluation wit
 
 ## Cache real data
 
-Complete [data preparation](DATA.md) first. The native OWLv2 image processing uses a 960-pixel padded square. The top 128 objectness tokens are kept after encoder inference. This reduces head training cost; it does not reduce the encoder's own image size or extraction cost.
+Complete [data preparation](DATA.md) first. Its downloader retrieves and verifies only the selected RGB frames from a pinned public archive. The native OWLv2 image processing uses a 960-pixel padded square. The top 128 objectness tokens are kept after encoder inference. This reduces head training cost; it does not reduce the encoder's own image size or extraction cost.
+
+Optional real-data integration check before constructing the full cache:
+
+```bash
+python scripts/check_real_episode.py --manifest data/pilot/train.json --output runs/real_episode_check.json --device cuda
+```
+
+This runs one update for each method on one real training episode. It is not an overfit experiment or an accuracy result.
 
 ```bash
 python -m adaptive_fsvod.cache --manifest data/pilot/train.json --output cache/pilot/train --device cuda --revision cfd3195ba4ea9592eec887ded089f4c08eff231d --support-per-class 16

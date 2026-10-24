@@ -16,13 +16,13 @@ The first software milestone is implemented:
 - Training, validation checkpoint selection, resume, inference, COCO box evaluation, and paired result plots.
 - A Colab/Kaggle notebook and CPU checks in GitHub Actions.
 
-Local tests and synthetic end-to-end training passed. A separate extraction check with the public pretrained weights passed. See [validation records](docs/VALIDATION.md).
+Local tests and synthetic end-to-end training passed. Public pretrained extraction and a real-data training update for both methods also passed. See [validation records](docs/VALIDATION.md).
 
-**Real-video experiments are pending.** The annotations downloaded, but the legacy image download link is unavailable. There are no real-video accuracy results or trained research checkpoints yet. Synthetic outputs must not be used in the report.
+**The pilot dataset is available.** All 249 selected RGB frames downloaded and passed verification through an alternative public source. The notebook fetches only those frames with HTTP byte ranges. There are no real-video accuracy results or trained research checkpoints yet. Synthetic outputs and the single real-data integration update must not be used as research results.
 
 ## Start
 
-[Open the GPU notebook in Colab](https://colab.research.google.com/github/hskad/adaptive-fsvod/blob/main/notebooks/colab_kaggle_pilot.ipynb), or upload [the notebook](notebooks/colab_kaggle_pilot.ipynb) to Kaggle. Enable a GPU, set the image root, and select persistent storage for outputs.
+[Open the GPU notebook in Colab](https://colab.research.google.com/github/hskad/adaptive-fsvod/blob/main/notebooks/colab_kaggle_pilot.ipynb), or upload [the notebook](notebooks/colab_kaggle_pilot.ipynb) to Kaggle. Enable a GPU and select persistent storage for outputs. The notebook prepares the subset and downloads its frames automatically.
 
 For local software checks:
 
@@ -40,7 +40,7 @@ The [runbook](docs/RUNBOOK.md) contains exact preparation, training, inference, 
 - Baseline: a fixed threshold selects object features for the next frame.
 - Proposed method: a bounded, class-dependent threshold uses the mean and standard deviation of current confidence scores.
 - Controls: the same cached features, episodes, model size, token cap, optimizer, and evaluation procedure.
-- Data: a custom FSYTV-40 subset from YouTube-VIS 2019. The annotation-only pilot selects 6/3/3 classes, 18/9/9 videos, and 131/50/68 frames for train/validation/test. Image access must be resolved before a research run.
+- Data: a verified custom FSYTV-40 subset from YouTube-VIS 2019. It has 6/3/3 classes, 18/9/9 videos, and 131/50/68 frames for train/validation/test. Matching RGB frames come from a pinned YouTube-VOS archive mirror.
 - Metrics: frame-level COCO box AP, AP50, AP75, and measured run time. This is not video mask AP.
 
 See [the experiment plan](docs/EXPERIMENT_PLAN.md) for the scope and evaluation rules.
@@ -52,6 +52,7 @@ configs/                  Paired fixed/adaptive model configurations
 notebooks/                Colab/Kaggle pilot
 src/adaptive_fsvod/
   convert_fsytv.py         Streaming annotation conversion
+  download_frames.py       Verified partial RGB downloads from a pinned archive
   prepare.py              Class and video split preparation
   data.py, episodes.py     Manifest checks and fixed episodes
   cache.py                Frozen encoder and feature caches

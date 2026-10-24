@@ -24,7 +24,7 @@ Run one cell at a time. Select a GPU runtime in Colab or Kaggle. Internet access
 
 The repository contains a reduced adaptation of the assigned paper. It has no measured real-video results yet. Synthetic software-check results are not research results.
 
-**Data requirement:** obtain labeled YouTube-VIS 2019 images and preserve video folders and frame names. FSYTV annotations download below. The old image Drive link is unavailable. See `docs/DATA.md`. The image check will stop if required files are missing.
+**Data:** the notebook downloads FSYTV annotations and only the selected RGB frames from a pinned public YouTube-VOS mirror. It uses HTTP byte ranges and refuses a full archive download. Frame paths, ZIP CRCs, dimensions, and per-image hashes are checked. See `docs/DATA.md` for sources and terms.
 
 **Persistence:** set `EXPERIMENT_DIR` to mounted Google Drive or another persistent directory before extracting features. Free runtimes can disconnect. Save the run before closing a session.
 """)
@@ -56,12 +56,12 @@ subprocess.run([sys.executable, "-m", "pytest", "-q"], check=True)
 cell("markdown", """
 ## Set paths
 
-For Colab persistence, mount Drive in a separate cell with `from google.colab import drive; drive.mount('/content/drive')`. Then set `EXPERIMENT_DIR`, for example, to `/content/drive/MyDrive/adaptive-fsvod-experiment`. On Kaggle, the image root can point into an attached input dataset. Do not put experiment outputs in the read-only input directory.
+For Colab persistence, mount Drive in a separate cell with `from google.colab import drive; drive.mount('/content/drive')`. Then set `EXPERIMENT_DIR`, for example, to `/content/drive/MyDrive/adaptive-fsvod-experiment`. Do not put experiment outputs in a read-only Kaggle input directory.
 """)
 
 cell("code", """
 EXPERIMENT_DIR = BASE / "adaptive-fsvod-experiment"  # Change to persistent storage.
-IMAGE_ROOT = BASE / "ytvis/train/JPEGImages"        # Change to your extracted images.
+IMAGE_ROOT = EXPERIMENT_DIR / "images"             # Selected frames download here.
 SEED = 42
 STEPS = 300
 EXPERIMENT_DIR.mkdir(parents=True, exist_ok=True)
@@ -69,6 +69,10 @@ EXPERIMENT_DIR.mkdir(parents=True, exist_ok=True)
 def run(module, **flags):
     command = [sys.executable, "-m", "adaptive_fsvod." + module]
     for name, value in flags.items():
+        if isinstance(value, bool):
+            if value:
+                command.append("--" + name.replace("_", "-"))
+            continue
         command.append("--" + name.replace("_", "-"))
         if isinstance(value, (list, tuple)):
             command.extend(map(str, value))
@@ -76,7 +80,6 @@ def run(module, **flags):
             command.append(str(value))
     subprocess.run(command, check=True)
 
-assert IMAGE_ROOT.is_dir(), f"Set IMAGE_ROOT to the extracted video hash folders: {IMAGE_ROOT}"
 """)
 
 cell("code", """
@@ -91,7 +94,12 @@ if not BOXES.exists():
 
 DATA = EXPERIMENT_DIR / "pilot"
 run("prepare", annotation=BOXES, images_root=IMAGE_ROOT, output=DATA,
-    class_counts=[6, 3, 3], max_videos_per_class=3, frame_stride=4, seed=SEED)
+    class_counts=[6, 3, 3], max_videos_per_class=3, frame_stride=4, seed=SEED, skip_image_check=True)
+run("download_frames", manifests=[DATA / f"{split}.json" for split in ["train", "val", "test"]],
+    images_root=IMAGE_ROOT, range_cache=EXPERIMENT_DIR / "download_ranges")
+from adaptive_fsvod.data import VideoManifest
+for split in ["train", "val", "test"]:
+    print(split, VideoManifest(DATA / f"{split}.json").validate_images())
 """)
 
 cell("markdown", """
