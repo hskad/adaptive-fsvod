@@ -1,0 +1,80 @@
+{
+  "17": [
+    {
+      "video_id": "ce5641b195",
+      "frame_index": 0,
+      "bbox": [
+        453.0,
+        0.0,
+        868.0,
+        380.0
+      ],
+      "category_id": "17",
+      "key": "324a60424c0c81977413bdc8"
+    },
+    {
+      "video_id": "6c5123e4bc",
+      "frame_index": 0,
+      "bbox": [
+        0.0,
+        161.0,
+        1280,
+        720
+      ],
+      "category_id": "17",
+      "key": "80a242af5dcbb15754d0e16c"
+    }
+  ],
+  "22": [
+    {
+      "video_id": "7ba3ce3485",
+      "frame_index": 0,
+      "bbox": [
+        8.0,
+        393.0,
+        459.0,
+        720
+      ],
+      "category_id": "22",
+      "key": "7f40999f527afa2ba94140a6"
+    },
+    {
+      "video_id": "7550949b1d",
+      "frame_index": 0,
+      "bbox": [
+        0.0,
+        371.0,
+        960,
+        720
+      ],
+      "category_id": "22",
+      "key": "b4b8ded8ab0aca5f04a3cb80"
+    }
+  ],
+  "37": [
+    {
+      "video_id": "964ad23b44",
+      "frame_index": 0,
+      "bbox": [
+        276.0,
+        0.0,
+        1280,
+        617.0
+      ],
+      "category_id": "37",
+      "key": "4058be08c7fd19f9053e69c0"
+    },
+    {
+      "video_id": "6dd36705b9",
+      "frame_index": 2,
+      "bbox": [
+        420.0,
+        78.0,
+        1280,
+        396.0
+      ],
+      "category_id": "37",
+      "key": "bc16f7ea72e2c5831a1e425e"
+    }
+  ]
+}
