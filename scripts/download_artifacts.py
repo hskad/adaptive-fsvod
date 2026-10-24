@@ -40,7 +40,7 @@ def extract(archive, destination):
     with zipfile.ZipFile(archive) as bundle:
         for entry in bundle.infolist():
             name = PurePosixPath(entry.filename)
-            if name.is_absolute() or ".." in name.parts or "\\" in entry.filename or ":" in entry.filename:
+            if name.is_absolute() or ".." in name.parts or "\\" in entry.orig_filename or ":" in entry.filename:
                 raise ValueError("Unsafe path in artifact")
             path = destination.joinpath(*name.parts).resolve()
             if not path.is_relative_to(destination):

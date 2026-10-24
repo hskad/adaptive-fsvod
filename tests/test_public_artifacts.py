@@ -26,10 +26,10 @@ def test_verified_archive_extracts_and_reuses_without_overwrite(tmp_path):
 def test_archive_rejects_unsafe_paths(tmp_path, name):
     archive = tmp_path / "unsafe.zip"
     with zipfile.ZipFile(archive, "w") as bundle:
-        # Bypass ZipInfo's Windows path normalization to test the raw ZIP name.
-        entry = zipfile.ZipInfo()
-        entry.filename = name
-        bundle.writestr(entry, b"bad")
+        bundle.writestr(name.replace("\\", "/"), b"bad")
+    # Supply a raw ZIP backslash on both platforms, bypassing write normalization.
+    if "\\" in name:
+        archive.write_bytes(archive.read_bytes().replace(name.replace("\\", "/").encode(), name.encode()))
     with pytest.raises(ValueError, match="Unsafe"):
         extract(archive, tmp_path / "output")
     assert not (tmp_path / "outside.pt").exists()
