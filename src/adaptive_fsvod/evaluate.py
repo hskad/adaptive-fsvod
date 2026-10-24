@@ -9,7 +9,7 @@ from pathlib import Path
 import torch
 
 from .cache import CachedEpisodes
-from .data import VideoManifest, read_json, validate_episodes, write_json
+from .data import VideoManifest, checksum, read_json, validate_episodes, write_json
 from .geometry import nms, pixel_boxes
 from .model import ModelConfig, TemporalDetector
 
@@ -126,7 +126,12 @@ def main():
     episodes = read_json(args.episodes)
     result, truth, predictions = evaluate(model, cached, episodes, args.device, args.score_floor, args.nms_iou)
     result.update({"checkpoint": str(Path(args.checkpoint).resolve()), "training_step": checkpoint["step"],
-                   "model_config": checkpoint["model_config"], "training_git": checkpoint["environment"].get("git")})
+                   "checkpoint_sha256": checksum(args.checkpoint), "manifest_sha256": checksum(args.manifest),
+                   "episodes_sha256": checksum(args.episodes), "model_config": checkpoint["model_config"],
+                   "cache_signature": checkpoint["cache_signature"],
+                   "training_seed": checkpoint["arguments"]["seed"],
+                   "training_budget": checkpoint["arguments"]["steps"],
+                   "training_git": checkpoint["environment"].get("git")})
     for name, value in [("metrics", result), ("ground_truth", truth), ("predictions", predictions)]:
         write_json(Path(args.output) / f"{name}.json", value)
     print(result)

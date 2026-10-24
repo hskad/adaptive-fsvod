@@ -70,7 +70,8 @@ def prepare_ytvis(annotation, images_root, output, class_counts=(20, 10, 10),
             for c in assigned:
                 counts[split][c] += 1
     manifests = []
-    summary = {"source_sha256": checksum(annotation), "seed": seed,
+    dataset = source.get("source", {}).get("dataset", "YouTube-VIS-2019") + "-subset"
+    summary = {"source_sha256": checksum(annotation), "source": source.get("source"), "seed": seed,
                "frame_stride": frame_stride, "excluded_cross_split_videos": excluded_mixed,
                "max_videos_per_class": max_videos_per_class, "splits": {}}
     for split, split_videos in selected.items():
@@ -87,7 +88,7 @@ def prepare_ytvis(annotation, images_root, output, class_counts=(20, 10, 10),
         if not usable:
             raise ValueError(f"No usable {split} classes. Increase the subset or change the split seed.")
         path = Path(output) / f"{split}.json"
-        write_json(path, {"schema_version": 1, "dataset": "YouTube-VIS-2019-subset",
+        write_json(path, {"schema_version": 1, "dataset": dataset,
                           "split": split, "images_root": str(Path(images_root).resolve()),
                           "classes": {c: groups[split][c] for c in sorted(usable)},
                           "videos": sorted(split_videos, key=lambda v: v["id"])})

@@ -1,6 +1,7 @@
 """Frozen encoder extraction and resumable feature caches."""
 
 import argparse
+import os
 import time
 from pathlib import Path
 
@@ -23,6 +24,7 @@ class FrozenEncoder:
     def __init__(self, model_id="google/owlv2-base-patch16-ensemble", device="cpu",
                  revision=None, candidates=128, model=None, processor=None):
         if model is None or processor is None:
+            os.environ.setdefault("USE_TF", "0")
             from transformers import Owlv2ForObjectDetection, Owlv2Processor
             processor = Owlv2Processor.from_pretrained(model_id, revision=revision)
             model = Owlv2ForObjectDetection.from_pretrained(model_id, revision=revision, use_safetensors=True)
