@@ -28,7 +28,7 @@ def prepare(root, study="revision_v2"):
     annotation = root / "raw/fsytv-boxes.json"
     source = read_json(annotation)
     originals = [VideoManifest(root / f"pilot/{s}.json") for s in ("train", "val", "test")]
-    if study == "revision_v3":
+    if study != "revision_v2":
         originals.append(VideoManifest(root / "revision_v2/confirmation/confirmation.json"))
     excluded_classes = set().union(*(set(m.classes) for m in originals))
     excluded_videos = set().union(*(set(m.videos) for m in originals))
@@ -112,7 +112,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--experiment-dir", type=Path, required=True)
     parser.add_argument("--stage", choices=("prepare", "cache"), required=True)
-    parser.add_argument("--study", choices=("revision_v2", "revision_v3"), default="revision_v2")
+    parser.add_argument("--study", choices=("revision_v2", "revision_v3", "revision_v4"), default="revision_v2")
     parser.add_argument("--threads", type=int, default=4)
     args = parser.parse_args()
     torch.set_num_threads(args.threads)

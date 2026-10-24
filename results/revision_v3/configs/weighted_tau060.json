@@ -1,0 +1,15 @@
+{
+  "input_dim": 512,
+  "hidden_dim": 512,
+  "attention_heads": 4,
+  "dropout": 0.1,
+  "memory_mode": "fixed",
+  "fixed_threshold": 0.6,
+  "alpha": 1.0,
+  "threshold_min": 0.5,
+  "threshold_max": 0.95,
+  "max_memory_per_class": 16,
+  "fusion_gate": "none",
+  "gate_threshold": 0.7,
+  "memory_weighting": "objectness"
+}

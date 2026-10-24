@@ -1,0 +1,18 @@
+{
+  "selection.json": "6d1e1613c6eb84a205167ac0705c981d4675627c4bf01da1a04cd55c86b610f2",
+  "source_runs/weighted_tau060_seed42/config.json": "30aeb7617f5844df2bb04132f46f33ff2a522fb7c0c38cf2de0e68da38079771",
+  "source_runs/weighted_tau060_seed42/training.jsonl": "69a81e576b9e8478c8a3958efcb82fb9bc9f47afb239e29097a2f794746e3261",
+  "source_runs/weighted_tau060_seed42/validation_latest.json": "ab6a2ce13d4655f371a1b08329cb2c56d71be30a1affc885975d39d8f6ea63e7",
+  "source_runs/weighted_tau060_seed42/validation/metrics.json": "301a9ba7a938a4fea7686d674feabb8e01e09b98e49a1468fa449d2730398bf2",
+  "configs/weighted_tau060.json": "49acba9baf8ef48a40dcbe1ccc7af46f0a09d3103dca8bbebad0ac99d194ff5d",
+  "source_runs/weighted_tau070_seed42/config.json": "a06cf6912e960fabc3041161a40cb232c5afc3bd1923ee674a4cecb525b52289",
+  "source_runs/weighted_tau070_seed42/training.jsonl": "ebe9b1fd8c71d70b4a06f0fd3bf6d61efd16d508fcd26116f7bdf3dbb671d7fa",
+  "source_runs/weighted_tau070_seed42/validation_latest.json": "95ce8269bf9e9a265d67ece2284b07f03f13fa4d171faafc19df72b70152060d",
+  "source_runs/weighted_tau070_seed42/validation/metrics.json": "6d43bd9407d09c0d5b3404dbf778d39a3dd9c4bf9c3f69591ee2703b66b73934",
+  "configs/weighted_tau070.json": "129bcb3488f1a90896560048b72b75b78ee9e90f2bcf35283c782180932c5d3f",
+  "source_runs/weighted_tau080_seed42/config.json": "75251396e1674907b9284f4cfb73d0dceafb6fcad335edaa40bfd1735726e7ae",
+  "source_runs/weighted_tau080_seed42/training.jsonl": "0d1c8314de5f5c335722ce5ee74b2204484c64bd5fc01778bf81166057b1f429",
+  "source_runs/weighted_tau080_seed42/validation_latest.json": "b5e720fa4e43ff872bbfde33687f73a103d702d8e9b8d4d9edde26e32c5b4a3e",
+  "source_runs/weighted_tau080_seed42/validation/metrics.json": "3e62a5ad1b2e983315ced07bba592041aea1bea2a45791be73f80bb56c90c688",
+  "configs/weighted_tau080.json": "a9d7070d061908226356fe260853dd5755bbc88c346f14006ec486c498b98bfb"
+}

@@ -137,6 +137,24 @@ class CachedEpisodes:
         return frames, support, targets, frame_info
 
 
+@torch.no_grad()
+def fit_feature_center(cached):
+    """Class-balanced mean of unit training support features; never query/test."""
+    if cached.manifest.data["split"] != "train":
+        raise ValueError("Feature centering must be fitted on training support features only")
+    centers = []
+    for category in sorted(cached.pool):
+        values = [torch.load(cached.root / "support" / f"{item['key']}.pt", map_location="cpu", weights_only=True).float()
+                  for item in cached.pool[category]]
+        if not values:
+            raise ValueError("Cannot fit a center from an empty training support class")
+        centers.append(torch.nn.functional.normalize(torch.stack(values), dim=-1).mean(0))
+    center = torch.stack(centers).mean(0)
+    if not torch.isfinite(center).all():
+        raise ValueError("Non-finite training feature center")
+    return center
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--manifest", required=True)

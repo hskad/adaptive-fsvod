@@ -1,0 +1,6 @@
+{
+  "stage": "stopped after validation",
+  "reason": "Best weighted AP 58.7113 is below tuned baseline AP 59.7759.",
+  "confirmation_evaluated": false,
+  "prepared_second_subset_remains_uninspected": true
+}

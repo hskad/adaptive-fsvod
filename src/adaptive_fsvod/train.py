@@ -1,6 +1,7 @@
 """Train small temporal heads with paired, fixed few-shot episodes."""
 
 import argparse
+import hashlib
 import importlib.metadata
 import json
 import math
@@ -13,7 +14,7 @@ from pathlib import Path
 import numpy as np
 import torch
 
-from .cache import CachedEpisodes, save_tensor
+from .cache import CachedEpisodes, fit_feature_center, save_tensor
 from .data import VideoManifest, checksum, read_json, validate_episodes, validate_splits, write_json
 from .evaluate import cache_signature, evaluate
 from .loss import DetectionLoss
@@ -68,6 +69,13 @@ def train(args):
     if model_config.input_dim != train_cache.metadata["feature_dim"]:
         raise ValueError("Model input dimension differs from cached features")
     model = TemporalDetector(model_config).to(args.device)
+    center_record = None
+    if model_config.feature_centering:
+        center = fit_feature_center(train_cache)
+        model.feature_center.copy_(center.to(args.device))
+        center_record = {"source": "class-balanced training support cache",
+                         "support_pool_sha256": checksum(Path(args.train_cache) / "support_pool.json"),
+                         "float32_sha256": hashlib.sha256(center.numpy().tobytes()).hexdigest()}
     optimizer = torch.optim.AdamW(model.parameters(), lr=args.lr, weight_decay=args.weight_decay)
     warmup = max(1, int(args.steps * 0.05))
     def schedule(step):
@@ -83,9 +91,13 @@ def train(args):
                   "val_manifest_sha256": checksum(args.val_manifest),
                   "train_episodes_sha256": checksum(args.train_episodes),
                   "val_episodes_sha256": checksum(args.val_episodes)}
+    if center_record is not None:
+        provenance["feature_center"] = center_record
     first_step, best_ap = 1, -1.0
     if args.resume:
         previous = torch.load(args.resume, map_location="cpu", weights_only=True)
+        if previous.get("feature_center") != provenance.get("feature_center"):
+            raise ValueError("Resume training feature center differs")
         for key in ("model_config", "cache_signature", "train_manifest_sha256", "val_manifest_sha256",
                     "train_episodes_sha256", "val_episodes_sha256"):
             if previous[key] != provenance[key]:

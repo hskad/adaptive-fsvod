@@ -28,6 +28,7 @@ class ModelConfig:
     fusion_gate: str = "none"
     gate_threshold: float = 0.7
     memory_weighting: str = "none"
+    feature_centering: bool = False
 
     def __post_init__(self):
         if self.memory_mode not in {"none", "fixed", "adaptive"}:
@@ -46,6 +47,8 @@ class ModelConfig:
             raise ValueError("gate_threshold must be in [0, 1)")
         if self.memory_weighting not in {"none", "objectness"}:
             raise ValueError("memory_weighting must be none or objectness")
+        if not isinstance(self.feature_centering, bool):
+            raise ValueError("feature_centering must be a boolean")
 
 
 def confidence_gate(probabilities, threshold):
@@ -82,6 +85,8 @@ class TemporalDetector(nn.Module):
         super().__init__()
         self.config = config or ModelConfig()
         cfg = self.config
+        if cfg.feature_centering:
+            self.register_buffer("feature_center", torch.zeros(cfg.input_dim))
         self.project = nn.Identity() if cfg.input_dim == cfg.hidden_dim else nn.Linear(cfg.input_dim, cfg.hidden_dim)
         self.attention = nn.MultiheadAttention(cfg.hidden_dim, cfg.attention_heads,
                                              dropout=cfg.dropout, batch_first=True)
@@ -101,14 +106,19 @@ class TemporalDetector(nn.Module):
     def class_features(self, features):
         return F.normalize(features + self.class_head(features), dim=-1)
 
+    def input_features(self, features):
+        if self.config.feature_centering:
+            features = F.normalize(features, dim=-1) - self.feature_center
+        return F.normalize(self.project(features), dim=-1)
+
     def prototypes(self, support):
         return torch.stack([
-            F.normalize(self.class_features(F.normalize(self.project(features), dim=-1)).mean(0), dim=-1)
+            F.normalize(self.class_features(self.input_features(features)).mean(0), dim=-1)
             for features in support
         ])
 
     def forward_frame(self, features, boxes, prototypes, memory=None, objectness=None, memory_quality=None):
-        current = F.normalize(self.project(features), dim=-1)
+        current = self.input_features(features)
         gate = current.new_zeros(current.shape[0])
         if self.config.memory_weighting == "objectness":
             if objectness is None or objectness.shape != (features.shape[0],):
