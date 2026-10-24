@@ -34,6 +34,14 @@ python -m adaptive_fsvod.smoke --output runs/synthetic_check --steps 4
 
 The [runbook](docs/RUNBOOK.md) contains exact preparation, training, inference, and evaluation commands. The [data guide](docs/DATA.md) records sources, checksums, the directory layout, and the image access issue.
 
+After preparation and caching, one command can resume the paired training matrix, evaluate, summarize, and archive it:
+
+```bash
+python -u -m adaptive_fsvod.pilot --experiment-dir /path/to/adaptive-fsvod-experiment --action run --seeds 42 43 44 --device cuda
+```
+
+Use `--action collect` to summarize and archive completed runs without training or GPU evaluation. See the [automation instructions](docs/RUNBOOK.md#automated-pilot).
+
 ## Experiment
 
 - Encoder: `google/owlv2-base-patch16-ensemble`.
@@ -60,6 +68,7 @@ src/adaptive_fsvod/
   loss.py                 Hungarian matching and detection losses
   train.py                Training, validation, checkpoints, and resume
   evaluate.py, compare.py  Frame-level box AP and paired result files
+  pilot.py                Resume, evaluate, summarize, and archive a paired pilot
   infer.py                Ordered-frame inference and timing
   smoke.py                Clearly labeled synthetic software check
 tests/                    Data, memory, gradient, coordinate, and metric checks

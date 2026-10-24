@@ -13,6 +13,8 @@ Checks performed locally on 24 October 2026:
 
 Tests cover support/query separation, class/video split overlap, deterministic episodes, full selected evaluation sequences, cache mismatch, insufficient support, background-only frames, no-overlap Hungarian matching, empty temporal memory, memory reset, token caps, pretrained API tensor shapes, non-square image coordinates, cross-frame matching errors, classes with no predictions, and checkpoint resume.
 
+The automation runner adds a synthetic integration test for paired training, resume of completed runs without additional optimizer steps or changed weights, collection of validation diagnostics, aggregate results, archive checksums, source-image exclusion, and rejection of mismatched evaluation protocols. The new test and the existing 21 tests passed locally (22 total). This checks automation behavior; it does not establish a research improvement.
+
 The user's Tesla T4 notebook session subsequently completed feature extraction for all three splits, a successful 50-step real-data overfit check, 300-step training for both methods, and paired test evaluation. Fixed/adaptive test AP was 45.36/45.09. See [the pilot record](PILOT_RESULTS.md) for the supplied outputs, protocol, and limitations. This session required a manual notebook import-path repair; a completely fresh run of the revised notebook remains unverified.
 
 The user then completed paired training seeds 43 and 44 with the same configurations and episodes. Mean fixed/adaptive test AP across seeds 42/43/44 was 45.64/45.34, with sample standard deviations 0.32/0.22. Adaptive AP was lower in every pair. This is a negative result for the proposed rule, not an improvement.

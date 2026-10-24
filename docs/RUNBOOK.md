@@ -91,6 +91,26 @@ The initial reduced protocol does not sample all possible episodes or reproduce 
 
 `cached_pipeline_fps` excludes the image encoder. Label it accordingly. It cannot be compared directly with the paper's end-to-end FPS. Use `infer` for an end-to-end frame timing sample. Use more paired training seeds if time permits; report their variability.
 
+## Automated pilot
+
+After manifests, caches, and episode files exist, the runner can execute the predefined paired training matrix, resume saved checkpoints with their original budgets, evaluate best checkpoints, build paired comparisons, print validation diagnostics and aggregate AP, and export evidence with a SHA-256 manifest:
+
+```bash
+python -u -m adaptive_fsvod.pilot --experiment-dir /content/drive/MyDrive/adaptive-fsvod-experiment --action run --seeds 42 43 44 --device cuda
+```
+
+The defaults are 300 steps, validation every 50 steps, and repository `fixed.json`/`adaptive.json` configurations. Completed training runs have no remaining optimizer steps; resume checks still verify their original provenance. Evaluation is repeated in `run` mode. No automatic threshold search or test-based method selection occurs. Source data and cached features are reused.
+
+For already completed runs, this command reads their results, prints validation diagnostics, creates comparisons and aggregate CSV/JSON, and archives all specified seeds without training or GPU evaluation:
+
+```bash
+python -u -m adaptive_fsvod.pilot --experiment-dir /content/drive/MyDrive/adaptive-fsvod-experiment --action collect --seeds 42 43 44
+```
+
+Outputs are `exports/pilot_summary.csv`, `exports/pilot_summary.json`, `exports/pilot_seeds_42_43_44.zip`, its `.manifest.json` checksum record, and `runs/automation_status.json`. The archive contains the selected run directories, data manifests and episode files, cache metadata and support pools, comparisons, and the overfit check if present. Source images, feature tensors, encoder weights, and existing archives are excluded. Ensure enough persistent storage for a second copy of the trained head checkpoints. A failed command records its phase and error and stops; it does not silently skip a model or seed. Fix the error and repeat the same command.
+
+This automates execution within the runtime. Browser access or a shared artifact is still needed for a collaborator to inspect the output remotely.
+
 ## Inference
 
 Put ordered frames from one video in `demo/frames/`. Put cropped support objects in `demo/support/<class-name>/`. Folder names define the classes. Use zero-padded frame names.
