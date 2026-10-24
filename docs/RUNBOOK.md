@@ -4,7 +4,7 @@ Commands below are for a Linux Colab or Kaggle GPU session. The notebook provide
 
 ## Install
 
-The current measured extension is [50-update feature centering](../results/revision_v5/README.md). The fixed/adaptive commands later in this file preserve the earlier threshold pilot.
+The latest study tests [objectness in the final score](SCORE_CALIBRATION_PLAN.md). The earlier [50-update feature-centering study](../results/revision_v5/README.md) and fixed/adaptive commands remain as historical experiments.
 
 ```bash
 git clone https://github.com/hskad/adaptive-fsvod.git
@@ -33,6 +33,65 @@ python -m adaptive_fsvod.smoke --output runs/synthetic_check --steps 4
 This checks both methods, gradients, checkpoint loading, and COCO evaluation with synthetic inputs. Its metrics and weights must not be presented as research results. Select another output directory for a repeated check.
 
 ## Current 50-update experiment
+
+This section reproduces the historical centering study. Its small-set gain did
+not carry to the larger confirmation. The validation-first score study follows.
+
+## Objectness score study
+
+Use the [automated notebook](../notebooks/score_calibration.ipynb), or prepare the
+original manifests, train/validation feature caches, and episode files with the
+commands below. Set the actual experiment directory, then run:
+
+```bash
+EXPERIMENT=/content/drive/MyDrive/adaptive-fsvod-experiment
+python scripts/train_fixed_reference.py --experiment-dir "$EXPERIMENT" --threads 4
+python scripts/run_score_calibration.py --experiment-dir "$EXPERIMENT" --stage freeze
+python scripts/run_score_calibration.py --experiment-dir "$EXPERIMENT" --stage validate --threads 4
+python scripts/run_score_calibration.py --experiment-dir "$EXPERIMENT" --stage export --output results/score_calibration
+```
+
+The helper trains only the three already selected fixed references if they are
+absent. Existing checksum-verified runs are kept. The score study performs zero
+training updates. It searches beta=0/0.5/1 on validation at seed 42, then checks
+the selected beta and baseline at seeds 43/44. It preserves completed evaluations.
+Do not continue unless `score_calibration/validation_results.json` reports
+`validation_gate_passed: true`.
+
+```bash
+python scripts/prepare_score_confirmation.py --experiment-dir "$EXPERIMENT" --stage prepare
+python scripts/prepare_score_confirmation.py --experiment-dir "$EXPERIMENT" --stage download
+python scripts/prepare_score_confirmation.py --experiment-dir "$EXPERIMENT" --stage cache --device cpu --threads 4
+python scripts/prepare_score_confirmation.py --experiment-dir "$EXPERIMENT" --stage freeze-cache
+python scripts/evaluate_score_confirmation.py --experiment-dir "$EXPERIMENT" --threads 4
+python scripts/analyse_score_confirmation.py --experiment-dir "$EXPERIMENT" --output results/score_calibration
+python scripts/export_score_models.py --experiment-dir "$EXPERIMENT"
+```
+
+Use `--device cuda` for the new encoder cache when a GPU is available. The measured
+local confirmation uses CPU and the verified SDPA attention kernel. All methods
+share one feature cache. The selection, shared heads, beta, episodes and complete
+cache are fixed before scoring. The measured study commits these records in Git
+before evaluation. Fresh reproduction uses published prior manifest IDs to
+exclude earlier classes; no failed model family needs to be trained again.
+
+The inference bundle is `exports/score_calibration_inference.zip`. It contains
+three shared heads and two explicit postprocessing presets. Both methods use
+the SAME trained head file. To evaluate one exported head:
+
+```bash
+python -m adaptive_fsvod.evaluate --manifest "$EXPERIMENT/score_calibration/confirmation/confirmation.json" --cache "$EXPERIMENT/score_calibration/confirmation/cache" --episodes "$EXPERIMENT/score_calibration/confirmation/episodes.json" --checkpoint "$EXPERIMENT/exports/score_calibration_inference/shared_seed42.pt" --objectness-beta 0 --output "$EXPERIMENT/eval/baseline_seed42" --device cpu
+python -m adaptive_fsvod.evaluate --manifest "$EXPERIMENT/score_calibration/confirmation/confirmation.json" --cache "$EXPERIMENT/score_calibration/confirmation/cache" --episodes "$EXPERIMENT/score_calibration/confirmation/episodes.json" --checkpoint "$EXPERIMENT/exports/score_calibration_inference/shared_seed42.pt" --objectness-beta 1 --output "$EXPERIMENT/eval/objectness_seed42" --device cpu
+```
+
+Repeat seeds 43 and 44. For raw-frame inference, add `--objectness-beta 1` to
+the `adaptive_fsvod.infer` command. This flag changes final detection scores;
+it does not modify memory or model tensors. The default remains beta=0 for
+backward compatibility. These are box AP metrics, not video-mask AP. The shared
+head exports omit optimizer state; full training checkpoints remain necessary
+for optimizer resume. The encoder is the pinned public OWLv2 model.
+
+## Historical 50-update commands
 
 After the original data manifests, train/validation caches, and fixed episodes are ready, run from the repository root:
 
