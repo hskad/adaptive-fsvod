@@ -1,0 +1,16 @@
+{
+  "AP": 52.32397096330279,
+  "AP50": 56.366222530136355,
+  "AP75": 54.792732611709404,
+  "frames": 114,
+  "episodes": 20,
+  "seconds": 1.0901885000057518,
+  "cached_pipeline_fps": 104.56907222870039,
+  "timing_scope": "cached feature IO, trainable heads, decoding; encoder excluded",
+  "mean_memory_tokens": 4.543859649122807,
+  "mean_threshold": 0.800000011920929,
+  "synthetic": false,
+  "score_floor": 0.001,
+  "nms_iou": 0.5,
+  "metric": "frame-level COCO bbox AP, IoU 0.50:0.05:0.95, maxDets=100"
+}

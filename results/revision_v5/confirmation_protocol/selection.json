@@ -1,0 +1,37 @@
+{
+  "selection_seed": 20261026,
+  "episode_seed": 20261027,
+  "pool_seed": 42,
+  "annotation_sha256": "604642602494557a3e5a0cb6a6b93616389c6b83b3571dda4507d20de812ce93",
+  "source": {
+    "dataset": "YouTube-VOS training RGB frames",
+    "mirror": "JiaHuang01/Youtubevos_train",
+    "revision": "7855adf7e2e8e9386b578f58d490f25c1886368d",
+    "archive": "Youtube_vos_train.zip",
+    "archive_bytes": 8957125671,
+    "url": "https://huggingface.co/datasets/JiaHuang01/Youtubevos_train/resolve/7855adf7e2e8e9386b578f58d490f25c1886368d/Youtube_vos_train.zip"
+  },
+  "original_manifest_sha256": {
+    "train": "1912d3d1c9dacfbf6fcd0c67a52fb45e8728ee68e2d34357bc4ebf4cc4f2e173",
+    "val": "996053807b8f431f864eb371139e19eb25df4d3221f4072eedec2fe1398a254c",
+    "test": "ccf91da244f24fb2f9d3151d9140ea6b13b00a9c9ddd7c34948720403594fc29",
+    "confirmation": "29909a7bf4d359e67a6dd18b6eecfbbc05c96a2dec388b3a2e1094de4e36195e"
+  },
+  "classes": {
+    "1": "ape",
+    "29": "shark",
+    "7": "dog"
+  },
+  "video_ids": [
+    "005a527edd",
+    "110d26fa3a",
+    "2d33ad3935",
+    "868d6a0685",
+    "a49dcf9ad5",
+    "be376082d0"
+  ],
+  "frames": 18,
+  "manifest_sha256": "9c66ddaee6f64b71019e4dc1e35c2af8a6d5b23ca36128c1810d3c2dd79180c7",
+  "support_per_class": 2,
+  "note": "Fresh classes and videos; fixed selection independent of model scores."
+}

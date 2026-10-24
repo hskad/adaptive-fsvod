@@ -1,0 +1,68 @@
+{
+  "arguments": {
+    "train_manifest": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\pilot\\train.json",
+    "val_manifest": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\pilot\\val.json",
+    "train_cache": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\cache\\train",
+    "val_cache": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\cache\\val",
+    "train_episodes": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\pilot\\train_episodes.json",
+    "val_episodes": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\pilot\\val_episodes.json",
+    "config": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v5\\configs\\centered_tau080.json",
+    "output": "C:\\Users\\daksh\\Desktop\\DL4CV\\adaptive-fsvod-experiment\\revision_v5\\runs\\centered_tau080_seed43",
+    "steps": 300,
+    "stop_after": 50,
+    "eval_every": 50,
+    "lr": 0.0001,
+    "weight_decay": 0.01,
+    "seed": 43,
+    "resume": null,
+    "device": "cpu"
+  },
+  "environment": {
+    "python": "3.12.3",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "packages": {
+      "torch": "2.9.1",
+      "transformers": "4.46.3",
+      "numpy": "1.26.4",
+      "scipy": "1.13.0",
+      "Pillow": "10.3.0",
+      "pycocotools": "2.0.11"
+    },
+    "cuda": null,
+    "gpu": null,
+    "git": "e5865661abb5c40e477ebdc022d22dbcccca97ec",
+    "git_dirty": false
+  },
+  "model_config": {
+    "input_dim": 512,
+    "hidden_dim": 512,
+    "attention_heads": 4,
+    "dropout": 0.1,
+    "memory_mode": "fixed",
+    "fixed_threshold": 0.8,
+    "alpha": 1.0,
+    "threshold_min": 0.5,
+    "threshold_max": 0.95,
+    "max_memory_per_class": 16,
+    "fusion_gate": "none",
+    "gate_threshold": 0.7,
+    "memory_weighting": "none",
+    "feature_centering": true
+  },
+  "cache_signature": {
+    "encoder": "google/owlv2-base-patch16-ensemble",
+    "revision": "cfd3195ba4ea9592eec887ded089f4c08eff231d",
+    "candidates": 128,
+    "feature_dim": 512,
+    "synthetic": false
+  },
+  "train_manifest_sha256": "1912d3d1c9dacfbf6fcd0c67a52fb45e8728ee68e2d34357bc4ebf4cc4f2e173",
+  "val_manifest_sha256": "996053807b8f431f864eb371139e19eb25df4d3221f4072eedec2fe1398a254c",
+  "train_episodes_sha256": "dcaad2c1e5ed79d3b59a0a9f0e6fbe827f2f60d8423b99acd00e9947e8872bd7",
+  "val_episodes_sha256": "4f6c8233a28bb0797cece63ce0d24e5104e9efb615c0a55cf1d5dd01ed9d3110",
+  "feature_center": {
+    "source": "class-balanced training support cache",
+    "support_pool_sha256": "8d22cbd98922ea5dd4c2d8140b8ff029b2a7338879bbc102ffb6302ba6f3b895",
+    "float32_sha256": "947e1249bb9195467d308a5a30cfa195640c3bf9d4baaf24c32700453f3b3fe7"
+  }
+}
