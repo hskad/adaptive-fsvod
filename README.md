@@ -1,12 +1,14 @@
 # Adaptive FSVOD
 
-A course project on adaptive temporal confidence filtering for few-shot video object detection.
+A course project on feature calibration and temporal memory for few-shot video object detection.
 
 The starting point is [Temporal Object-Aware Vision Transformer for Few-Shot Video Object Detection](https://ojs.aaai.org/index.php/AAAI/article/view/37497) by Yogesh Kumar and Anand Mishra (AAAI 2026). The [authors' implementation](https://github.com/yogesh-iitj/fs-video-vit) is the reference.
 
-This project uses a smaller, documented adaptation. It does not reproduce the paper's full model or claim its published scores. The image encoder is frozen. A small temporal decoder and detection heads are trained. The controlled change is the rule that selects features for temporal memory.
+This project uses a smaller, documented adaptation. It does not reproduce the paper's full model or claim its published scores. The image encoder is frozen. A small temporal decoder and detection heads are trained. The current contribution is class-balanced training-feature centering for limited-update adaptation. Earlier memory-rule proposals remain as negative experiments.
 
 ## Status
+
+**Current result: a small average gain at equal 50-update budgets.** On a fresh three-class, six-video, 18-frame subset, fixed/centered AP averaged **51.43/52.04** (sample SD **0.93/0.08**) across three paired seeds. Centering won two of three pairs. This is preliminary evidence for limited-update adaptation, not better fully converged accuracy. [Verified results and limitations](results/revision_v5/README.md) include source predictions, logs, protocols, and checkpoint hashes. A local inference bundle is ready; public weight links remain pending.
 
 The first software milestone is implemented:
 
@@ -22,7 +24,16 @@ Local tests and synthetic end-to-end training passed. Public pretrained extracti
 
 ## Start
 
-[Open the GPU notebook in Colab](https://colab.research.google.com/github/hskad/adaptive-fsvod/blob/main/notebooks/colab_kaggle_pilot.ipynb), or upload [the notebook](notebooks/colab_kaggle_pilot.ipynb) to Kaggle. Enable a GPU and select persistent storage for outputs. The notebook prepares the subset and downloads its frames automatically.
+Use the setup notebook through feature caching and episode generation, then run the current study:
+
+```bash
+python -u scripts/run_fast_study.py --experiment-dir /path/to/adaptive-fsvod-experiment --stage all --threads 4
+python scripts/export_fast_results.py --experiment-dir /path/to/adaptive-fsvod-experiment --output results/revision_v5
+```
+
+This searches and repeats both 50-update methods, prepares the fresh confirmation subset, caches its features, freezes inputs, and evaluates. It runs on CPU by default. The existing notebook's fixed/adaptive training section and `pilot` runner below reproduce the historical threshold experiment. [Current method, results, and exact budget](results/revision_v5/README.md).
+
+[Open the current notebook in Colab](https://colab.research.google.com/github/hskad/adaptive-fsvod/blob/main/notebooks/fast_adaptation.ipynb), or upload [the notebook](notebooks/fast_adaptation.ipynb) to Kaggle. Enable a GPU for the initial encoder cache and select persistent storage. It prepares data and runs the current study automatically. The [historical notebook](notebooks/colab_kaggle_pilot.ipynb) reproduces the earlier threshold pilot.
 
 For local software checks:
 
@@ -46,7 +57,8 @@ Use `--action collect` to summarize and archive completed runs without training 
 
 - Encoder: `google/owlv2-base-patch16-ensemble`.
 - Baseline: a fixed threshold selects object features for the next frame.
-- Proposed method: a bounded, class-dependent threshold uses the mean and standard deviation of current confidence scores.
+- Current proposed method: class-balanced training-feature centering for faster few-shot adaptation; see `configs/fast_adaptation/`.
+- Historical proposal: a bounded, class-dependent confidence threshold. It did not improve the initial test scores.
 - Controls: the same cached features, episodes, model size, token cap, optimizer, and evaluation procedure.
 - Data: a verified custom FSYTV-40 subset from YouTube-VIS 2019. It has 6/3/3 classes, 18/9/9 videos, and 131/50/68 frames for train/validation/test. Matching RGB frames come from a pinned YouTube-VOS archive mirror.
 - Metrics: frame-level COCO box AP, AP50, AP75, and measured run time. This is not video mask AP.
@@ -64,7 +76,7 @@ src/adaptive_fsvod/
   prepare.py              Class and video split preparation
   data.py, episodes.py     Manifest checks and fixed episodes
   cache.py                Frozen encoder and feature caches
-  model.py                Shared detector; select_memory is the controlled change
+  model.py                Shared detector, memory rules, and optional feature centering
   loss.py                 Hungarian matching and detection losses
   train.py                Training, validation, checkpoints, and resume
   evaluate.py, compare.py  Frame-level box AP and paired result files

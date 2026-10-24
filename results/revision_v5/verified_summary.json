@@ -1,0 +1,150 @@
+{
+  "confirmation": {
+    "fixed": {
+      "AP": {
+        "mean": 51.42998539602821,
+        "sample_std": 0.9344027183388955
+      },
+      "AP50": {
+        "mean": 58.322874664846374,
+        "sample_std": 0.5632357131830565
+      },
+      "AP75": {
+        "mean": 54.50550500306336,
+        "sample_std": 0.6424035939800549
+      }
+    },
+    "centered": {
+      "AP": {
+        "mean": 52.041566376159864,
+        "sample_std": 0.07959285048005019
+      },
+      "AP50": {
+        "mean": 59.082492471877075,
+        "sample_std": 0.11586064435507569
+      },
+      "AP75": {
+        "mean": 57.0468157082638,
+        "sample_std": 0.09759907813634162
+      }
+    }
+  },
+  "paired": [
+    {
+      "seed": 42,
+      "fixed_AP": 51.608682577275836,
+      "centered_AP": 52.11684764861039,
+      "difference": 0.5081650713345525
+    },
+    {
+      "seed": 43,
+      "fixed_AP": 52.26213500296082,
+      "centered_AP": 51.95826865547652,
+      "difference": -0.30386634748429486
+    },
+    {
+      "seed": 44,
+      "fixed_AP": 50.41913860784798,
+      "centered_AP": 52.04958282439267,
+      "difference": 1.6304442165446957
+    }
+  ],
+  "mean_AP_gain": 0.6115809801316511,
+  "wins": 2,
+  "protocol": {
+    "manifest_sha256": "9c66ddaee6f64b71019e4dc1e35c2af8a6d5b23ca36128c1810d3c2dd79180c7",
+    "episodes_sha256": "379f49a7d1c245080a2e732e0bbd8bc507997d5f4b1d6155a393a82c7b2e0cbb",
+    "cache_signature": {
+      "encoder": "google/owlv2-base-patch16-ensemble",
+      "revision": "cfd3195ba4ea9592eec887ded089f4c08eff231d",
+      "candidates": 128,
+      "feature_dim": 512,
+      "synthetic": false
+    },
+    "training_budget": 50,
+    "training_schedule_budget": 300,
+    "score_floor": 0.001,
+    "nms_iou": 0.5
+  },
+  "checkpoints": [
+    {
+      "method": "fixed",
+      "seed": 42,
+      "file": "fixed_seed42.pt",
+      "bytes": 8424421,
+      "sha256": "e80e8e1bf0ae0e1bbc9235b017291dd569f975ca5fc3a2c8a553f7f9102a6565",
+      "source_checkpoint_sha256": "a4a4fe00108c99649e0f025f7efab7e97655b1368ef913e96d7f055720fab971",
+      "step": 50,
+      "parameters": 2103815,
+      "AP": 51.608682577275836,
+      "AP50": 58.510569273999515,
+      "AP75": 54.74421312442966
+    },
+    {
+      "method": "fixed",
+      "seed": 43,
+      "file": "fixed_seed43.pt",
+      "bytes": 8424421,
+      "sha256": "c2551bd5e6818c385d035751fbd2dc4ce9095f0a906c0535ced3c5312fd5c346",
+      "source_checkpoint_sha256": "514db2393771a686e0c1feadd7be8ef14e0c2d7b83afe9eacbc8a0725c1f21e3",
+      "step": 50,
+      "parameters": 2103815,
+      "AP": 52.26213500296082,
+      "AP50": 58.768297718138626,
+      "AP75": 54.99438297224531
+    },
+    {
+      "method": "fixed",
+      "seed": 44,
+      "file": "fixed_seed44.pt",
+      "bytes": 8424421,
+      "sha256": "68237afeb529d5e84eedf2094a73d2844d8ac4dfc5f8520abef693d0f88e83ab",
+      "source_checkpoint_sha256": "499aa5bc50f6c0cddbd24c197b12058fb08e0817c45307f3aacf454f418cf948",
+      "step": 50,
+      "parameters": 2103815,
+      "AP": 50.41913860784798,
+      "AP50": 57.68975700240099,
+      "AP75": 53.77791891251511
+    },
+    {
+      "method": "centered",
+      "seed": 42,
+      "file": "centered_seed42.pt",
+      "bytes": 8427122,
+      "sha256": "4bc7625d42c319754d1d582ac6716c8901503f82a0590e6068270938dd6d0a42",
+      "source_checkpoint_sha256": "fd4bf0c9bce1dfc9c8bb7afdc13de429493d90a9d108f9dabe268b1c821e56bc",
+      "step": 50,
+      "parameters": 2103815,
+      "AP": 52.11684764861039,
+      "AP50": 59.186578495821905,
+      "AP75": 57.11547392454963
+    },
+    {
+      "method": "centered",
+      "seed": 43,
+      "file": "centered_seed43.pt",
+      "bytes": 8427122,
+      "sha256": "c06d5dfb935c1dce4a71bf754a5f99903fa0d0776a1a01de32a085fce7167a27",
+      "source_checkpoint_sha256": "769eec143f38d5bb751a9501f4fee75f79a215caf59029ad22434b59ea9fe3d0",
+      "step": 50,
+      "parameters": 2103815,
+      "AP": 51.95826865547652,
+      "AP50": 58.95766028746198,
+      "AP75": 56.93509075362122
+    },
+    {
+      "method": "centered",
+      "seed": 44,
+      "file": "centered_seed44.pt",
+      "bytes": 8427122,
+      "sha256": "8a34a6bf981175ed4d28b37f3d917f469b2be95632790e36bae4b358f756a22b",
+      "source_checkpoint_sha256": "0e719b0e35f24c80464aa4db1d58965569bef13f6bcb49d890f1de97671ca746",
+      "step": 50,
+      "parameters": 2103815,
+      "AP": 52.04958282439267,
+      "AP50": 59.103238632347335,
+      "AP75": 57.08988244662054
+    }
+  ],
+  "note": "Small fresh set, 18 distinct frames and 6 videos; training-seed SD is not dataset uncertainty. No fully converged accuracy improvement is claimed."
+}

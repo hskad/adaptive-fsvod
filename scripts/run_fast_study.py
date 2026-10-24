@@ -11,6 +11,7 @@ import torch
 from adaptive_fsvod.data import checksum, read_json, write_json
 from adaptive_fsvod.model import ModelConfig
 from run_revision import confirmation, immutable_json, training_run
+from prepare_confirmation import prepare, cache
 
 
 def search(root):
@@ -54,12 +55,24 @@ def replicate(root):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--experiment-dir", type=Path, required=True)
-    parser.add_argument("--stage", choices=("search", "replicate", "confirm"), required=True)
+    parser.add_argument("--stage", choices=("search", "replicate", "confirm", "all"), required=True)
     parser.add_argument("--threads", type=int, default=4)
+    parser.add_argument("--cache-device", default="cpu")
     args = parser.parse_args()
     torch.set_num_threads(args.threads)
     root = args.experiment_dir.resolve()
-    if args.stage == "confirm":
+    if args.stage == "all":
+        search(root)
+        replicate(root)
+        prepare(root, "revision_v5")
+        cache(root, "revision_v5", args.cache_device)
+        immutable_json(root / "revision_v5/confirmation_freeze.json", {
+            "selection_sha256": checksum(root / "revision_v5/selection.json"),
+            "replications_sha256": checksum(root / "revision_v5/replications.json"),
+            "manifest_sha256": checksum(root / "revision_v5/confirmation/confirmation.json"),
+            "episodes_sha256": checksum(root / "revision_v5/confirmation/episodes.json")})
+        confirmation(root, "revision_v5")
+    elif args.stage == "confirm":
         confirmation(root, "revision_v5")
     else:
         {"search": search, "replicate": replicate}[args.stage](root)

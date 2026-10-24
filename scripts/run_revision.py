@@ -13,6 +13,7 @@ from adaptive_fsvod.data import VideoManifest, checksum, read_json, validate_spl
 from adaptive_fsvod.evaluate import cache_signature, evaluate, load_detector
 from adaptive_fsvod.model import ModelConfig
 from adaptive_fsvod.train import parser as train_parser, train
+from prepare_confirmation import prior_confirmation_path
 
 
 def immutable_json(path, value):
@@ -117,7 +118,7 @@ def confirmation(root, study="revision_v2"):
     manifest = VideoManifest(manifest_path)
     originals = [VideoManifest(root / f"pilot/{split}.json") for split in ("train", "val", "test")]
     if study != "revision_v2":
-        originals.append(VideoManifest(root / "revision_v2/confirmation/confirmation.json"))
+        originals.append(VideoManifest(prior_confirmation_path(root)))
     validate_splits(originals + [manifest])
     rows = read_json(root / study / "replications.json")
     output = []

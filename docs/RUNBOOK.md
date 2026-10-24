@@ -4,6 +4,8 @@ Commands below are for a Linux Colab or Kaggle GPU session. The notebook provide
 
 ## Install
 
+The current measured extension is [50-update feature centering](../results/revision_v5/README.md). The fixed/adaptive commands later in this file preserve the earlier threshold pilot.
+
 ```bash
 git clone https://github.com/hskad/adaptive-fsvod.git
 cd adaptive-fsvod
@@ -29,6 +31,33 @@ python -m adaptive_fsvod.smoke --output runs/synthetic_check --steps 4
 ```
 
 This checks both methods, gradients, checkpoint loading, and COCO evaluation with synthetic inputs. Its metrics and weights must not be presented as research results. Select another output directory for a repeated check.
+
+## Current 50-update experiment
+
+After the original data manifests, train/validation caches, and fixed episodes are ready, run from the repository root:
+
+```bash
+python -u scripts/run_fast_study.py --experiment-dir /path/to/adaptive-fsvod-experiment --stage all --threads 4
+python scripts/export_fast_results.py --experiment-dir /path/to/adaptive-fsvod-experiment --output results/revision_v5
+```
+
+The runner searches three thresholds per method, selects on validation, repeats selected configurations at seeds 43/44, prepares and caches the fixed fresh subset, freezes input hashes, and evaluates. The published first-subset manifest supplies exclusion IDs if its local folder does not exist; reproducing the failed gate experiments is not required. Existing complete caches are reused. Default confirmation extraction and all head training use CPU; add `--cache-device cuda` to use a GPU only for the new encoder cache. Individual phases are `--stage search`, `--stage replicate`, and `--stage confirm`.
+
+For an individual selected run, these are executable Linux examples. Set the actual experiment path:
+
+```bash
+EXPERIMENT=/content/drive/MyDrive/adaptive-fsvod-experiment
+python -m adaptive_fsvod.train --train-manifest "$EXPERIMENT/pilot/train.json" --val-manifest "$EXPERIMENT/pilot/val.json" --train-cache "$EXPERIMENT/cache/train" --val-cache "$EXPERIMENT/cache/val" --train-episodes "$EXPERIMENT/pilot/train_episodes.json" --val-episodes "$EXPERIMENT/pilot/val_episodes.json" --config configs/fast_adaptation/fixed.json --output "$EXPERIMENT/runs/fast_fixed_seed42" --steps 300 --stop-after 50 --eval-every 50 --seed 42 --device cpu
+python -m adaptive_fsvod.train --train-manifest "$EXPERIMENT/pilot/train.json" --val-manifest "$EXPERIMENT/pilot/val.json" --train-cache "$EXPERIMENT/cache/train" --val-cache "$EXPERIMENT/cache/val" --train-episodes "$EXPERIMENT/pilot/train_episodes.json" --val-episodes "$EXPERIMENT/pilot/val_episodes.json" --config configs/fast_adaptation/centered.json --output "$EXPERIMENT/runs/fast_centered_seed42" --steps 300 --stop-after 50 --eval-every 50 --seed 42 --device cpu
+```
+
+`--steps 300` controls the shared learning-rate schedule; `--stop-after 50` executes exactly 50 optimizer updates. Report both values. The shorter-budget checkpoints are not 300-step trained models. The center is fitted only from the training support cache and stored in the checkpoint. Evaluating an exported inference file uses the same `evaluate` command as a full checkpoint:
+
+```bash
+python -m adaptive_fsvod.evaluate --manifest "$EXPERIMENT/revision_v5/confirmation/confirmation.json" --cache "$EXPERIMENT/revision_v5/confirmation/cache" --episodes "$EXPERIMENT/revision_v5/confirmation/episodes.json" --checkpoint "$EXPERIMENT/exports/fast_adaptation_inference/centered_seed42.pt" --output "$EXPERIMENT/runs/reload_centered_seed42" --device cpu
+```
+
+The export contains all three seeds for both methods. It omits optimizer state; use full run checkpoints for resume. The exact CPU environment is recorded in the result configurations. To match its PyTorch build in a clean environment, install Python 3.12 and `python -m pip install torch==2.9.1 --index-url https://download.pytorch.org/whl/cpu`, followed by the project requirements. Full package versions are in `results/revision_v5/source_runs/`.
 
 ## Cache real data
 

@@ -14,6 +14,14 @@ from adaptive_fsvod.data import (VideoManifest, checksum, make_episodes, read_js
 from adaptive_fsvod.download_frames import SOURCE, RangeReader, download_frames, frame_index
 
 
+def prior_confirmation_path(root):
+    """The published first subset is enough to exclude its classes/videos."""
+    path = root / "revision_v2/confirmation/confirmation.json"
+    if not path.exists():
+        path = Path(__file__).resolve().parents[1] / "results/revision_v2/confirmation_protocol/confirmation.json"
+    return path
+
+
 def immutable(path, value):
     if path.exists():
         if read_json(path) != value:
@@ -29,7 +37,7 @@ def prepare(root, study="revision_v2"):
     source = read_json(annotation)
     originals = [VideoManifest(root / f"pilot/{s}.json") for s in ("train", "val", "test")]
     if study != "revision_v2":
-        originals.append(VideoManifest(root / "revision_v2/confirmation/confirmation.json"))
+        originals.append(VideoManifest(prior_confirmation_path(root)))
     excluded_classes = set().union(*(set(m.classes) for m in originals))
     excluded_videos = set().union(*(set(m.videos) for m in originals))
     categories = {str(c["id"]): c["name"] for c in source["categories"]}
@@ -96,11 +104,28 @@ def prepare(root, study="revision_v2"):
     print("Image validation:", selected.validate_images(), flush=True)
 
 
-def cache(root, study="revision_v2"):
+def cache(root, study="revision_v2", device="cpu"):
     output = root / study / "confirmation"
     manifest = VideoManifest(output / "confirmation.json")
-    encoder = FrozenEncoder(device="cpu", revision="cfd3195ba4ea9592eec887ded089f4c08eff231d", candidates=128)
-    print(build_cache(manifest, output / "cache", encoder, per_class=2, pool_seed=42), flush=True)
+    metadata = output / "cache/metadata.json"
+    existing = read_json(metadata) if metadata.exists() else {}
+    expected = {"manifest_sha256": checksum(manifest.path), "encoder": "google/owlv2-base-patch16-ensemble",
+                "revision": "cfd3195ba4ea9592eec887ded089f4c08eff231d", "candidates": 128,
+                "pool_seed": 42, "support_per_class": 2, "synthetic": False}
+    if existing and any(existing.get(key) != value for key, value in expected.items()):
+        raise ValueError("Existing confirmation cache uses different settings")
+    if existing.get("complete") and existing.get("manifest_sha256") == checksum(manifest.path):
+        from adaptive_fsvod.data import frame_key
+        needed = [output / "cache/frames" / f"{frame_key(vid, frame)}.pt"
+                  for vid, video in manifest.videos.items() for frame in video["frames"]]
+        pool = read_json(output / "cache/support_pool.json")
+        needed += [output / "cache/support" / f"{item['key']}.pt" for values in pool.values() for item in values]
+        ready = all(path.is_file() for path in needed)
+    else:
+        ready = False
+    if not ready:
+        encoder = FrozenEncoder(device=device, revision="cfd3195ba4ea9592eec887ded089f4c08eff231d", candidates=128)
+        print(build_cache(manifest, output / "cache", encoder, per_class=2, pool_seed=42), flush=True)
     pool = read_json(output / "cache/support_pool.json")
     episodes = make_episodes(manifest, pool, count=30, n_way=2, k_shot=1,
                              seed=20261025 if study == "revision_v2" else 20261027)
@@ -114,6 +139,10 @@ if __name__ == "__main__":
     parser.add_argument("--stage", choices=("prepare", "cache"), required=True)
     parser.add_argument("--study", choices=("revision_v2", "revision_v3", "revision_v4", "revision_v5"), default="revision_v2")
     parser.add_argument("--threads", type=int, default=4)
+    parser.add_argument("--device", default="cpu")
     args = parser.parse_args()
     torch.set_num_threads(args.threads)
-    {"prepare": prepare, "cache": cache}[args.stage](args.experiment_dir.resolve(), args.study)
+    if args.stage == "cache":
+        cache(args.experiment_dir.resolve(), args.study, args.device)
+    else:
+        prepare(args.experiment_dir.resolve(), args.study)

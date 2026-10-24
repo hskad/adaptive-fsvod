@@ -23,4 +23,8 @@ The complete GPU experiment was then downloaded and verified locally. All six be
 
 Validation diagnostics show that adaptive thresholds are usually at their lower bound, weak selected tokens have low class/box agreement, and disabling memory at inference increases AP for both seed-42 checkpoints. This is validation evidence for further investigation, not a new method's test improvement.
 
-Still pending: accessible checkpoint links, peak GPU memory, final validation hyperparameter choices, and a successful revised contribution. Notebook cells are syntax checked locally. GitHub Actions uses CPU checks and does not download public model weights.
+The later feature-centering study found a small average improvement at equal 50-update budgets: validation AP 52.47/59.71 and fresh confirmation AP 51.43/52.04 for fixed/centered methods. Two of three paired seeds improved. All six confirmation score sets were recomputed exactly, and all exported inference checkpoints matched full checkpoint model tensors. See [the complete record](../results/revision_v5/README.md). This is limited-budget evidence on a small new set, not a full-budget accuracy gain.
+
+31 tests passed after the new model and update-cap changes. Checks include class-balanced training-only centering, checkpoint mean storage, rejection of changed centers on resume, preservation of the learning-rate schedule prefix under a shorter actual budget, attention-quality ratios, zero-residual identity, and backward compatibility. A real saved baseline reproduced its validation AP exactly after the additions.
+
+Still pending: accessible checkpoint links and peak GPU memory. The final report is deferred at the user's request. Notebook cells are syntax checked locally. GitHub Actions uses CPU checks and does not download public model weights.
