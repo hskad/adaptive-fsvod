@@ -2,3 +2,5 @@
 *.png binary
 *.jpg binary
 *.pdf binary
+# Preserve measured artifact bytes so published SHA-256 values survive checkout.
+/results/** -text
