@@ -22,7 +22,7 @@ cell("markdown", """
 
 Run one cell at a time. Select a GPU runtime in Colab or Kaggle. Internet access is needed for package and model downloads. This notebook uses a frozen public OWLv2 Base encoder and trains small temporal heads.
 
-The repository contains a reduced adaptation of the assigned paper. The first single-seed real-video pilot scored 45.36 AP for the fixed method and 45.09 AP for the adaptive method. See `docs/PILOT_RESULTS.md` for the protocol and limits. Synthetic software-check results are not research results.
+The repository contains a reduced adaptation of the assigned paper. Across three training seeds, real-video pilot AP averaged 45.64 for the fixed method and 45.34 for the adaptive method. The adaptive rule did not improve test AP. See `docs/PILOT_RESULTS.md` for the protocol and limits. Synthetic software-check results are not research results.
 
 **Data:** the notebook downloads FSYTV annotations and only the selected RGB frames from a pinned public YouTube-VOS mirror. It uses HTTP byte ranges and refuses a full archive download. Frame paths, ZIP CRCs, dimensions, and per-image hashes are checked. See `docs/DATA.md` for sources and terms.
 

@@ -105,4 +105,4 @@ Outputs are annotated PNGs, `detections.json`, and `timing.json`. Memory is rese
 
 Save caches, manifests, episodes, checkpoints, and logs to persistent storage before a free session ends. The notebook lets you set a persistent experiment directory. Publish real `best.pt` files through GitHub Releases or another public download location. Include the matching config, data manifest, episode files, `training.jsonl`, evaluation JSON, Git commit, environment versions, and SHA-256 for each weight file. Do not commit datasets or weights directly to Git.
 
-The repository has no real-video checkpoints or measured research results yet. Add accessible links only after the runs exist and a fresh download has been checked.
+The GPU-session pilot has trained real-video checkpoints and measured results for seeds 42/43/44; see [the result record](PILOT_RESULTS.md). Public checkpoint links and imported source artifacts are still pending. Add links after a fresh download has been checked.

@@ -18,7 +18,7 @@ The first software milestone is implemented:
 
 Local tests and synthetic end-to-end training passed. Public pretrained extraction and a real-data training update for both methods also passed. See [validation records](docs/VALIDATION.md).
 
-**The first real-video pilot is complete.** All 249 selected RGB frames passed verification. On the 30 fixed test episodes, the fixed and adaptive methods scored 45.36 and 45.09 AP, respectively. The adaptive rule did not improve test AP in this single-seed run. See [pilot results and limitations](docs/PILOT_RESULTS.md). Checkpoints were saved in the experiment Drive directory; public download links and source logs are still pending. Synthetic outputs and the single-update integration check are not research results.
+**The first real-video pilot is complete for three training seeds.** All 249 selected RGB frames passed verification. On the 30 fixed test episodes, fixed/adaptive AP averaged 45.64/45.34, with sample standard deviations 0.32/0.22. Adaptive test AP was lower for every seed. See [pilot results and limitations](docs/PILOT_RESULTS.md). Checkpoints were saved in the experiment Drive directory; public download links and source logs are still pending. Synthetic outputs and the single-update integration check are not research results.
 
 ## Start
 

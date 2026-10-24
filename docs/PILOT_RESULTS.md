@@ -1,4 +1,4 @@
-# First real-video pilot
+# Real-video pilot: three training seeds
 
 These values were supplied from the user's GPU notebook session on 24 October 2026. The full evaluation JSON, logs, and checkpoints remain in the experiment's Google Drive directory and have not yet been imported into this repository. This page is a record of the observed output, not a replacement for those artifacts.
 
@@ -35,10 +35,25 @@ The adaptive method improved validation AP slightly but reduced test AP by 0.266
 
 The reported cached pipeline speeds include cached feature IO, the trainable heads, and decoding. They exclude the image encoder. Each method was timed once, so these values do not establish a speed advantage.
 
+## Additional paired training seeds
+
+After the initial seed-42 result, training seeds 43 and 44 were specified before those runs. Both methods used the same frozen configurations, 300-step budget, fixed episode files, and validation checkpoint selection. Test data was not used to choose a new threshold configuration. The following values are rounded notebook output supplied by the user; source JSON files are still pending import.
+
+| Training seed | Fixed test AP | Adaptive test AP | Adaptive minus fixed |
+|---|---:|---:|---:|
+| 42 | 45.36 | 45.09 | -0.27 |
+| 43 | 45.58 | 45.39 | -0.19 |
+| 44 | 45.99 | 45.53 | -0.46 |
+| Mean ± sample standard deviation | 45.64 ± 0.32 | 45.34 ± 0.22 | |
+
+The adaptive rule scored lower for all three paired training seeds. The mean loss of test AP is about 0.30 points. These results do not support an improvement claim for this rule. Training-seed variability on the same small test set does not measure uncertainty over new classes or new videos. No statistical significance claim is made.
+
+The user also saved the seed-42 evidence archive as `exports/pilot_seed42.zip` in the experiment Drive directory. Reported size: 140.5 MB. Reported SHA-256: `47e657a3c7b4a72d1e31837837b7c1c98445cc244141799d969dfeb03572939c`. The archive has not been downloaded and independently verified here. It predates the additional seeds and therefore does not contain their runs.
+
 ## Limits and next steps
 
-This is one training seed on a small subset. There is no evidence here of a reliable test improvement or statistical significance. The report must describe this negative test result if it uses this comparison.
+This is three training seeds on one small subset and one fixed collection of test episodes. There is no evidence here of a test improvement or statistical significance. The report must describe this negative test result if it uses this comparison.
 
 Preserve both checkpoints, configurations, training logs, validation and test outputs, comparison files, cache metadata, and all manifest and episode files. Publish accessible checkpoint links and import the source result files before treating the repository as a complete reproducibility package.
 
-Keep these settings fixed for any additional paired training seeds. Report all selected seeds. Any later method or threshold changes must be selected on validation data, and the already-inspected test set must be disclosed as such. Do not repeatedly select changes on these test scores.
+Before another method change, inspect validation behavior, including selected token counts and thresholds. Record the current rule as a negative ablation. Any later method or threshold changes must be selected on validation data, and the already-inspected test set must be disclosed as such. A fresh held-out set is preferable for confirmation after exploratory changes. Do not repeatedly select changes on these test scores.
