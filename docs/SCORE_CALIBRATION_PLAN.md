@@ -23,6 +23,16 @@ object. The two signals may be correlated and uncalibrated; their product is
 not asserted to be an exact probability. Low objectness can penalize real
 objects. No improvement is guaranteed.
 
+For a correct candidate a and an incorrect candidate b with positive scores,
+the new ranking places a first exactly when
+
+    beta * (log(q_a) - log(q_b)) > log(p_b) - log(p_a).
+
+Thus objectness must separate the candidates strongly enough to overcome an
+incorrect class-score ranking. This gives a testable reason for an AP gain,
+without assuming independent or perfectly calibrated probabilities. It also
+shows why the rule can fail when a real object has weak objectness.
+
 Reference: the [pinned OWLv2 documentation](https://huggingface.co/docs/transformers/v4.46.3/en/model_doc/owlv2)
 describes its query-independent objectness head. Combining these scores is not
 claimed as a globally new detection principle.

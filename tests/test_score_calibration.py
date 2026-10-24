@@ -16,6 +16,7 @@ def test_zero_exponent_preserves_baseline_without_quality_input():
     native = decode(output, ["a"], 100, 100)
     assert native == decode(output, ["a"], 100, 100, objectness_beta=0)
     assert native == decode(output, ["a"], 100, 100, objectness=torch.tensor([float("nan")]), objectness_beta=0)
+    assert native == decode(output, ["a"], 100, 100, objectness=torch.ones(3), objectness_beta=1)
 
 
 def test_quality_changes_ranking_before_nms_and_preserves_background_decision():

@@ -32,11 +32,6 @@ python -m adaptive_fsvod.smoke --output runs/synthetic_check --steps 4
 
 This checks both methods, gradients, checkpoint loading, and COCO evaluation with synthetic inputs. Its metrics and weights must not be presented as research results. Select another output directory for a repeated check.
 
-## Current 50-update experiment
-
-This section reproduces the historical centering study. Its small-set gain did
-not carry to the larger confirmation. The validation-first score study follows.
-
 ## Objectness score study
 
 Use the [automated notebook](../notebooks/score_calibration.ipynb), or prepare the
