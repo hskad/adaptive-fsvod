@@ -1,0 +1,58 @@
+{
+  "arguments": {
+    "train_manifest": "/content/drive/MyDrive/adaptive-fsvod-experiment/pilot/train.json",
+    "val_manifest": "/content/drive/MyDrive/adaptive-fsvod-experiment/pilot/val.json",
+    "train_cache": "/content/drive/MyDrive/adaptive-fsvod-experiment/cache/train",
+    "val_cache": "/content/drive/MyDrive/adaptive-fsvod-experiment/cache/val",
+    "train_episodes": "/content/drive/MyDrive/adaptive-fsvod-experiment/pilot/train_episodes.json",
+    "val_episodes": "/content/drive/MyDrive/adaptive-fsvod-experiment/pilot/val_episodes.json",
+    "config": "/kaggle/working/adaptive-fsvod/configs/fixed.json",
+    "output": "/content/drive/MyDrive/adaptive-fsvod-experiment/runs/fixed_seed42",
+    "steps": 300,
+    "eval_every": 50,
+    "lr": 0.0001,
+    "weight_decay": 0.01,
+    "seed": 42,
+    "resume": null,
+    "device": "cuda"
+  },
+  "environment": {
+    "python": "3.13.16",
+    "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+    "packages": {
+      "torch": "2.11.0+cu130",
+      "transformers": "4.46.3",
+      "numpy": "2.1.3",
+      "scipy": "1.16.3",
+      "Pillow": "11.3.0",
+      "pycocotools": "2.0.11"
+    },
+    "cuda": "13.0",
+    "gpu": "Tesla T4",
+    "git": "69268ece373f28e468681a4081c9df745d95b33e",
+    "git_dirty": false
+  },
+  "model_config": {
+    "input_dim": 512,
+    "hidden_dim": 512,
+    "attention_heads": 4,
+    "dropout": 0.1,
+    "memory_mode": "fixed",
+    "fixed_threshold": 0.7,
+    "alpha": 1.0,
+    "threshold_min": 0.5,
+    "threshold_max": 0.95,
+    "max_memory_per_class": 16
+  },
+  "cache_signature": {
+    "encoder": "google/owlv2-base-patch16-ensemble",
+    "revision": "cfd3195ba4ea9592eec887ded089f4c08eff231d",
+    "candidates": 128,
+    "feature_dim": 512,
+    "synthetic": false
+  },
+  "train_manifest_sha256": "1912d3d1c9dacfbf6fcd0c67a52fb45e8728ee68e2d34357bc4ebf4cc4f2e173",
+  "val_manifest_sha256": "996053807b8f431f864eb371139e19eb25df4d3221f4072eedec2fe1398a254c",
+  "train_episodes_sha256": "dcaad2c1e5ed79d3b59a0a9f0e6fbe827f2f60d8423b99acd00e9947e8872bd7",
+  "val_episodes_sha256": "4f6c8233a28bb0797cece63ce0d24e5104e9efb615c0a55cf1d5dd01ed9d3110"
+}

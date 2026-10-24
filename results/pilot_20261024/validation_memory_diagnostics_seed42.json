@@ -1,0 +1,113 @@
+{
+  "split": "val",
+  "seed": 42,
+  "methods": {
+    "fixed": {
+      "seed": 42,
+      "checkpoint_step": 250,
+      "reported_validation_AP": 59.332039417158555,
+      "validation": {
+        "AP": 59.332039417158555,
+        "AP50": 66.30561350541794,
+        "AP75": 63.07764343486,
+        "frames": 114,
+        "episodes": 20,
+        "seconds": 2.5611440000357106,
+        "cached_pipeline_fps": 44.511358985832295,
+        "timing_scope": "cached feature IO, trainable heads, decoding; encoder excluded",
+        "mean_memory_tokens": 2.9473684210526314,
+        "mean_threshold": 0.699999988079071,
+        "synthetic": false,
+        "score_floor": 0.001,
+        "nms_iou": 0.5,
+        "metric": "frame-level COCO bbox AP, IoU 0.50:0.05:0.95, maxDets=100"
+      },
+      "token_agreement": {
+        "selected": 293,
+        "correct_iou50": 103,
+        "below_0_7": 0,
+        "below_0_7_correct": 0,
+        "ground_truth": 101,
+        "covered_iou50": 80,
+        "thresholds": 188,
+        "thresholds_at_lower_bound": 0,
+        "consumed_frames": 94,
+        "token_agreement_fraction": 0.3515358361774744,
+        "object_coverage_fraction": 0.7920792079207921,
+        "lower_confidence_agreement_fraction": null,
+        "lower_bound_fraction": 0.0
+      },
+      "memory_off_validation": {
+        "AP": 62.66705318108692,
+        "AP50": 72.0176686922597,
+        "AP75": 66.86658704434618,
+        "frames": 114,
+        "episodes": 20,
+        "seconds": 0.3300439999438822,
+        "cached_pipeline_fps": 345.40849104781046,
+        "timing_scope": "cached feature IO, trainable heads, decoding; encoder excluded",
+        "mean_memory_tokens": 0.0,
+        "mean_threshold": 0.699999988079071,
+        "synthetic": false,
+        "score_floor": 0.001,
+        "nms_iou": 0.5,
+        "metric": "frame-level COCO bbox AP, IoU 0.50:0.05:0.95, maxDets=100"
+      },
+      "AP_change_when_memory_disabled": 3.335013763928366
+    },
+    "adaptive": {
+      "seed": 42,
+      "checkpoint_step": 250,
+      "reported_validation_AP": 59.786061993881624,
+      "validation": {
+        "AP": 59.786061993881624,
+        "AP50": 66.91181732887559,
+        "AP75": 63.66435156220547,
+        "frames": 114,
+        "episodes": 20,
+        "seconds": 0.35531289991922677,
+        "cached_pipeline_fps": 320.8439660533451,
+        "timing_scope": "cached feature IO, trainable heads, decoding; encoder excluded",
+        "mean_memory_tokens": 4.692982456140351,
+        "mean_threshold": 0.5134549556594146,
+        "synthetic": false,
+        "score_floor": 0.001,
+        "nms_iou": 0.5,
+        "metric": "frame-level COCO bbox AP, IoU 0.50:0.05:0.95, maxDets=100"
+      },
+      "token_agreement": {
+        "selected": 456,
+        "correct_iou50": 123,
+        "below_0_7": 192,
+        "below_0_7_correct": 19,
+        "ground_truth": 101,
+        "covered_iou50": 85,
+        "thresholds": 188,
+        "thresholds_at_lower_bound": 176,
+        "consumed_frames": 94,
+        "token_agreement_fraction": 0.26973684210526316,
+        "object_coverage_fraction": 0.8415841584158416,
+        "lower_confidence_agreement_fraction": 0.09895833333333333,
+        "lower_bound_fraction": 0.9361702127659575
+      },
+      "memory_off_validation": {
+        "AP": 63.12695387532627,
+        "AP50": 72.64967239039714,
+        "AP75": 67.31805727356843,
+        "frames": 114,
+        "episodes": 20,
+        "seconds": 0.30246190004982054,
+        "cached_pipeline_fps": 376.90697565948733,
+        "timing_scope": "cached feature IO, trainable heads, decoding; encoder excluded",
+        "mean_memory_tokens": 0.0,
+        "mean_threshold": 0.699999988079071,
+        "synthetic": false,
+        "score_floor": 0.001,
+        "nms_iou": 0.5,
+        "metric": "frame-level COCO bbox AP, IoU 0.50:0.05:0.95, maxDets=100"
+      },
+      "AP_change_when_memory_disabled": 3.340891881444648
+    }
+  },
+  "note": "Same trained weights with memory disabled at inference; not a retrained no-memory baseline. Token agreement is many-to-one IoU50 and correct class, not detection precision."
+}

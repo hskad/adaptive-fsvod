@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "manifest_sha256": "1912d3d1c9dacfbf6fcd0c67a52fb45e8728ee68e2d34357bc4ebf4cc4f2e173",
+  "encoder": "google/owlv2-base-patch16-ensemble",
+  "revision": "cfd3195ba4ea9592eec887ded089f4c08eff231d",
+  "candidates": 128,
+  "pool_seed": 42,
+  "support_per_class": 16,
+  "synthetic": false,
+  "complete": true,
+  "feature_dim": 512,
+  "frames": 131,
+  "new_frames_in_this_run": 131,
+  "cache_run_seconds": 176.0376646890004,
+  "timing_scope": "feature cache construction, including support crops and file IO"
+}

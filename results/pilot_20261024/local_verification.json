@@ -1,0 +1,71 @@
+{
+  "checkpoints_verified": [
+    {
+      "method": "fixed",
+      "seed": 42,
+      "best_step": 250,
+      "checkpoint_sha256": "3b44c7cf90aa5aa9d870cfa61a0d920b5476b7dd336468144ba319c81dbf0e92",
+      "training_git": "69268ece373f28e468681a4081c9df745d95b33e",
+      "git_dirty": false
+    },
+    {
+      "method": "adaptive",
+      "seed": 42,
+      "best_step": 250,
+      "checkpoint_sha256": "5cd13c380f965e17ddb78208b516f10016e627335fd26ea2124f11cbee3b15c7",
+      "training_git": "69268ece373f28e468681a4081c9df745d95b33e",
+      "git_dirty": false
+    },
+    {
+      "method": "fixed",
+      "seed": 43,
+      "best_step": 250,
+      "checkpoint_sha256": "d88067cbd59254968c506efa05d680148ddb4dc9a633f47412f5e317bc477e49",
+      "training_git": "69268ece373f28e468681a4081c9df745d95b33e",
+      "git_dirty": false
+    },
+    {
+      "method": "adaptive",
+      "seed": 43,
+      "best_step": 250,
+      "checkpoint_sha256": "68cbfdee1acf596b51ce26ee4179ca5730e0786efc2178dbd8453d641e5ce5ed",
+      "training_git": "69268ece373f28e468681a4081c9df745d95b33e",
+      "git_dirty": false
+    },
+    {
+      "method": "fixed",
+      "seed": 44,
+      "best_step": 300,
+      "checkpoint_sha256": "3b456c0b4f39a900114fd08cd594a8b6ddc47abfcd03ef371e91fbc25eb11104",
+      "training_git": "69268ece373f28e468681a4081c9df745d95b33e",
+      "git_dirty": false
+    },
+    {
+      "method": "adaptive",
+      "seed": 44,
+      "best_step": 300,
+      "checkpoint_sha256": "c38cb0f6cf503846f87870e04113129f7fd987198be5b9b2aff7194cce815f04",
+      "training_git": "69268ece373f28e468681a4081c9df745d95b33e",
+      "git_dirty": false
+    }
+  ],
+  "splits": {
+    "train": {
+      "videos": 18,
+      "frames": 131,
+      "classes": 6
+    },
+    "val": {
+      "videos": 9,
+      "frames": 50,
+      "classes": 3
+    },
+    "test": {
+      "videos": 9,
+      "frames": 68,
+      "classes": 3
+    }
+  },
+  "image_sha256_verified": 249,
+  "note": "Original manifests retain cloud paths; image validation uses a local images_root override."
+}

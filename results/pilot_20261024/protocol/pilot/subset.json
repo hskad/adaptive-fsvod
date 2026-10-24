@@ -1,0 +1,90 @@
+{
+  "source_sha256": "604642602494557a3e5a0cb6a6b93616389c6b83b3571dda4507d20de812ce93",
+  "source": {
+    "dataset": "FSYTV-40",
+    "archive_sha256": "667ae65f3ab1a88dd12efabe266f764143279b8dcca3d9c0722ddf96e8613845",
+    "members": [
+      "annotations/fsvis_train.json",
+      "annotations/fsvis_test.json"
+    ],
+    "conversion": "bbox only; original categories mapped by name"
+  },
+  "seed": 42,
+  "frame_stride": 4,
+  "excluded_cross_split_videos": 9,
+  "max_videos_per_class": 3,
+  "splits": {
+    "train": {
+      "classes": {
+        "10": "earless_seal",
+        "24": "owl",
+        "25": "parrot",
+        "3": "boat",
+        "36": "train",
+        "9": "eagle"
+      },
+      "video_ids": [
+        "1514e3563f",
+        "180abc8378",
+        "23b3beafcc",
+        "26bc786d4f",
+        "2b08f37364",
+        "603189a03c",
+        "674c12c92d",
+        "69ea9c09d1",
+        "8f918598b6",
+        "90cc785ddd",
+        "91f107082e",
+        "93e811e393",
+        "aaed233bf3",
+        "ab2e1b5577",
+        "b19b3e22c0",
+        "df3c430c24",
+        "f2cfd94d64",
+        "f507a1b9dc"
+      ],
+      "frames": 131,
+      "manifest_sha256": "1912d3d1c9dacfbf6fcd0c67a52fb45e8728ee68e2d34357bc4ebf4cc4f2e173"
+    },
+    "val": {
+      "classes": {
+        "11": "elephant",
+        "30": "skateboard",
+        "4": "cat"
+      },
+      "video_ids": [
+        "0358b938c1",
+        "1187bbd0e3",
+        "a0b61c959e",
+        "a174e8d989",
+        "baedae3442",
+        "bc4ce49105",
+        "cd47a23e31",
+        "d600046f73",
+        "e92b6bfea4"
+      ],
+      "frames": 50,
+      "manifest_sha256": "996053807b8f431f864eb371139e19eb25df4d3221f4072eedec2fe1398a254c"
+    },
+    "test": {
+      "classes": {
+        "21": "monkey",
+        "28": "sedan",
+        "32": "snowboard"
+      },
+      "video_ids": [
+        "28e392de91",
+        "346e92ff37",
+        "43d63b752a",
+        "57246af7d1",
+        "61da008958",
+        "66e98e78f5",
+        "948f3ae6fb",
+        "a5cd17bb11",
+        "c55784c766"
+      ],
+      "frames": 68,
+      "manifest_sha256": "ccf91da244f24fb2f9d3151d9140ea6b13b00a9c9ddd7c34948720403594fc29"
+    }
+  }
+}

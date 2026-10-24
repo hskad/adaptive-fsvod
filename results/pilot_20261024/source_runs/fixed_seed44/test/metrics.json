@@ -1,0 +1,43 @@
+{
+  "AP": 45.99016268273704,
+  "AP50": 53.57924306385525,
+  "AP75": 51.102552189388625,
+  "frames": 232,
+  "episodes": 30,
+  "seconds": 2.437453727000502,
+  "cached_pipeline_fps": 95.18129408163006,
+  "timing_scope": "cached feature IO, trainable heads, decoding; encoder excluded",
+  "mean_memory_tokens": 2.5301724137931036,
+  "mean_threshold": 0.699999988079071,
+  "synthetic": false,
+  "score_floor": 0.001,
+  "nms_iou": 0.5,
+  "metric": "frame-level COCO bbox AP, IoU 0.50:0.05:0.95, maxDets=100",
+  "checkpoint": "/content/drive/MyDrive/adaptive-fsvod-experiment/runs/fixed_seed44/best.pt",
+  "training_step": 300,
+  "checkpoint_sha256": "3b456c0b4f39a900114fd08cd594a8b6ddc47abfcd03ef371e91fbc25eb11104",
+  "manifest_sha256": "ccf91da244f24fb2f9d3151d9140ea6b13b00a9c9ddd7c34948720403594fc29",
+  "episodes_sha256": "cc1f96b92f93daab02baf876055eeeceaa02d77547a7586541f2779c7ee01906",
+  "model_config": {
+    "input_dim": 512,
+    "hidden_dim": 512,
+    "attention_heads": 4,
+    "dropout": 0.1,
+    "memory_mode": "fixed",
+    "fixed_threshold": 0.7,
+    "alpha": 1.0,
+    "threshold_min": 0.5,
+    "threshold_max": 0.95,
+    "max_memory_per_class": 16
+  },
+  "cache_signature": {
+    "encoder": "google/owlv2-base-patch16-ensemble",
+    "revision": "cfd3195ba4ea9592eec887ded089f4c08eff231d",
+    "candidates": 128,
+    "feature_dim": 512,
+    "synthetic": false
+  },
+  "training_seed": 44,
+  "training_budget": 300,
+  "training_git": "69268ece373f28e468681a4081c9df745d95b33e"
+}

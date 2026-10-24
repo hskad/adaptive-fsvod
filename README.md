@@ -18,7 +18,7 @@ The first software milestone is implemented:
 
 Local tests and synthetic end-to-end training passed. Public pretrained extraction and a real-data training update for both methods also passed. See [validation records](docs/VALIDATION.md).
 
-**The first real-video pilot is complete for three training seeds.** All 249 selected RGB frames passed verification. On the 30 fixed test episodes, fixed/adaptive AP averaged 45.64/45.34, with sample standard deviations 0.32/0.22. Adaptive test AP was lower for every seed. See [pilot results and limitations](docs/PILOT_RESULTS.md). Checkpoints were saved in the experiment Drive directory; public download links and source logs are still pending. Synthetic outputs and the single-update integration check are not research results.
+**The first real-video pilot is complete for three training seeds.** All 249 selected RGB frames passed verification. On the 30 fixed test episodes, fixed/adaptive AP averaged 45.64/45.34, with sample standard deviations 0.32/0.22. Adaptive test AP was lower for every seed. [Source logs, configurations, predictions, and locally verified results](results/pilot_20261024/README.md) are now included. Checkpoints are verified locally; public download links remain pending. Synthetic outputs and the single-update integration check are not research results.
 
 ## Start
 
@@ -79,7 +79,7 @@ docs/                     Experiment plan, data guide, runbook, and validation
 
 The frozen public encoder is downloaded from [Hugging Face](https://huggingface.co/google/owlv2-base-patch16-ensemble), revision `cfd3195ba4ea9592eec887ded089f4c08eff231d`. Our temporal heads require training.
 
-Real baseline and adaptive checkpoints: **trained in the GPU session; public links pending**. The [first comparison](docs/PILOT_RESULTS.md) records values supplied from that session. Publish the source evaluation JSON, matching configurations, logs, checksums, and episode manifests with the checkpoints. Free runtime outputs need persistent storage.
+Real baseline and adaptive checkpoints: **trained and locally checksum-verified; public links pending**. [Complete source result records](results/pilot_20261024/README.md) include evaluation JSON, matching configurations, logs, checksums, and episode manifests. Saved test detections reproduce all six reported metric sets exactly. Free runtime outputs need persistent storage.
 
 ## Version control
 

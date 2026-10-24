@@ -1,14 +1,14 @@
 # Real-video pilot: three training seeds
 
-These values were supplied from the user's GPU notebook session on 24 October 2026. The full evaluation JSON, logs, and checkpoints remain in the experiment's Google Drive directory and have not yet been imported into this repository. This page is a record of the observed output, not a replacement for those artifacts.
+The user's GPU experiment was downloaded and verified locally on 24 October 2026. Original configurations, training logs, evaluation JSON, protocols, and full precision summaries are now in [the verified result directory](../results/pilot_20261024/README.md). All six reported test metrics were recomputed from their saved detections with exact agreement. Checkpoints are available locally and in the user's Drive directory; public download links remain pending.
 
 ## Protocol
 
 - Frozen public OWLv2 Base encoder, pinned revision `cfd3195ba4ea9592eec887ded089f4c08eff231d`, 128 candidates, 512-dimensional cached class features.
 - Custom FSYTV subset: train/validation/test contain 6/3/3 classes, 18/9/9 videos, and 131/50/68 selected frames. Classes and videos are disjoint across splits.
 - Two-way, one-shot episodes. Support and query examples use different videos. Fixed episode files contain 300/20/30 train/validation/test episodes, with episode seeds 42/43/44.
-- Both methods use training seed 42, 300 optimizer steps, the initial repository configurations, and validation every 50 steps. Both best checkpoints were selected at step 250 by validation AP. Threshold hyperparameters were not tuned; this is a pilot with initial settings, not a comparison against a tuned fixed baseline.
-- Hardware reported by the session: Tesla T4. Reported PyTorch version: `2.11.0+cu130`, CUDA version: `13.0`. Exact environment and training Git commit must be taken from the saved run configurations before final publication.
+- The initial pair uses training seed 42, 300 optimizer steps, the initial repository configurations, and validation every 50 steps. Both seed-42 best checkpoints were selected at step 250 by validation AP. The additional pairs use training seeds 43 and 44. Threshold hyperparameters were not tuned; this is a pilot with initial settings, not a comparison against a tuned fixed baseline.
+- Verified training environment: Tesla T4, Python 3.13.16, PyTorch `2.11.0+cu130`, CUDA `13.0`, Transformers 4.46.3. Full package versions are in the saved configurations. The training revision is `69268ece373f28e468681a4081c9df745d95b33e`, with a clean working tree.
 - Frame-level COCO box AP across IoU 0.50:0.05:0.95, not video mask AP. Test data was evaluated after checkpoint selection.
 
 ## Learning check
@@ -31,13 +31,13 @@ fixed,45.361073896666845,52.91139943719391,50.53549691528468,2.4698275862068964,
 adaptive,45.094359390040715,52.77727464054397,50.14527699488853,4.818965517241379,105.12604448473408,False
 ```
 
-The adaptive method improved validation AP slightly but reduced test AP by 0.2667 points. It retained about 1.95 times as many memory tokens. More retained tokens did not produce a test accuracy gain in this run. Whether the added tokens contain false detections requires inspection; token counts alone do not establish the cause.
+The adaptive method improved validation AP slightly but reduced test AP by 0.2667 points. It retained about 1.95 times as many memory tokens. More retained tokens did not produce a test accuracy gain in this run. Later validation diagnostics found lower agreement with annotated objects among adaptive memory tokens; see the verified result directory for counts and limits of that check.
 
 The reported cached pipeline speeds include cached feature IO, the trainable heads, and decoding. They exclude the image encoder. Each method was timed once, so these values do not establish a speed advantage.
 
 ## Additional paired training seeds
 
-After the initial seed-42 result, training seeds 43 and 44 were specified before those runs. Both methods used the same frozen configurations, 300-step budget, fixed episode files, and validation checkpoint selection. Test data was not used to choose a new threshold configuration. The following values are rounded notebook output supplied by the user; source JSON files are still pending import.
+After the initial seed-42 result, training seeds 43 and 44 were specified before those runs. Both methods used the same frozen configurations, 300-step budget, fixed episode files, and validation checkpoint selection. Test data was not used to choose a new threshold configuration. Values below are rounded from the verified source JSON files.
 
 | Training seed | Fixed test AP | Adaptive test AP | Adaptive minus fixed |
 |---|---:|---:|---:|
@@ -48,12 +48,18 @@ After the initial seed-42 result, training seeds 43 and 44 were specified before
 
 The adaptive rule scored lower for all three paired training seeds. The mean loss of test AP is about 0.30 points. These results do not support an improvement claim for this rule. Training-seed variability on the same small test set does not measure uncertainty over new classes or new videos. No statistical significance claim is made.
 
-The user also saved the seed-42 evidence archive as `exports/pilot_seed42.zip` in the experiment Drive directory. Reported size: 140.5 MB. Reported SHA-256: `47e657a3c7b4a72d1e31837837b7c1c98445cc244141799d969dfeb03572939c`. The archive has not been downloaded and independently verified here. It predates the additional seeds and therefore does not contain their runs.
+The seed-42 evidence archive `exports/pilot_seed42.zip` was downloaded and its SHA-256 verified: `47e657a3c7b4a72d1e31837837b7c1c98445cc244141799d969dfeb03572939c`. A new local three-seed archive and checksum record were also created; see the verified result directory.
+
+## Validation memory diagnosis
+
+CPU inference from the actual seed-42 checkpoints reproduced validation AP exactly. The adaptive threshold equalled its 0.5 floor in 176/188 class/frame cases whose memory is consumed by a next frame. Only 19/192 selected adaptive tokens below confidence 0.7 had the correct class and IoU >= 0.50 with an annotated object. Token agreement allows many tokens to match one object and must not be called detection precision.
+
+Disabling memory at inference, with all trained weights retained, increased fixed/adaptive validation AP from 59.33/59.79 to 62.67/63.13. This is an inference ablation on validation data, not a separately trained no-memory baseline or a revised-method test score. The findings motivate stronger controls on unreliable temporal updates; they do not establish an improved new method.
 
 ## Limits and next steps
 
 This is three training seeds on one small subset and one fixed collection of test episodes. There is no evidence here of a test improvement or statistical significance. The report must describe this negative test result if it uses this comparison.
 
-Preserve both checkpoints, configurations, training logs, validation and test outputs, comparison files, cache metadata, and all manifest and episode files. Publish accessible checkpoint links and import the source result files before treating the repository as a complete reproducibility package.
+The checkpoints and source records are preserved and locally verified. Publish accessible checkpoint links before treating the repository as a complete reproducibility package.
 
 Before another method change, inspect validation behavior, including selected token counts and thresholds. Record the current rule as a negative ablation. Any later method or threshold changes must be selected on validation data, and the already-inspected test set must be disclosed as such. A fresh held-out set is preferable for confirmation after exploratory changes. Do not repeatedly select changes on these test scores.
