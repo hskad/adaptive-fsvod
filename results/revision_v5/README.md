@@ -1,5 +1,7 @@
 # Limited-budget feature-centering result
 
+**Follow-up:** the larger, frozen-model confirmation did not reproduce this small-set gain. Across six further unseen classes, 24 videos, and 192 frames, fixed/centered 50-update AP was **38.61/35.14**. Centering was lower for all three seeds. Read the [larger confirmation and uncertainty analysis](../larger_confirmation/README.md) with this historical result. Do not claim a general faster-adaptation benefit.
+
 This reduced adaptation was evaluated after **50 actual optimizer updates per method**, with a shared 300-update learning-rate schedule. It does not claim higher fully converged accuracy or reproduction of the paper's full benchmark.
 
 ## Results

@@ -25,6 +25,19 @@ Validation diagnostics show that adaptive thresholds are usually at their lower 
 
 The later feature-centering study found a small average improvement at equal 50-update budgets: validation AP 52.47/59.71 and fresh confirmation AP 51.43/52.04 for fixed/centered methods. Two of three paired seeds improved. All six confirmation score sets were recomputed exactly, and all exported inference checkpoints matched full checkpoint model tensors. See [the complete record](../results/revision_v5/README.md). This is limited-budget evidence on a small new set, not a full-budget accuracy gain.
 
+The larger frozen-model confirmation used six further unseen classes, 24 videos,
+192 distinct frames, and 120 balanced two-way one-shot episodes. At matched
+50-update budgets, fixed/centered AP was 38.61/35.14; all three centered runs
+were lower. The validation-selected 300-update fixed reference averaged 55.10.
+This result does not confirm the earlier small-set centering gain. The pre-score
+protocol and all 216 shared feature tensors were hashed and frozen in Git before
+scoring. The optional SDPA encoder kernel passed native-output checks on three
+images and mask/weight unit checks; every model used the same cache. All 37
+software tests passed locally, with the later class-level accumulation change
+also passing its two targeted tests. All nine packaged inference checkpoints
+passed exact model-tensor reload checks. See [the full larger-set record](../results/larger_confirmation/README.md)
+for predictions and the paired, class-stratified query-video bootstrap.
+
 31 tests passed after the new model and update-cap changes. Checks include class-balanced training-only centering, checkpoint mean storage, rejection of changed centers on resume, preservation of the learning-rate schedule prefix under a shorter actual budget, attention-quality ratios, zero-residual identity, and backward compatibility. A real saved baseline reproduced its validation AP exactly after the additions.
 
 Still pending: accessible checkpoint links and peak GPU memory. The final report is deferred at the user's request. Notebook cells are syntax checked locally. GitHub Actions uses CPU checks and does not download public model weights.

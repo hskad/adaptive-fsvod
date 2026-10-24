@@ -1,0 +1,672 @@
+{
+  "rows": [
+    {
+      "method": "fixed_50",
+      "seed": 42,
+      "AP": 38.275539753797396,
+      "AP50": 50.18946135286363,
+      "AP75": 40.428430168455634,
+      "frames": 960,
+      "episodes": 120,
+      "seconds": 10.022239599958993,
+      "cached_pipeline_fps": 95.7869736025796,
+      "timing_scope": "cached feature IO, trainable heads, decoding; encoder excluded",
+      "mean_memory_tokens": 2.511458333333333,
+      "mean_threshold": 0.800000011920929,
+      "synthetic": false,
+      "score_floor": 0.001,
+      "nms_iou": 0.5,
+      "metric": "frame-level COCO bbox AP, IoU 0.50:0.05:0.95, maxDets=100",
+      "checkpoint_sha256": "a4a4fe00108c99649e0f025f7efab7e97655b1368ef913e96d7f055720fab971",
+      "training_step": 50,
+      "training_seed": 42,
+      "training_budget": 50,
+      "training_schedule_budget": 300,
+      "training_git": "e5865661abb5c40e477ebdc022d22dbcccca97ec",
+      "model_config": {
+        "input_dim": 512,
+        "hidden_dim": 512,
+        "attention_heads": 4,
+        "dropout": 0.1,
+        "memory_mode": "fixed",
+        "fixed_threshold": 0.8,
+        "alpha": 1.0,
+        "threshold_min": 0.5,
+        "threshold_max": 0.95,
+        "max_memory_per_class": 16,
+        "fusion_gate": "none",
+        "gate_threshold": 0.7,
+        "memory_weighting": "none",
+        "feature_centering": false
+      },
+      "cache_signature": {
+        "encoder": "google/owlv2-base-patch16-ensemble",
+        "revision": "cfd3195ba4ea9592eec887ded089f4c08eff231d",
+        "candidates": 128,
+        "feature_dim": 512,
+        "synthetic": false
+      },
+      "manifest_sha256": "71e342c029711cb5bdc757d97258e44f811b68469964376465a5db5075569b0f",
+      "episodes_sha256": "d9b8272385b451631688641e569a7b5950dcdb4f40a6245c48c040cf23f3c2e7",
+      "evaluation_environment": {
+        "environment": {
+          "python": "3.12.3",
+          "platform": "Windows-11-10.0.26200-SP0",
+          "packages": {
+            "torch": "2.9.1",
+            "transformers": "4.46.3",
+            "numpy": "1.26.4",
+            "scipy": "1.13.0",
+            "Pillow": "10.3.0",
+            "pycocotools": "2.0.11"
+          },
+          "cuda": null,
+          "gpu": null,
+          "git": "264f1cd11def0a2686f4f77e1dc694a2790346ad",
+          "git_dirty": false
+        },
+        "threads": 4,
+        "cache_artifact_manifest_sha256": "b2e5d3f7ba28acbd7632fbe7aac22aae76a7972dddcc3e4dfdf7d683e7769841"
+      },
+      "encoder_attention_backend": "sdpa"
+    },
+    {
+      "method": "fixed_50",
+      "seed": 43,
+      "AP": 38.70511734265837,
+      "AP50": 50.59727207495626,
+      "AP75": 40.94382666971134,
+      "frames": 960,
+      "episodes": 120,
+      "seconds": 9.985181599971838,
+      "cached_pipeline_fps": 96.14246775468835,
+      "timing_scope": "cached feature IO, trainable heads, decoding; encoder excluded",
+      "mean_memory_tokens": 2.548958333333333,
+      "mean_threshold": 0.800000011920929,
+      "synthetic": false,
+      "score_floor": 0.001,
+      "nms_iou": 0.5,
+      "metric": "frame-level COCO bbox AP, IoU 0.50:0.05:0.95, maxDets=100",
+      "checkpoint_sha256": "514db2393771a686e0c1feadd7be8ef14e0c2d7b83afe9eacbc8a0725c1f21e3",
+      "training_step": 50,
+      "training_seed": 43,
+      "training_budget": 50,
+      "training_schedule_budget": 300,
+      "training_git": "e5865661abb5c40e477ebdc022d22dbcccca97ec",
+      "model_config": {
+        "input_dim": 512,
+        "hidden_dim": 512,
+        "attention_heads": 4,
+        "dropout": 0.1,
+        "memory_mode": "fixed",
+        "fixed_threshold": 0.8,
+        "alpha": 1.0,
+        "threshold_min": 0.5,
+        "threshold_max": 0.95,
+        "max_memory_per_class": 16,
+        "fusion_gate": "none",
+        "gate_threshold": 0.7,
+        "memory_weighting": "none",
+        "feature_centering": false
+      },
+      "cache_signature": {
+        "encoder": "google/owlv2-base-patch16-ensemble",
+        "revision": "cfd3195ba4ea9592eec887ded089f4c08eff231d",
+        "candidates": 128,
+        "feature_dim": 512,
+        "synthetic": false
+      },
+      "manifest_sha256": "71e342c029711cb5bdc757d97258e44f811b68469964376465a5db5075569b0f",
+      "episodes_sha256": "d9b8272385b451631688641e569a7b5950dcdb4f40a6245c48c040cf23f3c2e7",
+      "evaluation_environment": {
+        "environment": {
+          "python": "3.12.3",
+          "platform": "Windows-11-10.0.26200-SP0",
+          "packages": {
+            "torch": "2.9.1",
+            "transformers": "4.46.3",
+            "numpy": "1.26.4",
+            "scipy": "1.13.0",
+            "Pillow": "10.3.0",
+            "pycocotools": "2.0.11"
+          },
+          "cuda": null,
+          "gpu": null,
+          "git": "264f1cd11def0a2686f4f77e1dc694a2790346ad",
+          "git_dirty": false
+        },
+        "threads": 4,
+        "cache_artifact_manifest_sha256": "b2e5d3f7ba28acbd7632fbe7aac22aae76a7972dddcc3e4dfdf7d683e7769841"
+      },
+      "encoder_attention_backend": "sdpa"
+    },
+    {
+      "method": "fixed_50",
+      "seed": 44,
+      "AP": 38.83576851814854,
+      "AP50": 50.73945717792392,
+      "AP75": 41.047743607857235,
+      "frames": 960,
+      "episodes": 120,
+      "seconds": 8.961286699981429,
+      "cached_pipeline_fps": 107.12747311186791,
+      "timing_scope": "cached feature IO, trainable heads, decoding; encoder excluded",
+      "mean_memory_tokens": 2.5541666666666667,
+      "mean_threshold": 0.800000011920929,
+      "synthetic": false,
+      "score_floor": 0.001,
+      "nms_iou": 0.5,
+      "metric": "frame-level COCO bbox AP, IoU 0.50:0.05:0.95, maxDets=100",
+      "checkpoint_sha256": "499aa5bc50f6c0cddbd24c197b12058fb08e0817c45307f3aacf454f418cf948",
+      "training_step": 50,
+      "training_seed": 44,
+      "training_budget": 50,
+      "training_schedule_budget": 300,
+      "training_git": "e5865661abb5c40e477ebdc022d22dbcccca97ec",
+      "model_config": {
+        "input_dim": 512,
+        "hidden_dim": 512,
+        "attention_heads": 4,
+        "dropout": 0.1,
+        "memory_mode": "fixed",
+        "fixed_threshold": 0.8,
+        "alpha": 1.0,
+        "threshold_min": 0.5,
+        "threshold_max": 0.95,
+        "max_memory_per_class": 16,
+        "fusion_gate": "none",
+        "gate_threshold": 0.7,
+        "memory_weighting": "none",
+        "feature_centering": false
+      },
+      "cache_signature": {
+        "encoder": "google/owlv2-base-patch16-ensemble",
+        "revision": "cfd3195ba4ea9592eec887ded089f4c08eff231d",
+        "candidates": 128,
+        "feature_dim": 512,
+        "synthetic": false
+      },
+      "manifest_sha256": "71e342c029711cb5bdc757d97258e44f811b68469964376465a5db5075569b0f",
+      "episodes_sha256": "d9b8272385b451631688641e569a7b5950dcdb4f40a6245c48c040cf23f3c2e7",
+      "evaluation_environment": {
+        "environment": {
+          "python": "3.12.3",
+          "platform": "Windows-11-10.0.26200-SP0",
+          "packages": {
+            "torch": "2.9.1",
+            "transformers": "4.46.3",
+            "numpy": "1.26.4",
+            "scipy": "1.13.0",
+            "Pillow": "10.3.0",
+            "pycocotools": "2.0.11"
+          },
+          "cuda": null,
+          "gpu": null,
+          "git": "264f1cd11def0a2686f4f77e1dc694a2790346ad",
+          "git_dirty": false
+        },
+        "threads": 4,
+        "cache_artifact_manifest_sha256": "b2e5d3f7ba28acbd7632fbe7aac22aae76a7972dddcc3e4dfdf7d683e7769841"
+      },
+      "encoder_attention_backend": "sdpa"
+    },
+    {
+      "method": "centered_50",
+      "seed": 42,
+      "AP": 35.13970556436171,
+      "AP50": 45.40020859064614,
+      "AP75": 36.993641815701906,
+      "frames": 960,
+      "episodes": 120,
+      "seconds": 26.26129219995346,
+      "cached_pipeline_fps": 36.55570307395998,
+      "timing_scope": "cached feature IO, trainable heads, decoding; encoder excluded",
+      "mean_memory_tokens": 10.855208333333334,
+      "mean_threshold": 0.800000011920929,
+      "synthetic": false,
+      "score_floor": 0.001,
+      "nms_iou": 0.5,
+      "metric": "frame-level COCO bbox AP, IoU 0.50:0.05:0.95, maxDets=100",
+      "checkpoint_sha256": "fd4bf0c9bce1dfc9c8bb7afdc13de429493d90a9d108f9dabe268b1c821e56bc",
+      "training_step": 50,
+      "training_seed": 42,
+      "training_budget": 50,
+      "training_schedule_budget": 300,
+      "training_git": "e5865661abb5c40e477ebdc022d22dbcccca97ec",
+      "model_config": {
+        "input_dim": 512,
+        "hidden_dim": 512,
+        "attention_heads": 4,
+        "dropout": 0.1,
+        "memory_mode": "fixed",
+        "fixed_threshold": 0.8,
+        "alpha": 1.0,
+        "threshold_min": 0.5,
+        "threshold_max": 0.95,
+        "max_memory_per_class": 16,
+        "fusion_gate": "none",
+        "gate_threshold": 0.7,
+        "memory_weighting": "none",
+        "feature_centering": true
+      },
+      "cache_signature": {
+        "encoder": "google/owlv2-base-patch16-ensemble",
+        "revision": "cfd3195ba4ea9592eec887ded089f4c08eff231d",
+        "candidates": 128,
+        "feature_dim": 512,
+        "synthetic": false
+      },
+      "manifest_sha256": "71e342c029711cb5bdc757d97258e44f811b68469964376465a5db5075569b0f",
+      "episodes_sha256": "d9b8272385b451631688641e569a7b5950dcdb4f40a6245c48c040cf23f3c2e7",
+      "evaluation_environment": {
+        "environment": {
+          "python": "3.12.3",
+          "platform": "Windows-11-10.0.26200-SP0",
+          "packages": {
+            "torch": "2.9.1",
+            "transformers": "4.46.3",
+            "numpy": "1.26.4",
+            "scipy": "1.13.0",
+            "Pillow": "10.3.0",
+            "pycocotools": "2.0.11"
+          },
+          "cuda": null,
+          "gpu": null,
+          "git": "264f1cd11def0a2686f4f77e1dc694a2790346ad",
+          "git_dirty": false
+        },
+        "threads": 4,
+        "cache_artifact_manifest_sha256": "b2e5d3f7ba28acbd7632fbe7aac22aae76a7972dddcc3e4dfdf7d683e7769841"
+      },
+      "encoder_attention_backend": "sdpa"
+    },
+    {
+      "method": "centered_50",
+      "seed": 43,
+      "AP": 35.26514474274746,
+      "AP50": 45.5578199908139,
+      "AP75": 37.17163904268294,
+      "frames": 960,
+      "episodes": 120,
+      "seconds": 17.643488799920306,
+      "cached_pipeline_fps": 54.41100741959472,
+      "timing_scope": "cached feature IO, trainable heads, decoding; encoder excluded",
+      "mean_memory_tokens": 10.851041666666667,
+      "mean_threshold": 0.800000011920929,
+      "synthetic": false,
+      "score_floor": 0.001,
+      "nms_iou": 0.5,
+      "metric": "frame-level COCO bbox AP, IoU 0.50:0.05:0.95, maxDets=100",
+      "checkpoint_sha256": "769eec143f38d5bb751a9501f4fee75f79a215caf59029ad22434b59ea9fe3d0",
+      "training_step": 50,
+      "training_seed": 43,
+      "training_budget": 50,
+      "training_schedule_budget": 300,
+      "training_git": "e5865661abb5c40e477ebdc022d22dbcccca97ec",
+      "model_config": {
+        "input_dim": 512,
+        "hidden_dim": 512,
+        "attention_heads": 4,
+        "dropout": 0.1,
+        "memory_mode": "fixed",
+        "fixed_threshold": 0.8,
+        "alpha": 1.0,
+        "threshold_min": 0.5,
+        "threshold_max": 0.95,
+        "max_memory_per_class": 16,
+        "fusion_gate": "none",
+        "gate_threshold": 0.7,
+        "memory_weighting": "none",
+        "feature_centering": true
+      },
+      "cache_signature": {
+        "encoder": "google/owlv2-base-patch16-ensemble",
+        "revision": "cfd3195ba4ea9592eec887ded089f4c08eff231d",
+        "candidates": 128,
+        "feature_dim": 512,
+        "synthetic": false
+      },
+      "manifest_sha256": "71e342c029711cb5bdc757d97258e44f811b68469964376465a5db5075569b0f",
+      "episodes_sha256": "d9b8272385b451631688641e569a7b5950dcdb4f40a6245c48c040cf23f3c2e7",
+      "evaluation_environment": {
+        "environment": {
+          "python": "3.12.3",
+          "platform": "Windows-11-10.0.26200-SP0",
+          "packages": {
+            "torch": "2.9.1",
+            "transformers": "4.46.3",
+            "numpy": "1.26.4",
+            "scipy": "1.13.0",
+            "Pillow": "10.3.0",
+            "pycocotools": "2.0.11"
+          },
+          "cuda": null,
+          "gpu": null,
+          "git": "264f1cd11def0a2686f4f77e1dc694a2790346ad",
+          "git_dirty": false
+        },
+        "threads": 4,
+        "cache_artifact_manifest_sha256": "b2e5d3f7ba28acbd7632fbe7aac22aae76a7972dddcc3e4dfdf7d683e7769841"
+      },
+      "encoder_attention_backend": "sdpa"
+    },
+    {
+      "method": "centered_50",
+      "seed": 44,
+      "AP": 35.00475655399854,
+      "AP50": 45.354818665694374,
+      "AP75": 36.903753685104256,
+      "frames": 960,
+      "episodes": 120,
+      "seconds": 24.46114269993268,
+      "cached_pipeline_fps": 39.24591797596774,
+      "timing_scope": "cached feature IO, trainable heads, decoding; encoder excluded",
+      "mean_memory_tokens": 10.905208333333333,
+      "mean_threshold": 0.800000011920929,
+      "synthetic": false,
+      "score_floor": 0.001,
+      "nms_iou": 0.5,
+      "metric": "frame-level COCO bbox AP, IoU 0.50:0.05:0.95, maxDets=100",
+      "checkpoint_sha256": "0e719b0e35f24c80464aa4db1d58965569bef13f6bcb49d890f1de97671ca746",
+      "training_step": 50,
+      "training_seed": 44,
+      "training_budget": 50,
+      "training_schedule_budget": 300,
+      "training_git": "e5865661abb5c40e477ebdc022d22dbcccca97ec",
+      "model_config": {
+        "input_dim": 512,
+        "hidden_dim": 512,
+        "attention_heads": 4,
+        "dropout": 0.1,
+        "memory_mode": "fixed",
+        "fixed_threshold": 0.8,
+        "alpha": 1.0,
+        "threshold_min": 0.5,
+        "threshold_max": 0.95,
+        "max_memory_per_class": 16,
+        "fusion_gate": "none",
+        "gate_threshold": 0.7,
+        "memory_weighting": "none",
+        "feature_centering": true
+      },
+      "cache_signature": {
+        "encoder": "google/owlv2-base-patch16-ensemble",
+        "revision": "cfd3195ba4ea9592eec887ded089f4c08eff231d",
+        "candidates": 128,
+        "feature_dim": 512,
+        "synthetic": false
+      },
+      "manifest_sha256": "71e342c029711cb5bdc757d97258e44f811b68469964376465a5db5075569b0f",
+      "episodes_sha256": "d9b8272385b451631688641e569a7b5950dcdb4f40a6245c48c040cf23f3c2e7",
+      "evaluation_environment": {
+        "environment": {
+          "python": "3.12.3",
+          "platform": "Windows-11-10.0.26200-SP0",
+          "packages": {
+            "torch": "2.9.1",
+            "transformers": "4.46.3",
+            "numpy": "1.26.4",
+            "scipy": "1.13.0",
+            "Pillow": "10.3.0",
+            "pycocotools": "2.0.11"
+          },
+          "cuda": null,
+          "gpu": null,
+          "git": "264f1cd11def0a2686f4f77e1dc694a2790346ad",
+          "git_dirty": false
+        },
+        "threads": 4,
+        "cache_artifact_manifest_sha256": "b2e5d3f7ba28acbd7632fbe7aac22aae76a7972dddcc3e4dfdf7d683e7769841"
+      },
+      "encoder_attention_backend": "sdpa"
+    },
+    {
+      "method": "fixed_300",
+      "seed": 42,
+      "AP": 55.19219798027325,
+      "AP50": 72.7004243406766,
+      "AP75": 57.591565923643586,
+      "frames": 960,
+      "episodes": 120,
+      "seconds": 3.4159797000465915,
+      "cached_pipeline_fps": 281.0321150289348,
+      "timing_scope": "cached feature IO, trainable heads, decoding; encoder excluded",
+      "mean_memory_tokens": 3.111458333333333,
+      "mean_threshold": 0.6000000238418579,
+      "synthetic": false,
+      "score_floor": 0.001,
+      "nms_iou": 0.5,
+      "metric": "frame-level COCO bbox AP, IoU 0.50:0.05:0.95, maxDets=100",
+      "checkpoint_sha256": "07804b393b4fa55e97107fbd24a756d7474c8fcd81ae04ed2f106b5fc22f185f",
+      "training_step": 250,
+      "training_seed": 42,
+      "training_budget": 300,
+      "training_schedule_budget": 300,
+      "training_git": "d2bd6c472a06a370b7bb2fb1857f2ba0f04688c6",
+      "model_config": {
+        "input_dim": 512,
+        "hidden_dim": 512,
+        "attention_heads": 4,
+        "dropout": 0.1,
+        "memory_mode": "fixed",
+        "fixed_threshold": 0.6,
+        "alpha": 1.0,
+        "threshold_min": 0.5,
+        "threshold_max": 0.95,
+        "max_memory_per_class": 16,
+        "fusion_gate": "none",
+        "gate_threshold": 0.7
+      },
+      "cache_signature": {
+        "encoder": "google/owlv2-base-patch16-ensemble",
+        "revision": "cfd3195ba4ea9592eec887ded089f4c08eff231d",
+        "candidates": 128,
+        "feature_dim": 512,
+        "synthetic": false
+      },
+      "manifest_sha256": "71e342c029711cb5bdc757d97258e44f811b68469964376465a5db5075569b0f",
+      "episodes_sha256": "d9b8272385b451631688641e569a7b5950dcdb4f40a6245c48c040cf23f3c2e7",
+      "evaluation_environment": {
+        "environment": {
+          "python": "3.12.3",
+          "platform": "Windows-11-10.0.26200-SP0",
+          "packages": {
+            "torch": "2.9.1",
+            "transformers": "4.46.3",
+            "numpy": "1.26.4",
+            "scipy": "1.13.0",
+            "Pillow": "10.3.0",
+            "pycocotools": "2.0.11"
+          },
+          "cuda": null,
+          "gpu": null,
+          "git": "264f1cd11def0a2686f4f77e1dc694a2790346ad",
+          "git_dirty": false
+        },
+        "threads": 4,
+        "cache_artifact_manifest_sha256": "b2e5d3f7ba28acbd7632fbe7aac22aae76a7972dddcc3e4dfdf7d683e7769841"
+      },
+      "encoder_attention_backend": "sdpa"
+    },
+    {
+      "method": "fixed_300",
+      "seed": 43,
+      "AP": 55.03362073446561,
+      "AP50": 72.63045039301363,
+      "AP75": 57.35720795048279,
+      "frames": 960,
+      "episodes": 120,
+      "seconds": 7.699387999949977,
+      "cached_pipeline_fps": 124.68523472336206,
+      "timing_scope": "cached feature IO, trainable heads, decoding; encoder excluded",
+      "mean_memory_tokens": 3.111458333333333,
+      "mean_threshold": 0.6000000238418579,
+      "synthetic": false,
+      "score_floor": 0.001,
+      "nms_iou": 0.5,
+      "metric": "frame-level COCO bbox AP, IoU 0.50:0.05:0.95, maxDets=100",
+      "checkpoint_sha256": "297ea9f537e25642d58d3ff702543339f1b7edf4e83522905deddac0b36ebe4c",
+      "training_step": 250,
+      "training_seed": 43,
+      "training_budget": 300,
+      "training_schedule_budget": 300,
+      "training_git": "d2bd6c472a06a370b7bb2fb1857f2ba0f04688c6",
+      "model_config": {
+        "input_dim": 512,
+        "hidden_dim": 512,
+        "attention_heads": 4,
+        "dropout": 0.1,
+        "memory_mode": "fixed",
+        "fixed_threshold": 0.6,
+        "alpha": 1.0,
+        "threshold_min": 0.5,
+        "threshold_max": 0.95,
+        "max_memory_per_class": 16,
+        "fusion_gate": "none",
+        "gate_threshold": 0.7
+      },
+      "cache_signature": {
+        "encoder": "google/owlv2-base-patch16-ensemble",
+        "revision": "cfd3195ba4ea9592eec887ded089f4c08eff231d",
+        "candidates": 128,
+        "feature_dim": 512,
+        "synthetic": false
+      },
+      "manifest_sha256": "71e342c029711cb5bdc757d97258e44f811b68469964376465a5db5075569b0f",
+      "episodes_sha256": "d9b8272385b451631688641e569a7b5950dcdb4f40a6245c48c040cf23f3c2e7",
+      "evaluation_environment": {
+        "environment": {
+          "python": "3.12.3",
+          "platform": "Windows-11-10.0.26200-SP0",
+          "packages": {
+            "torch": "2.9.1",
+            "transformers": "4.46.3",
+            "numpy": "1.26.4",
+            "scipy": "1.13.0",
+            "Pillow": "10.3.0",
+            "pycocotools": "2.0.11"
+          },
+          "cuda": null,
+          "gpu": null,
+          "git": "264f1cd11def0a2686f4f77e1dc694a2790346ad",
+          "git_dirty": false
+        },
+        "threads": 4,
+        "cache_artifact_manifest_sha256": "b2e5d3f7ba28acbd7632fbe7aac22aae76a7972dddcc3e4dfdf7d683e7769841"
+      },
+      "encoder_attention_backend": "sdpa"
+    },
+    {
+      "method": "fixed_300",
+      "seed": 44,
+      "AP": 55.07987334912314,
+      "AP50": 72.41636659131318,
+      "AP75": 57.53675676938108,
+      "frames": 960,
+      "episodes": 120,
+      "seconds": 9.039988499949686,
+      "cached_pipeline_fps": 106.19482535905252,
+      "timing_scope": "cached feature IO, trainable heads, decoding; encoder excluded",
+      "mean_memory_tokens": 3.0770833333333334,
+      "mean_threshold": 0.6000000238418579,
+      "synthetic": false,
+      "score_floor": 0.001,
+      "nms_iou": 0.5,
+      "metric": "frame-level COCO bbox AP, IoU 0.50:0.05:0.95, maxDets=100",
+      "checkpoint_sha256": "3aa8fe4d2e4981613f44ba5761811e53f715e22b178cdc43d6ef42f784f294df",
+      "training_step": 300,
+      "training_seed": 44,
+      "training_budget": 300,
+      "training_schedule_budget": 300,
+      "training_git": "d2bd6c472a06a370b7bb2fb1857f2ba0f04688c6",
+      "model_config": {
+        "input_dim": 512,
+        "hidden_dim": 512,
+        "attention_heads": 4,
+        "dropout": 0.1,
+        "memory_mode": "fixed",
+        "fixed_threshold": 0.6,
+        "alpha": 1.0,
+        "threshold_min": 0.5,
+        "threshold_max": 0.95,
+        "max_memory_per_class": 16,
+        "fusion_gate": "none",
+        "gate_threshold": 0.7
+      },
+      "cache_signature": {
+        "encoder": "google/owlv2-base-patch16-ensemble",
+        "revision": "cfd3195ba4ea9592eec887ded089f4c08eff231d",
+        "candidates": 128,
+        "feature_dim": 512,
+        "synthetic": false
+      },
+      "manifest_sha256": "71e342c029711cb5bdc757d97258e44f811b68469964376465a5db5075569b0f",
+      "episodes_sha256": "d9b8272385b451631688641e569a7b5950dcdb4f40a6245c48c040cf23f3c2e7",
+      "evaluation_environment": {
+        "environment": {
+          "python": "3.12.3",
+          "platform": "Windows-11-10.0.26200-SP0",
+          "packages": {
+            "torch": "2.9.1",
+            "transformers": "4.46.3",
+            "numpy": "1.26.4",
+            "scipy": "1.13.0",
+            "Pillow": "10.3.0",
+            "pycocotools": "2.0.11"
+          },
+          "cuda": null,
+          "gpu": null,
+          "git": "264f1cd11def0a2686f4f77e1dc694a2790346ad",
+          "git_dirty": false
+        },
+        "threads": 4,
+        "cache_artifact_manifest_sha256": "b2e5d3f7ba28acbd7632fbe7aac22aae76a7972dddcc3e4dfdf7d683e7769841"
+      },
+      "encoder_attention_backend": "sdpa"
+    }
+  ],
+  "summary": {
+    "fixed_50": {
+      "AP": {
+        "mean": 38.6054752048681,
+        "sample_std": 0.29310490241407333
+      },
+      "AP50": {
+        "mean": 50.5087302019146,
+        "sample_std": 0.28548835240203707
+      },
+      "AP75": {
+        "mean": 40.8066668153414,
+        "sample_std": 0.33165781054265436
+      }
+    },
+    "centered_50": {
+      "AP": {
+        "mean": 35.13653562036924,
+        "sample_std": 0.13022303413249245
+      },
+      "AP50": {
+        "mean": 45.43761574905147,
+        "sample_std": 0.10654508963364646
+      },
+      "AP75": {
+        "mean": 37.02301151449637,
+        "sample_std": 0.13633625932496082
+      }
+    },
+    "fixed_300": {
+      "AP": {
+        "mean": 55.10189735462067,
+        "sample_std": 0.08155046496250405
+      },
+      "AP50": {
+        "mean": 72.58241377500114,
+        "sample_std": 0.1479960767923007
+      },
+      "AP75": {
+        "mean": 57.49517688116915,
+        "sample_std": 0.1225870312218897
+      }
+    }
+  }
+}

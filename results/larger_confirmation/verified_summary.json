@@ -1,0 +1,377 @@
+{
+  "summary": {
+    "fixed_50": {
+      "AP": {
+        "mean": 38.6054752048681,
+        "sample_std": 0.29310490241407333
+      },
+      "AP50": {
+        "mean": 50.5087302019146,
+        "sample_std": 0.28548835240203707
+      },
+      "AP75": {
+        "mean": 40.8066668153414,
+        "sample_std": 0.33165781054265436
+      }
+    },
+    "centered_50": {
+      "AP": {
+        "mean": 35.13653562036924,
+        "sample_std": 0.13022303413249245
+      },
+      "AP50": {
+        "mean": 45.43761574905147,
+        "sample_std": 0.10654508963364646
+      },
+      "AP75": {
+        "mean": 37.02301151449637,
+        "sample_std": 0.13633625932496082
+      }
+    },
+    "fixed_300": {
+      "AP": {
+        "mean": 55.10189735462067,
+        "sample_std": 0.08155046496250405
+      },
+      "AP50": {
+        "mean": 72.58241377500114,
+        "sample_std": 0.1479960767923007
+      },
+      "AP75": {
+        "mean": 57.49517688116915,
+        "sample_std": 0.1225870312218897
+      }
+    }
+  },
+  "paired": [
+    {
+      "seed": 42,
+      "fixed_50_AP": 38.275539753797396,
+      "centered_50_AP": 35.13970556436171,
+      "fixed_300_AP": 55.19219798027325,
+      "AP_difference": -3.135834189435684
+    },
+    {
+      "seed": 43,
+      "fixed_50_AP": 38.70511734265837,
+      "centered_50_AP": 35.26514474274746,
+      "fixed_300_AP": 55.03362073446561,
+      "AP_difference": -3.4399725999109094
+    },
+    {
+      "seed": 44,
+      "fixed_50_AP": 38.83576851814854,
+      "centered_50_AP": 35.00475655399854,
+      "fixed_300_AP": 55.07987334912314,
+      "AP_difference": -3.831011964150001
+    }
+  ],
+  "primary_mean_AP_difference": -3.4689395844988646,
+  "paired_seed_wins": 0,
+  "video_bootstrap": {
+    "draws": 1000,
+    "seed": 20261030,
+    "percentile_95_interval": [
+      -7.285690577985679,
+      0.1960675983070342
+    ],
+    "unit": "query video; stratified within the six fixed classes",
+    "includes_zero": true,
+    "conditional_on": "fixed class identities, fixed support episodes, and the three trained seed pairs",
+    "does_not_cover": "unseen-class, new-support, training-development or model-selection uncertainty"
+  },
+  "classes": {
+    "16": "giraffe",
+    "20": "lizard",
+    "23": "mouse",
+    "27": "rabbit",
+    "38": "turtle",
+    "39": "zebra"
+  },
+  "distinct_videos": 24,
+  "distinct_frames": 192,
+  "episodes": 120,
+  "episode_frame_instances": 960,
+  "per_video_AP": [
+    {
+      "video_id": "00917dcfc4",
+      "class_id": "39",
+      "class_name": "zebra",
+      "fixed_50": 33.26974557316395,
+      "centered_50": 42.21190720399313,
+      "fixed_300": 49.257533681285814,
+      "difference": 8.942161630829176
+    },
+    {
+      "video_id": "13960b3c84",
+      "class_id": "16",
+      "class_name": "giraffe",
+      "fixed_50": 47.693438432759535,
+      "centered_50": 42.35891719493005,
+      "fixed_300": 55.987669929555274,
+      "difference": -5.334521237829485
+    },
+    {
+      "video_id": "18b5cebc34",
+      "class_id": "23",
+      "class_name": "mouse",
+      "fixed_50": 15.259419103197828,
+      "centered_50": 23.381143469626853,
+      "fixed_300": 30.767337870696977,
+      "difference": 8.121724366429024
+    },
+    {
+      "video_id": "1abf16d21d",
+      "class_id": "38",
+      "class_name": "turtle",
+      "fixed_50": 9.648703892106093,
+      "centered_50": 3.5126425357714743,
+      "fixed_300": 15.149937130854367,
+      "difference": -6.1360613563346185
+    },
+    {
+      "video_id": "279214115d",
+      "class_id": "38",
+      "class_name": "turtle",
+      "fixed_50": 23.137152811203308,
+      "centered_50": 30.765806274273842,
+      "fixed_300": 50.89168513518075,
+      "difference": 7.628653463070535
+    },
+    {
+      "video_id": "28c6b8f86a",
+      "class_id": "27",
+      "class_name": "rabbit",
+      "fixed_50": 86.45595317846272,
+      "centered_50": 89.47559703619102,
+      "fixed_300": 93.48902755763116,
+      "difference": 3.0196438577282976
+    },
+    {
+      "video_id": "2b88561cf2",
+      "class_id": "20",
+      "class_name": "lizard",
+      "fixed_50": 41.12810445079679,
+      "centered_50": 49.02039189983776,
+      "fixed_300": 78.35689652028476,
+      "difference": 7.892287449040971
+    },
+    {
+      "video_id": "3a20a7583e",
+      "class_id": "16",
+      "class_name": "giraffe",
+      "fixed_50": 82.79145661911167,
+      "centered_50": 77.42657012661283,
+      "fixed_300": 83.46246902588895,
+      "difference": -5.36488649249884
+    },
+    {
+      "video_id": "420caf0859",
+      "class_id": "39",
+      "class_name": "zebra",
+      "fixed_50": 27.83991343516703,
+      "centered_50": 29.23937042395926,
+      "fixed_300": 35.671426150497346,
+      "difference": 1.399456988792231
+    },
+    {
+      "video_id": "4cff5c9e42",
+      "class_id": "27",
+      "class_name": "rabbit",
+      "fixed_50": 55.68049849705031,
+      "centered_50": 39.3103680154437,
+      "fixed_300": 57.2653506253944,
+      "difference": -16.37013048160661
+    },
+    {
+      "video_id": "4e752f8075",
+      "class_id": "27",
+      "class_name": "rabbit",
+      "fixed_50": 57.252776801610274,
+      "centered_50": 56.21401867935572,
+      "fixed_300": 71.1342601165605,
+      "difference": -1.0387581222545563
+    },
+    {
+      "video_id": "4f37e86797",
+      "class_id": "16",
+      "class_name": "giraffe",
+      "fixed_50": 84.70081794435863,
+      "centered_50": 76.66706748873786,
+      "fixed_300": 87.9334846416254,
+      "difference": -8.033750455620776
+    },
+    {
+      "video_id": "6057307f6e",
+      "class_id": "23",
+      "class_name": "mouse",
+      "fixed_50": 29.15101809361646,
+      "centered_50": 19.283753436358822,
+      "fixed_300": 58.14867540759499,
+      "difference": -9.867264657257639
+    },
+    {
+      "video_id": "693cbf0c9d",
+      "class_id": "20",
+      "class_name": "lizard",
+      "fixed_50": 54.4562478359237,
+      "centered_50": 34.118367569899604,
+      "fixed_300": 70.70173406188262,
+      "difference": -20.337880266024094
+    },
+    {
+      "video_id": "6b3a24395c",
+      "class_id": "27",
+      "class_name": "rabbit",
+      "fixed_50": 55.0503326615162,
+      "centered_50": 53.27764861690731,
+      "fixed_300": 79.13981961526731,
+      "difference": -1.7726840446088943
+    },
+    {
+      "video_id": "82e117b900",
+      "class_id": "20",
+      "class_name": "lizard",
+      "fixed_50": 24.862593389189467,
+      "centered_50": 44.86823506741647,
+      "fixed_300": 71.20912659721289,
+      "difference": 20.005641678227004
+    },
+    {
+      "video_id": "a18ad065fc",
+      "class_id": "20",
+      "class_name": "lizard",
+      "fixed_50": 30.679852737547748,
+      "centered_50": 35.988933892192904,
+      "fixed_300": 54.456123833977806,
+      "difference": 5.309081154645156
+    },
+    {
+      "video_id": "a4bac06849",
+      "class_id": "39",
+      "class_name": "zebra",
+      "fixed_50": 49.57286050316903,
+      "centered_50": 47.25262984571024,
+      "fixed_300": 56.49917310250927,
+      "difference": -2.3202306574587936
+    },
+    {
+      "video_id": "b5a09a83f3",
+      "class_id": "16",
+      "class_name": "giraffe",
+      "fixed_50": 86.06940919416799,
+      "centered_50": 75.44009867472093,
+      "fixed_300": 90.53970881230504,
+      "difference": -10.62931051944706
+    },
+    {
+      "video_id": "d0acde820f",
+      "class_id": "39",
+      "class_name": "zebra",
+      "fixed_50": 85.15793782965397,
+      "centered_50": 72.38635765885344,
+      "fixed_300": 88.45942866174808,
+      "difference": -12.771580170800533
+    },
+    {
+      "video_id": "d0c65e9e95",
+      "class_id": "23",
+      "class_name": "mouse",
+      "fixed_50": 13.868429541307622,
+      "centered_50": 23.21363476661161,
+      "fixed_300": 33.094063942511475,
+      "difference": 9.345205225303987
+    },
+    {
+      "video_id": "ddb2da4c14",
+      "class_id": "38",
+      "class_name": "turtle",
+      "fixed_50": 25.728727180247812,
+      "centered_50": 20.254043699903278,
+      "fixed_300": 43.54050507590673,
+      "difference": -5.474683480344535
+    },
+    {
+      "video_id": "fd7af75f4d",
+      "class_id": "23",
+      "class_name": "mouse",
+      "fixed_50": 50.01364847039222,
+      "centered_50": 38.90406981434965,
+      "fixed_300": 74.23898277216743,
+      "difference": -11.109578656042572
+    },
+    {
+      "video_id": "fe3c02699d",
+      "class_id": "38",
+      "class_name": "turtle",
+      "fixed_50": 25.75641746846721,
+      "centered_50": 9.664335331661478,
+      "fixed_300": 37.89006008173862,
+      "difference": -16.09208213680573
+    }
+  ],
+  "per_class_AP": [
+    {
+      "class_id": "16",
+      "class_name": "giraffe",
+      "fixed_50": 68.55261705487598,
+      "centered_50": 61.7349413565297,
+      "fixed_300": 73.8682637777807,
+      "difference": -6.817675698346278
+    },
+    {
+      "class_id": "20",
+      "class_name": "lizard",
+      "fixed_50": 30.524835428845464,
+      "centered_50": 27.366111576677742,
+      "fixed_300": 60.60123762596688,
+      "difference": -3.1587238521677214
+    },
+    {
+      "class_id": "23",
+      "class_name": "mouse",
+      "fixed_50": 20.595385719040838,
+      "centered_50": 17.022055561335048,
+      "fixed_300": 44.20527282170375,
+      "difference": -3.57333015770579
+    },
+    {
+      "class_id": "27",
+      "class_name": "rabbit",
+      "fixed_50": 56.394483421501,
+      "centered_50": 52.969725173827634,
+      "fixed_300": 71.50092137903722,
+      "difference": -3.424758247673367
+    },
+    {
+      "class_id": "38",
+      "class_name": "turtle",
+      "fixed_50": 12.987474638794216,
+      "centered_50": 8.393278891938015,
+      "fixed_300": 27.937469153724084,
+      "difference": -4.594195746856201
+    },
+    {
+      "class_id": "39",
+      "class_name": "zebra",
+      "fixed_50": 42.57805496615111,
+      "centered_50": 43.33310116190726,
+      "fixed_300": 52.49821936951137,
+      "difference": 0.755046195756151
+    }
+  ],
+  "per_video_note": "Diagnostic single-query-video AP; its mean is not aggregate COCO AP.",
+  "protocol": {
+    "manifest_sha256": "71e342c029711cb5bdc757d97258e44f811b68469964376465a5db5075569b0f",
+    "episodes_sha256": "d9b8272385b451631688641e569a7b5950dcdb4f40a6245c48c040cf23f3c2e7",
+    "cache_signature": {
+      "encoder": "google/owlv2-base-patch16-ensemble",
+      "revision": "cfd3195ba4ea9592eec887ded089f4c08eff231d",
+      "candidates": 128,
+      "feature_dim": 512,
+      "synthetic": false
+    },
+    "score_floor": 0.001,
+    "nms_iou": 0.5
+  }
+}

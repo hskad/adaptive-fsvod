@@ -1,0 +1,66 @@
+{
+  "AP": 55.07987334912314,
+  "AP50": 72.41636659131318,
+  "AP75": 57.53675676938108,
+  "frames": 960,
+  "episodes": 120,
+  "seconds": 9.039988499949686,
+  "cached_pipeline_fps": 106.19482535905252,
+  "timing_scope": "cached feature IO, trainable heads, decoding; encoder excluded",
+  "mean_memory_tokens": 3.0770833333333334,
+  "mean_threshold": 0.6000000238418579,
+  "synthetic": false,
+  "score_floor": 0.001,
+  "nms_iou": 0.5,
+  "metric": "frame-level COCO bbox AP, IoU 0.50:0.05:0.95, maxDets=100",
+  "checkpoint_sha256": "3aa8fe4d2e4981613f44ba5761811e53f715e22b178cdc43d6ef42f784f294df",
+  "training_step": 300,
+  "training_seed": 44,
+  "training_budget": 300,
+  "training_schedule_budget": 300,
+  "training_git": "d2bd6c472a06a370b7bb2fb1857f2ba0f04688c6",
+  "model_config": {
+    "input_dim": 512,
+    "hidden_dim": 512,
+    "attention_heads": 4,
+    "dropout": 0.1,
+    "memory_mode": "fixed",
+    "fixed_threshold": 0.6,
+    "alpha": 1.0,
+    "threshold_min": 0.5,
+    "threshold_max": 0.95,
+    "max_memory_per_class": 16,
+    "fusion_gate": "none",
+    "gate_threshold": 0.7
+  },
+  "cache_signature": {
+    "encoder": "google/owlv2-base-patch16-ensemble",
+    "revision": "cfd3195ba4ea9592eec887ded089f4c08eff231d",
+    "candidates": 128,
+    "feature_dim": 512,
+    "synthetic": false
+  },
+  "manifest_sha256": "71e342c029711cb5bdc757d97258e44f811b68469964376465a5db5075569b0f",
+  "episodes_sha256": "d9b8272385b451631688641e569a7b5950dcdb4f40a6245c48c040cf23f3c2e7",
+  "evaluation_environment": {
+    "environment": {
+      "python": "3.12.3",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "packages": {
+        "torch": "2.9.1",
+        "transformers": "4.46.3",
+        "numpy": "1.26.4",
+        "scipy": "1.13.0",
+        "Pillow": "10.3.0",
+        "pycocotools": "2.0.11"
+      },
+      "cuda": null,
+      "gpu": null,
+      "git": "264f1cd11def0a2686f4f77e1dc694a2790346ad",
+      "git_dirty": false
+    },
+    "threads": 4,
+    "cache_artifact_manifest_sha256": "b2e5d3f7ba28acbd7632fbe7aac22aae76a7972dddcc3e4dfdf7d683e7769841"
+  },
+  "encoder_attention_backend": "sdpa"
+}

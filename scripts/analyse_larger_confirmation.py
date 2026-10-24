@@ -164,6 +164,10 @@ def write_readme(target, summary):
               "", "| Seed | Fixed 50 AP | Centered 50 AP | Difference | Fixed 300 reference AP |", "|---|---:|---:|---:|---:|"]
     for row in summary["paired"]:
         lines.append(f"| {row['seed']} | {row['fixed_50_AP']:.3f} | {row['centered_50_AP']:.3f} | {row['AP_difference']:+.3f} | {row['fixed_300_AP']:.3f} |")
+    lines += ["", "## Class-level AP", "",
+              "| Class | Fixed 50 | Centered 50 | Difference |", "|---|---:|---:|---:|"]
+    for row in summary["per_class_AP"]:
+        lines.append(f"| {row['class_name']} | {row['fixed_50']:.3f} | {row['centered_50']:.3f} | {row['difference']:+.3f} |")
     lines += ["", "## Fixed protocol and limits", "",
               f"Six fresh classes: {', '.join(summary['classes'].values())}. There are 24 distinct videos, 192 distinct frames, 120 balanced two-way one-shot episodes, and {summary['episode_frame_instances']} episode-frame instances. Repeated frames are not independent samples.",
               "", "Every class and video is disjoint from the original splits and both earlier fresh confirmations. All nine checkpoints, thresholds, and the training-only feature center were fixed before scoring. Every query video is tested against every other class. Its support crops come from other videos. A video can supply support to another query episode.",
@@ -175,6 +179,7 @@ def write_readme(target, summary):
               "- `verified_summary.json`, `comparison.csv`, and `paired.csv`: aggregate and paired results.",
               "- `bootstrap_draws.json`: actual query-video multiplicities, per-model AP draws, and paired effects.",
               "- `per_video.csv`: diagnostic single-query-video AP; its average is not aggregate COCO AP.",
+              "- `per_class.csv`: native COCO AP by class, averaged across training seeds.",
               "- `evaluation_environment.json`, `cache_metadata/`, and `download_manifest.json`: software, encoder, image CRCs, dimensions, and hashes.",
               "- `source_artifact_sha256.json`: hashes of the copied raw metric and detection records.",
               "", "![Larger confirmation](larger_confirmation.png)", "",
@@ -194,9 +199,10 @@ def plot(target, summary, effects):
     axes[0].set(title="Larger confirmation: aggregate box AP", ylabel="AP (%)", ylim=(0, max(means) + 13))
     axes[0].text(.02, .98, "Error bars: training-seed sample SD", transform=axes[0].transAxes, va="top", fontsize=8)
     axes[1].hist(effects, bins=30, color="#059669", alpha=.8)
-    axes[1].axvline(0, color="#334155", linestyle="--")
-    for value in summary["video_bootstrap"]["percentile_95_interval"]:
-        axes[1].axvline(value, color="#b45309", linestyle=":")
+    axes[1].axvline(0, color="#334155", linestyle="--", label="Zero difference")
+    for index, value in enumerate(summary["video_bootstrap"]["percentile_95_interval"]):
+        axes[1].axvline(value, color="#b45309", linestyle=":", label="95% interval" if index == 0 else "_nolegend_")
+    axes[1].legend(frameon=False, fontsize=8)
     axes[1].set(title="Paired video bootstrap (1,000 draws)", xlabel="Centered - fixed at 50 updates (AP points)", ylabel="Draw count")
     rows = summary["per_video_AP"]
     for category, name in summary["classes"].items():

@@ -8,7 +8,11 @@ This project uses a smaller, documented adaptation. It does not reproduce the pa
 
 ## Status
 
-**Current result: a small average gain at equal 50-update budgets.** On a fresh three-class, six-video, 18-frame subset, fixed/centered AP averaged **51.43/52.04** (sample SD **0.93/0.08**) across three paired seeds. Centering won two of three pairs. This is preliminary evidence for limited-update adaptation, not better fully converged accuracy. [Verified results and limitations](results/revision_v5/README.md) include source predictions, logs, protocols, and checkpoint hashes. A local inference bundle is ready; public weight links remain pending.
+**Current result: the larger test did not confirm the centering gain.** On six further unseen classes, 24 videos, and 192 distinct frames, the frozen 50-update fixed/centered models averaged **38.61/35.14 AP** (seed SD **0.29/0.13**). Centering was lower in all three seed pairs, by **3.47 AP points on average**. The separately tuned 300-update baseline reference averaged **55.10 AP**. [Larger confirmation, uncertainty analysis, and source records](results/larger_confirmation/README.md).
+
+The larger set's paired, class-stratified video-bootstrap 95% interval was **[-7.29, +0.20] AP points**, conditional on these classes, support episodes, and trained seeds. It includes zero: this check establishes neither a significant gain nor a significant loss.
+
+The earlier three-class, six-video, 18-frame subset gave fixed/centered AP **51.43/52.04**, with two positive pairs. [That small-set result](results/revision_v5/README.md) remains available, but it does not support a general faster-adaptation claim after this larger check. All nine inference heads are verified and bundled locally; public weight links remain pending.
 
 The first software milestone is implemented:
 
@@ -57,7 +61,7 @@ Use `--action collect` to summarize and archive completed runs without training 
 
 - Encoder: `google/owlv2-base-patch16-ensemble`.
 - Baseline: a fixed threshold selects object features for the next frame.
-- Current proposed method: class-balanced training-feature centering for faster few-shot adaptation; see `configs/fast_adaptation/`.
+- Tested modification: class-balanced training-feature centering, intended to improve limited-update adaptation; see `configs/fast_adaptation/`. The larger check did not confirm a gain.
 - Historical proposal: a bounded, class-dependent confidence threshold. It did not improve the initial test scores.
 - Controls: the same cached features, episodes, model size, token cap, optimizer, and evaluation procedure.
 - Data: a verified custom FSYTV-40 subset from YouTube-VIS 2019. It has 6/3/3 classes, 18/9/9 videos, and 131/50/68 frames for train/validation/test. Matching RGB frames come from a pinned YouTube-VOS archive mirror.

@@ -1,0 +1,68 @@
+{
+  "AP": 35.26514474274746,
+  "AP50": 45.5578199908139,
+  "AP75": 37.17163904268294,
+  "frames": 960,
+  "episodes": 120,
+  "seconds": 17.643488799920306,
+  "cached_pipeline_fps": 54.41100741959472,
+  "timing_scope": "cached feature IO, trainable heads, decoding; encoder excluded",
+  "mean_memory_tokens": 10.851041666666667,
+  "mean_threshold": 0.800000011920929,
+  "synthetic": false,
+  "score_floor": 0.001,
+  "nms_iou": 0.5,
+  "metric": "frame-level COCO bbox AP, IoU 0.50:0.05:0.95, maxDets=100",
+  "checkpoint_sha256": "769eec143f38d5bb751a9501f4fee75f79a215caf59029ad22434b59ea9fe3d0",
+  "training_step": 50,
+  "training_seed": 43,
+  "training_budget": 50,
+  "training_schedule_budget": 300,
+  "training_git": "e5865661abb5c40e477ebdc022d22dbcccca97ec",
+  "model_config": {
+    "input_dim": 512,
+    "hidden_dim": 512,
+    "attention_heads": 4,
+    "dropout": 0.1,
+    "memory_mode": "fixed",
+    "fixed_threshold": 0.8,
+    "alpha": 1.0,
+    "threshold_min": 0.5,
+    "threshold_max": 0.95,
+    "max_memory_per_class": 16,
+    "fusion_gate": "none",
+    "gate_threshold": 0.7,
+    "memory_weighting": "none",
+    "feature_centering": true
+  },
+  "cache_signature": {
+    "encoder": "google/owlv2-base-patch16-ensemble",
+    "revision": "cfd3195ba4ea9592eec887ded089f4c08eff231d",
+    "candidates": 128,
+    "feature_dim": 512,
+    "synthetic": false
+  },
+  "manifest_sha256": "71e342c029711cb5bdc757d97258e44f811b68469964376465a5db5075569b0f",
+  "episodes_sha256": "d9b8272385b451631688641e569a7b5950dcdb4f40a6245c48c040cf23f3c2e7",
+  "evaluation_environment": {
+    "environment": {
+      "python": "3.12.3",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "packages": {
+        "torch": "2.9.1",
+        "transformers": "4.46.3",
+        "numpy": "1.26.4",
+        "scipy": "1.13.0",
+        "Pillow": "10.3.0",
+        "pycocotools": "2.0.11"
+      },
+      "cuda": null,
+      "gpu": null,
+      "git": "264f1cd11def0a2686f4f77e1dc694a2790346ad",
+      "git_dirty": false
+    },
+    "threads": 4,
+    "cache_artifact_manifest_sha256": "b2e5d3f7ba28acbd7632fbe7aac22aae76a7972dddcc3e4dfdf7d683e7769841"
+  },
+  "encoder_attention_backend": "sdpa"
+}
