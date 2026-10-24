@@ -27,6 +27,7 @@ class ModelConfig:
     max_memory_per_class: int = 16
     fusion_gate: str = "none"
     gate_threshold: float = 0.7
+    memory_weighting: str = "none"
 
     def __post_init__(self):
         if self.memory_mode not in {"none", "fixed", "adaptive"}:
@@ -43,6 +44,8 @@ class ModelConfig:
             raise ValueError("fusion_gate must be none or confidence")
         if not 0 <= self.gate_threshold < 1:
             raise ValueError("gate_threshold must be in [0, 1)")
+        if self.memory_weighting not in {"none", "objectness"}:
+            raise ValueError("memory_weighting must be none or objectness")
 
 
 def confidence_gate(probabilities, threshold):
@@ -104,11 +107,25 @@ class TemporalDetector(nn.Module):
             for features in support
         ])
 
-    def forward_frame(self, features, boxes, prototypes, memory=None):
+    def forward_frame(self, features, boxes, prototypes, memory=None, objectness=None, memory_quality=None):
         current = F.normalize(self.project(features), dim=-1)
         gate = current.new_zeros(current.shape[0])
+        if self.config.memory_weighting == "objectness":
+            if objectness is None or objectness.shape != (features.shape[0],):
+                raise ValueError("Objectness weighting requires one encoder objectness score per candidate")
+            if not torch.isfinite(objectness).all() or (objectness < 0).any() or (objectness > 1).any():
+                raise ValueError("Objectness scores must be finite probabilities")
         if memory is not None and memory.shape[0] and self.config.memory_mode != "none":
-            context, _ = self.attention(current[None], memory[None], memory[None], need_weights=False)
+            attention_bias = None
+            if self.config.memory_weighting == "objectness":
+                if memory_quality is None or memory_quality.shape != (memory.shape[0],):
+                    raise ValueError("Objectness weighting requires quality scores for stored memory")
+                if not torch.isfinite(memory_quality).all() or (memory_quality < 0).any() or (memory_quality > 1).any():
+                    raise ValueError("Stored memory quality must be finite probabilities")
+                # Adding log(q_k) makes attention proportional to q_k*exp(a_jk).
+                attention_bias = memory_quality.clamp(1e-6, 1).log()[None].expand(current.shape[0], -1)
+            context, _ = self.attention(current[None], memory[None], memory[None],
+                                         attn_mask=attention_bias, need_weights=False)
             updated = current + self.memory_scale * context[0]
             updated = updated + self.ffn(updated)
             if self.config.fusion_gate == "confidence":
@@ -120,6 +137,13 @@ class TemporalDetector(nn.Module):
                     base_logits = torch.cat((base_foreground, self.background_head(current)), dim=-1)
                     gate = confidence_gate(base_logits.softmax(-1), self.config.gate_threshold)
                 current = current + gate[:, None] * (updated - current)
+            elif self.config.memory_weighting == "objectness":
+                # Normalized attention alone is invariant to a common reduction
+                # of every q. Also limit the full residual when all stored
+                # candidates have weak object evidence. max avoids counting
+                # duplicate candidates as independent evidence.
+                gate = memory_quality.max().expand(current.shape[0])
+                current = current + gate[:, None] * (updated - current)
             else:
                 current = updated
                 gate = current.new_ones(current.shape[0])
@@ -130,19 +154,24 @@ class TemporalDetector(nn.Module):
         # Public OWLv2 boxes include the patch grid prior. Refine them in logit space.
         predicted_boxes = torch.sigmoid(torch.logit(boxes.clamp(1e-5, 1 - 1e-5)) + self.box_head(current))
         selected, thresholds = select_memory(logits.detach().softmax(-1), self.config)
+        quality = objectness.detach()[selected] if objectness is not None else current.new_ones(len(selected))
         return {"logits": logits, "boxes": predicted_boxes, "memory": classified[selected],
-                "memory_indices": selected, "thresholds": thresholds, "fusion_gate": gate}
+                "memory_indices": selected, "thresholds": thresholds, "fusion_gate": gate,
+                "memory_quality": quality}
 
     def forward(self, frames, support):
         if not frames or not support:
             raise ValueError("An episode needs frames and support classes")
         prototypes = self.prototypes(support)
         memory = None
+        memory_quality = None
         outputs = []
         for frame in frames:
-            output = self.forward_frame(frame["features"], frame["boxes"], prototypes, memory)
+            output = self.forward_frame(frame["features"], frame["boxes"], prototypes, memory,
+                                        frame.get("objectness"), memory_quality)
             outputs.append(output)
             memory = output["memory"]
+            memory_quality = output["memory_quality"]
         return outputs
 
     def configuration(self):

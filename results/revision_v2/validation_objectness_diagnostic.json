@@ -1,0 +1,2138 @@
+{
+  "summary": {
+    "split": "val",
+    "memory_threshold": 0.6,
+    "selected_tokens": 423,
+    "correct_tokens": 109,
+    "scores": {
+      "objectness": {
+        "mean_correct": 0.4540827940517199,
+        "mean_incorrect": 0.11498308539906647,
+        "token_agreement_AUC": 0.8311225384210834
+      },
+      "class_confidence": {
+        "mean_correct": 0.9267902396140842,
+        "mean_incorrect": 0.7863584631567548,
+        "token_agreement_AUC": 0.8305089697890493
+      }
+    }
+  },
+  "tokens": [
+    {
+      "objectness": 0.714218020439148,
+      "class_confidence": 0.9995518326759338,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.6521111726760864,
+      "class_confidence": 0.9992420673370361,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.5339182615280151,
+      "class_confidence": 0.9961103796958923,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.3011148273944855,
+      "class_confidence": 0.9772228598594666,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.3129991292953491,
+      "class_confidence": 0.9518343210220337,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.19839470088481903,
+      "class_confidence": 0.9034240245819092,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.24415485560894012,
+      "class_confidence": 0.8817942142486572,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.04114401713013649,
+      "class_confidence": 0.8698599338531494,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.1587556153535843,
+      "class_confidence": 0.819966733455658,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.11508047580718994,
+      "class_confidence": 0.7932566404342651,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.06896653771400452,
+      "class_confidence": 0.629044771194458,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.009230329655110836,
+      "class_confidence": 0.9190577864646912,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.010446194559335709,
+      "class_confidence": 0.91722172498703,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.01309251505881548,
+      "class_confidence": 0.9162304401397705,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.00920723844319582,
+      "class_confidence": 0.9117781519889832,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.011760428547859192,
+      "class_confidence": 0.9103237390518188,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.013433435000479221,
+      "class_confidence": 0.9086337685585022,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.010652008466422558,
+      "class_confidence": 0.9046619534492493,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.022525232285261154,
+      "class_confidence": 0.9045068025588989,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.014677784405648708,
+      "class_confidence": 0.9040142893791199,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.012731976807117462,
+      "class_confidence": 0.9012011885643005,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.011097155511379242,
+      "class_confidence": 0.89840167760849,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.011956579051911831,
+      "class_confidence": 0.8983942270278931,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.011621546000242233,
+      "class_confidence": 0.8976751565933228,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.0123096639290452,
+      "class_confidence": 0.8941904306411743,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.010633466765284538,
+      "class_confidence": 0.8929646611213684,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.01095624826848507,
+      "class_confidence": 0.8928756713867188,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.8360019326210022,
+      "class_confidence": 0.9981508851051331,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.008263759315013885,
+      "class_confidence": 0.9670218229293823,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.0060107107274234295,
+      "class_confidence": 0.9660964608192444,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.017520511522889137,
+      "class_confidence": 0.9659115076065063,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.006551562342792749,
+      "class_confidence": 0.9628099799156189,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.008702058345079422,
+      "class_confidence": 0.9612890481948853,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.005735891871154308,
+      "class_confidence": 0.9610924124717712,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.01486566849052906,
+      "class_confidence": 0.960968554019928,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.007418675348162651,
+      "class_confidence": 0.9607111811637878,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.010518400929868221,
+      "class_confidence": 0.9603885412216187,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.007072914391756058,
+      "class_confidence": 0.9597851037979126,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.005067683290690184,
+      "class_confidence": 0.9597461819648743,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.012504334561526775,
+      "class_confidence": 0.9576362371444702,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.008897210471332073,
+      "class_confidence": 0.9567022919654846,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.006224500481039286,
+      "class_confidence": 0.9556108117103577,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.007895136252045631,
+      "class_confidence": 0.9555131793022156,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.07109459489583969,
+      "class_confidence": 0.9544450640678406,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.7611327171325684,
+      "class_confidence": 0.9981527924537659,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.028920620679855347,
+      "class_confidence": 0.9623944163322449,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.034025344997644424,
+      "class_confidence": 0.95818030834198,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.012370512820780277,
+      "class_confidence": 0.9559353590011597,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.01358704548329115,
+      "class_confidence": 0.9539017081260681,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.012099621817469597,
+      "class_confidence": 0.9523053169250488,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.022965464740991592,
+      "class_confidence": 0.9506447315216064,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.011650764383375645,
+      "class_confidence": 0.9501323103904724,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.01411294937133789,
+      "class_confidence": 0.9494749307632446,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.013449718244373798,
+      "class_confidence": 0.9493302702903748,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.06269631534814835,
+      "class_confidence": 0.9486168026924133,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.013244951143860817,
+      "class_confidence": 0.9475358724594116,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.0152145279571414,
+      "class_confidence": 0.9465766549110413,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.011519546620547771,
+      "class_confidence": 0.9450968503952026,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.02563983015716076,
+      "class_confidence": 0.944953441619873,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.010405024513602257,
+      "class_confidence": 0.9448381066322327,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.011445903219282627,
+      "class_confidence": 0.9434794783592224,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.6305865049362183,
+      "class_confidence": 0.9899514317512512,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.5355855822563171,
+      "class_confidence": 0.7452561855316162,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.03210148587822914,
+      "class_confidence": 0.9645437598228455,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.020418914034962654,
+      "class_confidence": 0.9617012143135071,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.022921429947018623,
+      "class_confidence": 0.9603142142295837,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.014027553610503674,
+      "class_confidence": 0.95937180519104,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.014782782644033432,
+      "class_confidence": 0.9535027146339417,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.013103203848004341,
+      "class_confidence": 0.9528277516365051,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.033765096217393875,
+      "class_confidence": 0.9525485038757324,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.019691593945026398,
+      "class_confidence": 0.9518277049064636,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.014941181987524033,
+      "class_confidence": 0.9516391754150391,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.02000545710325241,
+      "class_confidence": 0.9464969038963318,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.06576820462942123,
+      "class_confidence": 0.9454300403594971,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.014842814765870571,
+      "class_confidence": 0.9446215629577637,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.023233195766806602,
+      "class_confidence": 0.9441588521003723,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.027782313525676727,
+      "class_confidence": 0.943970799446106,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.03409760817885399,
+      "class_confidence": 0.9435442090034485,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.04123328626155853,
+      "class_confidence": 0.9420541524887085,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.5132341980934143,
+      "class_confidence": 0.9880208373069763,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.28096187114715576,
+      "class_confidence": 0.7639229893684387,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.2013171911239624,
+      "class_confidence": 0.7077481150627136,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.30646076798439026,
+      "class_confidence": 0.6805145740509033,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.06324385106563568,
+      "class_confidence": 0.6782491207122803,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.08138427883386612,
+      "class_confidence": 0.6582787036895752,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.06393071264028549,
+      "class_confidence": 0.6543130874633789,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.029145702719688416,
+      "class_confidence": 0.6205897331237793,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.5194200873374939,
+      "class_confidence": 0.974729061126709,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.5066860914230347,
+      "class_confidence": 0.9729869365692139,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.512711763381958,
+      "class_confidence": 0.9779232740402222,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.5921811461448669,
+      "class_confidence": 0.9819838404655457,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.20531706511974335,
+      "class_confidence": 0.953677773475647,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.2004157453775406,
+      "class_confidence": 0.9535406827926636,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.04034516215324402,
+      "class_confidence": 0.9445347785949707,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.09525424987077713,
+      "class_confidence": 0.9280753135681152,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.11704234033823013,
+      "class_confidence": 0.9216179251670837,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.10263245552778244,
+      "class_confidence": 0.9044405221939087,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.017798513174057007,
+      "class_confidence": 0.9035832285881042,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.10011120140552521,
+      "class_confidence": 0.898197591304779,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.052338261157274246,
+      "class_confidence": 0.8971784710884094,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.22466634213924408,
+      "class_confidence": 0.8828772902488708,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.06135696917772293,
+      "class_confidence": 0.8773154616355896,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.06107605993747711,
+      "class_confidence": 0.8755716681480408,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.15875384211540222,
+      "class_confidence": 0.8692202568054199,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.0589151568710804,
+      "class_confidence": 0.8622511625289917,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.0994022861123085,
+      "class_confidence": 0.8229891061782837,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.6138851642608643,
+      "class_confidence": 0.9864979982376099,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.5424249172210693,
+      "class_confidence": 0.9889205098152161,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.020641515031456947,
+      "class_confidence": 0.94169682264328,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.008415885269641876,
+      "class_confidence": 0.9211899638175964,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.004913204349577427,
+      "class_confidence": 0.9037525057792664,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.01788604073226452,
+      "class_confidence": 0.902803897857666,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.3987497389316559,
+      "class_confidence": 0.8922759294509888,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.016209181398153305,
+      "class_confidence": 0.8544452786445618,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.0663239061832428,
+      "class_confidence": 0.8509617447853088,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.009090270847082138,
+      "class_confidence": 0.8194781541824341,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.033235739916563034,
+      "class_confidence": 0.8041735291481018,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.012632803991436958,
+      "class_confidence": 0.799123227596283,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.03627130016684532,
+      "class_confidence": 0.7954512238502502,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.021916115656495094,
+      "class_confidence": 0.785616934299469,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.009577068500220776,
+      "class_confidence": 0.780925989151001,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.008467573672533035,
+      "class_confidence": 0.6955127120018005,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.0310842152684927,
+      "class_confidence": 0.6829023361206055,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.5508207082748413,
+      "class_confidence": 0.997559666633606,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.5388910174369812,
+      "class_confidence": 0.9975044131278992,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.5429278612136841,
+      "class_confidence": 0.9963440299034119,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.5424249172210693,
+      "class_confidence": 0.9877831339836121,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.020641515031456947,
+      "class_confidence": 0.8843151926994324,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.01788604073226452,
+      "class_confidence": 0.8471220135688782,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.3987497389316559,
+      "class_confidence": 0.8030310869216919,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.004913204349577427,
+      "class_confidence": 0.7861655950546265,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.008415885269641876,
+      "class_confidence": 0.7847478985786438,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.0663239061832428,
+      "class_confidence": 0.7800736427307129,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.021916115656495094,
+      "class_confidence": 0.7592248916625977,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.016209181398153305,
+      "class_confidence": 0.7284678220748901,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.033235739916563034,
+      "class_confidence": 0.6928586959838867,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.009577068500220776,
+      "class_confidence": 0.6894596815109253,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.012632803991436958,
+      "class_confidence": 0.638545572757721,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.03627130016684532,
+      "class_confidence": 0.6286455988883972,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.5508207082748413,
+      "class_confidence": 0.9928268790245056,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.5388910174369812,
+      "class_confidence": 0.9942017197608948,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.5429278612136841,
+      "class_confidence": 0.9899104237556458,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.5662675499916077,
+      "class_confidence": 0.9784293174743652,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.28745388984680176,
+      "class_confidence": 0.9533090591430664,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.05007805675268173,
+      "class_confidence": 0.6868303418159485,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.05267620086669922,
+      "class_confidence": 0.6774480938911438,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.5449052453041077,
+      "class_confidence": 0.957832932472229,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.572695791721344,
+      "class_confidence": 0.9535835981369019,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.5248215198516846,
+      "class_confidence": 0.9758597016334534,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.5295951962471008,
+      "class_confidence": 0.9770259261131287,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.5675177574157715,
+      "class_confidence": 0.9770601987838745,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.5766572952270508,
+      "class_confidence": 0.9814369082450867,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.197211354970932,
+      "class_confidence": 0.7740579843521118,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.23470208048820496,
+      "class_confidence": 0.7342689037322998,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.02946479432284832,
+      "class_confidence": 0.6889918446540833,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.2959364950656891,
+      "class_confidence": 0.6487699747085571,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.2735786437988281,
+      "class_confidence": 0.6433062553405762,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.17949964106082916,
+      "class_confidence": 0.6338655948638916,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.04390129819512367,
+      "class_confidence": 0.6100913882255554,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.05386783182621002,
+      "class_confidence": 0.6014933586120605,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.07211712002754211,
+      "class_confidence": 0.6920797228813171,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.27580296993255615,
+      "class_confidence": 0.6870768666267395,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.04942891001701355,
+      "class_confidence": 0.6766353845596313,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.24985280632972717,
+      "class_confidence": 0.6653412580490112,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.03400365263223648,
+      "class_confidence": 0.6600133776664734,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.08314340561628342,
+      "class_confidence": 0.6577637195587158,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.05923183634877205,
+      "class_confidence": 0.6556545495986938,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.07020485401153564,
+      "class_confidence": 0.6465228796005249,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.2531578242778778,
+      "class_confidence": 0.6066319346427917,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.06073501706123352,
+      "class_confidence": 0.60472172498703,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.11654575169086456,
+      "class_confidence": 0.6005855798721313,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.21738167107105255,
+      "class_confidence": 0.6538704037666321,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.2421872615814209,
+      "class_confidence": 0.6035283207893372,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.2677983045578003,
+      "class_confidence": 0.6440296173095703,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.0408504344522953,
+      "class_confidence": 0.6334800720214844,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.6521111726760864,
+      "class_confidence": 0.9978508949279785,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.714218020439148,
+      "class_confidence": 0.9967893362045288,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.5339182615280151,
+      "class_confidence": 0.995451033115387,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.3011148273944855,
+      "class_confidence": 0.983482837677002,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.3129991292953491,
+      "class_confidence": 0.9711069464683533,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.19839470088481903,
+      "class_confidence": 0.9578114151954651,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.24415485560894012,
+      "class_confidence": 0.9419507384300232,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.04114401713013649,
+      "class_confidence": 0.9026497006416321,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.1587556153535843,
+      "class_confidence": 0.893793523311615,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.11508047580718994,
+      "class_confidence": 0.8837536573410034,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.1199503242969513,
+      "class_confidence": 0.7984918355941772,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.16156312823295593,
+      "class_confidence": 0.7880630493164062,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.039103370159864426,
+      "class_confidence": 0.7174185514450073,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.10496201366186142,
+      "class_confidence": 0.7146322131156921,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.04150047525763512,
+      "class_confidence": 0.7011879682540894,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.06896653771400452,
+      "class_confidence": 0.6981891989707947,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.8360019326210022,
+      "class_confidence": 0.9966410398483276,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.7611327171325684,
+      "class_confidence": 0.9977177381515503,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.5401892066001892,
+      "class_confidence": 0.8584558367729187,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.6305865049362183,
+      "class_confidence": 0.9918215870857239,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.5355855822563171,
+      "class_confidence": 0.929033100605011,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.197211354970932,
+      "class_confidence": 0.7881603240966797,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.23470208048820496,
+      "class_confidence": 0.7588340640068054,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.02946479432284832,
+      "class_confidence": 0.7409403920173645,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.2959364950656891,
+      "class_confidence": 0.6884587407112122,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.2735786437988281,
+      "class_confidence": 0.684246301651001,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.17949964106082916,
+      "class_confidence": 0.6191222667694092,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.05386783182621002,
+      "class_confidence": 0.617318332195282,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.04390129819512367,
+      "class_confidence": 0.6149166226387024,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.27580296993255615,
+      "class_confidence": 0.7816237211227417,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.24985280632972717,
+      "class_confidence": 0.7180765867233276,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.03400365263223648,
+      "class_confidence": 0.7160263061523438,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.07211712002754211,
+      "class_confidence": 0.6932120323181152,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.04942891001701355,
+      "class_confidence": 0.6767660975456238,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.05923183634877205,
+      "class_confidence": 0.6633162498474121,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.08314340561628342,
+      "class_confidence": 0.6543733477592468,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.07020485401153564,
+      "class_confidence": 0.6433404684066772,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.2531578242778778,
+      "class_confidence": 0.6395277976989746,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.11654575169086456,
+      "class_confidence": 0.6326507329940796,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.06073501706123352,
+      "class_confidence": 0.6171548366546631,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.18233180046081543,
+      "class_confidence": 0.611679196357727,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.21738167107105255,
+      "class_confidence": 0.6976639628410339,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.2421872615814209,
+      "class_confidence": 0.6484709978103638,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.3694210946559906,
+      "class_confidence": 0.6316365003585815,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.2677983045578003,
+      "class_confidence": 0.7282431721687317,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.25328579545021057,
+      "class_confidence": 0.6856549978256226,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.0408504344522953,
+      "class_confidence": 0.676948606967926,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.20535051822662354,
+      "class_confidence": 0.6005370020866394,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.5662675499916077,
+      "class_confidence": 0.9946842789649963,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.03281228989362717,
+      "class_confidence": 0.9349002838134766,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.28745388984680176,
+      "class_confidence": 0.8312578797340393,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.05007805675268173,
+      "class_confidence": 0.8003661632537842,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.011532487347722054,
+      "class_confidence": 0.797034502029419,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.05819210410118103,
+      "class_confidence": 0.7798416614532471,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.007800885941833258,
+      "class_confidence": 0.775153636932373,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.007280873134732246,
+      "class_confidence": 0.7685218453407288,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.0337979793548584,
+      "class_confidence": 0.7554495930671692,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.006561401300132275,
+      "class_confidence": 0.7354544997215271,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.018672574311494827,
+      "class_confidence": 0.7230597734451294,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.009325919672846794,
+      "class_confidence": 0.6764998435974121,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.05267620086669922,
+      "class_confidence": 0.6628934144973755,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.03154068440198898,
+      "class_confidence": 0.6531982421875,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.052687812596559525,
+      "class_confidence": 0.624396800994873,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.5449052453041077,
+      "class_confidence": 0.995315432548523,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.572695791721344,
+      "class_confidence": 0.9966237545013428,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.5248215198516846,
+      "class_confidence": 0.9974663257598877,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.5295951962471008,
+      "class_confidence": 0.9965571165084839,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.5675177574157715,
+      "class_confidence": 0.9962487816810608,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.5766572952270508,
+      "class_confidence": 0.9975804090499878,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.6473464369773865,
+      "class_confidence": 0.9946823716163635,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.4044427275657654,
+      "class_confidence": 0.9902802109718323,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.11654431372880936,
+      "class_confidence": 0.8470337390899658,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.11672352999448776,
+      "class_confidence": 0.8211680054664612,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.09262280911207199,
+      "class_confidence": 0.8070208430290222,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.24310733377933502,
+      "class_confidence": 0.8042316436767578,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.11415775865316391,
+      "class_confidence": 0.8006426095962524,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.13022737205028534,
+      "class_confidence": 0.7068910002708435,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.08598216623067856,
+      "class_confidence": 0.7031261920928955,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.05781892314553261,
+      "class_confidence": 0.6840240359306335,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.07810233533382416,
+      "class_confidence": 0.6833392381668091,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.24168004095554352,
+      "class_confidence": 0.6396490931510925,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.16700619459152222,
+      "class_confidence": 0.631958544254303,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.6435824036598206,
+      "class_confidence": 0.9923765063285828,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.3400077223777771,
+      "class_confidence": 0.9838526248931885,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.16474512219429016,
+      "class_confidence": 0.8790512681007385,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.1713220328092575,
+      "class_confidence": 0.8528412580490112,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.08799418807029724,
+      "class_confidence": 0.7460824847221375,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.07514438033103943,
+      "class_confidence": 0.7409220933914185,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.08956127613782883,
+      "class_confidence": 0.7127448916435242,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.08842317759990692,
+      "class_confidence": 0.6658037304878235,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.14592918753623962,
+      "class_confidence": 0.6559597849845886,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.05623004585504532,
+      "class_confidence": 0.633338987827301,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.20262020826339722,
+      "class_confidence": 0.6135609745979309,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.6730412244796753,
+      "class_confidence": 0.9890073537826538,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.3814428746700287,
+      "class_confidence": 0.6883465051651001,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.23470208048820496,
+      "class_confidence": 0.9491217732429504,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.197211354970932,
+      "class_confidence": 0.9133363366127014,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.7235419750213623,
+      "class_confidence": 0.8749690055847168,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.17949964106082916,
+      "class_confidence": 0.8268218636512756,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.2959364950656891,
+      "class_confidence": 0.7993088960647583,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.2735786437988281,
+      "class_confidence": 0.7747224569320679,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.11340675503015518,
+      "class_confidence": 0.6975290775299072,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.0728626400232315,
+      "class_confidence": 0.6749449968338013,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.05386783182621002,
+      "class_confidence": 0.6211583614349365,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.043066710233688354,
+      "class_confidence": 0.6082448959350586,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.6724517345428467,
+      "class_confidence": 0.8205274939537048,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.7214389443397522,
+      "class_confidence": 0.8870512843132019,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.6692976951599121,
+      "class_confidence": 0.8086511492729187,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.1878799945116043,
+      "class_confidence": 0.7083982229232788,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.26869910955429077,
+      "class_confidence": 0.6820411682128906,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.17136408388614655,
+      "class_confidence": 0.6616559624671936,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.4144294857978821,
+      "class_confidence": 0.9544293880462646,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.2858981788158417,
+      "class_confidence": 0.9350476861000061,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.27348947525024414,
+      "class_confidence": 0.8705565333366394,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.2626541256904602,
+      "class_confidence": 0.8250163793563843,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.19463349878787994,
+      "class_confidence": 0.7805024981498718,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.14119039475917816,
+      "class_confidence": 0.7743353843688965,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.10906238853931427,
+      "class_confidence": 0.6719996333122253,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.20370329916477203,
+      "class_confidence": 0.6671149134635925,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.2111065536737442,
+      "class_confidence": 0.6620544195175171,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.058700285851955414,
+      "class_confidence": 0.6187620759010315,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.09084802865982056,
+      "class_confidence": 0.6142683029174805,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.5132341980934143,
+      "class_confidence": 0.9986659288406372,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.28096187114715576,
+      "class_confidence": 0.8435362577438354,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.029145702719688416,
+      "class_confidence": 0.7719888687133789,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.06393071264028549,
+      "class_confidence": 0.7355512380599976,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.08138427883386612,
+      "class_confidence": 0.7308311462402344,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.2013171911239624,
+      "class_confidence": 0.7284623980522156,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.15645219385623932,
+      "class_confidence": 0.6954068541526794,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.06324385106563568,
+      "class_confidence": 0.6744059324264526,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.07655656337738037,
+      "class_confidence": 0.6717116832733154,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.30646076798439026,
+      "class_confidence": 0.6570149660110474,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.09344197809696198,
+      "class_confidence": 0.6197049617767334,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.5194200873374939,
+      "class_confidence": 0.9942343831062317,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.5066860914230347,
+      "class_confidence": 0.9930151700973511,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.512711763381958,
+      "class_confidence": 0.9948874115943909,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.5424249172210693,
+      "class_confidence": 0.9898979663848877,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.020641515031456947,
+      "class_confidence": 0.8622487187385559,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.008415885269641876,
+      "class_confidence": 0.8294104933738708,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.0663239061832428,
+      "class_confidence": 0.816478431224823,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.004913204349577427,
+      "class_confidence": 0.8078440427780151,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.3987497389316559,
+      "class_confidence": 0.7839221358299255,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.01788604073226452,
+      "class_confidence": 0.7777142524719238,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.033235739916563034,
+      "class_confidence": 0.7334079146385193,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.03627130016684532,
+      "class_confidence": 0.6861705780029297,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.016209181398153305,
+      "class_confidence": 0.6812174320220947,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.009090270847082138,
+      "class_confidence": 0.663102924823761,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.021916115656495094,
+      "class_confidence": 0.6104046702384949,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.012632803991436958,
+      "class_confidence": 0.6088818311691284,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.5508207082748413,
+      "class_confidence": 0.9954472184181213,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.5388910174369812,
+      "class_confidence": 0.9948564767837524,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.5429278612136841,
+      "class_confidence": 0.9939737915992737,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.5132341980934143,
+      "class_confidence": 0.9910675883293152,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.029145702719688416,
+      "class_confidence": 0.9464243054389954,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.28096187114715576,
+      "class_confidence": 0.9111213684082031,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.07655656337738037,
+      "class_confidence": 0.8978631496429443,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.06393071264028549,
+      "class_confidence": 0.8959473371505737,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.06324385106563568,
+      "class_confidence": 0.8825827240943909,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.09344197809696198,
+      "class_confidence": 0.8807412981987,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.05216137319803238,
+      "class_confidence": 0.859748125076294,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.08138427883386612,
+      "class_confidence": 0.8586296439170837,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.2013171911239624,
+      "class_confidence": 0.8509043455123901,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.30646076798439026,
+      "class_confidence": 0.8370798230171204,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.06503666937351227,
+      "class_confidence": 0.7992764115333557,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.22773757576942444,
+      "class_confidence": 0.7564753293991089,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.03081602044403553,
+      "class_confidence": 0.7524387240409851,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.13706590235233307,
+      "class_confidence": 0.740692138671875,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.02870083600282669,
+      "class_confidence": 0.7398954033851624,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.5194200873374939,
+      "class_confidence": 0.9869236350059509,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.2639932632446289,
+      "class_confidence": 0.6034766435623169,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.5066860914230347,
+      "class_confidence": 0.9836604595184326,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.512711763381958,
+      "class_confidence": 0.9906966686248779,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.6473464369773865,
+      "class_confidence": 0.9622530937194824,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.4044427275657654,
+      "class_confidence": 0.9567819833755493,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.310576468706131,
+      "class_confidence": 0.9252562522888184,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.3235553205013275,
+      "class_confidence": 0.9097983241081238,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.09262280911207199,
+      "class_confidence": 0.7672343850135803,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.24310733377933502,
+      "class_confidence": 0.7360200881958008,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.11654431372880936,
+      "class_confidence": 0.7056314945220947,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.13022737205028534,
+      "class_confidence": 0.6618465185165405,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.051889583468437195,
+      "class_confidence": 0.6308434009552002,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.08598216623067856,
+      "class_confidence": 0.6067969799041748,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.6435824036598206,
+      "class_confidence": 0.9614735841751099,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.3400077223777771,
+      "class_confidence": 0.9551934003829956,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.3221614360809326,
+      "class_confidence": 0.9409459233283997,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.3309915065765381,
+      "class_confidence": 0.9093391299247742,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.1713220328092575,
+      "class_confidence": 0.7559910416603088,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.16474512219429016,
+      "class_confidence": 0.6779247522354126,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.05678287521004677,
+      "class_confidence": 0.6597909331321716,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.08842317759990692,
+      "class_confidence": 0.6113470196723938,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.6730412244796753,
+      "class_confidence": 0.8993023633956909,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.714218020439148,
+      "class_confidence": 0.9991400241851807,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.6521111726760864,
+      "class_confidence": 0.9981473684310913,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.5339182615280151,
+      "class_confidence": 0.9918695688247681,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.3011148273944855,
+      "class_confidence": 0.9617689251899719,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.3129991292953491,
+      "class_confidence": 0.9429317116737366,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.19839470088481903,
+      "class_confidence": 0.8585782051086426,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.24415485560894012,
+      "class_confidence": 0.8531903624534607,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.1587556153535843,
+      "class_confidence": 0.8402409553527832,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.04114401713013649,
+      "class_confidence": 0.8174724578857422,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.11508047580718994,
+      "class_confidence": 0.7569947242736816,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.16156312823295593,
+      "class_confidence": 0.7059824466705322,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.1199503242969513,
+      "class_confidence": 0.6869659423828125,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.06896653771400452,
+      "class_confidence": 0.6717169284820557,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.10272587090730667,
+      "class_confidence": 0.6712108254432678,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.11389189213514328,
+      "class_confidence": 0.6469898819923401,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.052177391946315765,
+      "class_confidence": 0.6467294692993164,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.8360019326210022,
+      "class_confidence": 0.9986521601676941,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.7611327171325684,
+      "class_confidence": 0.9988166093826294,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.5401892066001892,
+      "class_confidence": 0.7820398211479187,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.6305865049362183,
+      "class_confidence": 0.9928309917449951,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.5355855822563171,
+      "class_confidence": 0.9002565145492554,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.5132341980934143,
+      "class_confidence": 0.9934335947036743,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.029145702719688416,
+      "class_confidence": 0.9081326127052307,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.15645219385623932,
+      "class_confidence": 0.7804509997367859,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.06324385106563568,
+      "class_confidence": 0.7747492790222168,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.03081602044403553,
+      "class_confidence": 0.7369207739830017,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.2013171911239624,
+      "class_confidence": 0.7158322930335999,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.09344197809696198,
+      "class_confidence": 0.6874619722366333,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.07655656337738037,
+      "class_confidence": 0.6831058263778687,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.28096187114715576,
+      "class_confidence": 0.6524471044540405,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.06393071264028549,
+      "class_confidence": 0.6524278521537781,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.03707354888319969,
+      "class_confidence": 0.6359725594520569,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.025468971580266953,
+      "class_confidence": 0.6246950626373291,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.22773757576942444,
+      "class_confidence": 0.6162084341049194,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.5194200873374939,
+      "class_confidence": 0.9936367273330688,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.5066860914230347,
+      "class_confidence": 0.9922216534614563,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.512711763381958,
+      "class_confidence": 0.9937908053398132,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.13712789118289948,
+      "class_confidence": 0.8336318731307983,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.10263245552778244,
+      "class_confidence": 0.7695931196212769,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.04034516215324402,
+      "class_confidence": 0.7174074649810791,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.2004157453775406,
+      "class_confidence": 0.6674988269805908,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.11148042976856232,
+      "class_confidence": 0.6645268201828003,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.017798513174057007,
+      "class_confidence": 0.6577401161193848,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.0589151568710804,
+      "class_confidence": 0.6389983892440796,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.10146325826644897,
+      "class_confidence": 0.6266440153121948,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.052338261157274246,
+      "class_confidence": 0.6244968771934509,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.05240894854068756,
+      "class_confidence": 0.624316394329071,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.09525424987077713,
+      "class_confidence": 0.6088678240776062,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.0224323570728302,
+      "class_confidence": 0.6063287258148193,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.06107605993747711,
+      "class_confidence": 0.6032341122627258,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.03505678102374077,
+      "class_confidence": 0.6018306016921997,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.7864252924919128,
+      "class_confidence": 0.9956466555595398,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.07132729142904282,
+      "class_confidence": 0.704361081123352,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.03782195225358009,
+      "class_confidence": 0.6166687607765198,
+      "correct_iou50": false
+    },
+    {
+      "objectness": 0.7917497754096985,
+      "class_confidence": 0.9942911863327026,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.7682546377182007,
+      "class_confidence": 0.9952869415283203,
+      "correct_iou50": true
+    },
+    {
+      "objectness": 0.7627646923065186,
+      "class_confidence": 0.9962221384048462,
+      "correct_iou50": true
+    }
+  ],
+  "note": "Validation token agreement, not standard detection precision; last-frame memory excluded."
+}

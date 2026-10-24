@@ -126,7 +126,7 @@ class CachedEpisodes:
             frame = self.manifest.videos[episode["video_id"]]["frames"][index]
             path = self.root / "frames" / f"{frame_key(episode['video_id'], frame)}.pt"
             encoded = torch.load(path, map_location="cpu", weights_only=True)
-            frames.append({k: encoded[k].float().to(device) for k in ("features", "boxes")})
+            frames.append({k: encoded[k].float().to(device) for k in ("features", "boxes", "objectness") if k in encoded})
             objects = [o for o in frame["objects"] if str(o["category_id"]) in classes]
             targets.append({
                 "boxes": normalize_boxes([o["bbox"] for o in objects], frame["width"], frame["height"]).to(device),

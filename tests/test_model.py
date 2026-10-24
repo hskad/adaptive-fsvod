@@ -1,4 +1,5 @@
 import torch
+import pytest
 
 from adaptive_fsvod.cache import CachedEpisodes
 from adaptive_fsvod.data import VideoManifest, read_json
@@ -109,4 +110,66 @@ def test_gated_temporal_branch_gets_gradients(corpus):
     loss = sum(DetectionLoss()(out, target)["total"] for out, target in zip(outputs, targets))
     loss.backward()
     assert model.attention.in_proj_weight.grad is not None
+    assert model.attention.in_proj_weight.grad.abs().sum() > 0
+
+
+def test_objectness_prior_has_expected_attention_ratio():
+    model = TemporalDetector(ModelConfig(input_dim=4, hidden_dim=4, attention_heads=1,
+                                        dropout=0, memory_weighting="objectness")).eval()
+    with torch.no_grad():
+        model.attention.in_proj_weight.zero_()
+        model.attention.in_proj_weight[8:12].copy_(torch.eye(4))
+        model.attention.in_proj_bias.zero_()
+        model.attention.out_proj.weight.copy_(torch.eye(4))
+        model.attention.out_proj.bias.zero_()
+    contexts = []
+    handle = model.attention.register_forward_hook(lambda module, inputs, output: contexts.append(output[0].detach()))
+    with torch.no_grad():
+        model.forward_frame(torch.tensor([[0., 0., 1., 0.]]), torch.full((1, 4), .3),
+                            torch.tensor([[0., 0., 1., 0.]]), torch.eye(4)[:2],
+                            objectness=torch.ones(1), memory_quality=torch.tensor([.9, .1]))
+    handle.remove()
+    torch.testing.assert_close(contexts[0][0, 0], torch.tensor([.9, .1, 0., 0.]))
+
+
+def test_uniform_memory_quality_matches_unweighted_and_missing_scores_fail():
+    from dataclasses import replace
+    cfg = ModelConfig(input_dim=16, hidden_dim=16, dropout=0)
+    baseline = TemporalDetector(cfg).eval()
+    weighted = TemporalDetector(replace(cfg, memory_weighting="objectness")).eval()
+    weighted.load_state_dict(baseline.state_dict())
+    features = torch.randn(8, 16)
+    boxes = torch.full((8, 4), .3)
+    prototypes = torch.nn.functional.normalize(torch.randn(2, 16), dim=-1)
+    memory = torch.randn(5, 16)
+    with torch.no_grad():
+        plain = baseline.forward_frame(features, boxes, prototypes, memory)
+        equal = weighted.forward_frame(features, boxes, prototypes, memory,
+                                       objectness=torch.ones(8), memory_quality=torch.ones(5))
+    torch.testing.assert_close(plain["logits"], equal["logits"])
+    torch.testing.assert_close(plain["boxes"], equal["boxes"])
+    with pytest.raises(ValueError, match="objectness score"):
+        weighted.forward_frame(features, boxes, prototypes, memory)
+    with torch.no_grad():
+        zero = weighted.forward_frame(features, boxes, prototypes, memory,
+                                      objectness=torch.ones(8), memory_quality=torch.zeros(5))
+        alone = weighted.forward_frame(features, boxes, prototypes, None, objectness=torch.ones(8))
+    assert torch.equal(zero["logits"], alone["logits"])
+    assert torch.equal(zero["boxes"], alone["boxes"])
+
+
+def test_weighted_memory_retains_alignment_and_can_train(corpus):
+    cached = CachedEpisodes(VideoManifest(corpus / "train.json"), corpus / "cache/train")
+    episode = read_json(corpus / "train_episodes.json")["episodes"][0]
+    frames, support, targets, _ = cached.load(episode)
+    for frame in frames:
+        frame["objectness"] = torch.linspace(.1, .9, len(frame["features"]))
+    model = TemporalDetector(ModelConfig(input_dim=16, hidden_dim=16, dropout=0,
+                                        fixed_threshold=0, memory_weighting="objectness"))
+    outputs = model(frames, support)
+    for frame, output in zip(frames, outputs):
+        torch.testing.assert_close(output["memory_quality"], frame["objectness"][output["memory_indices"]])
+    loss = sum(DetectionLoss()(out, target)["total"] for out, target in zip(outputs, targets))
+    loss.backward()
+    assert torch.isfinite(loss)
     assert model.attention.in_proj_weight.grad.abs().sum() > 0

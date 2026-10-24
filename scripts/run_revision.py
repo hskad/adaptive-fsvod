@@ -43,8 +43,8 @@ def measure(checkpoint_path, manifest_path, cache_path, episodes_path, output):
     return metrics
 
 
-def training_run(root, config_path, name, seed):
-    output = root / "revision_v2/runs" / f"{name}_seed{seed}"
+def training_run(root, config_path, name, seed, study="revision_v2"):
+    output = root / study / "runs" / f"{name}_seed{seed}"
     flags = {
         "train-manifest": root / "pilot/train.json", "val-manifest": root / "pilot/val.json",
         "train-cache": root / "cache/train", "val-cache": root / "cache/val",
@@ -108,28 +108,30 @@ def replicate(root):
         print("VALIDATION", method, values, "mean", statistics.mean(values), "sample SD", statistics.stdev(values), flush=True)
 
 
-def confirmation(root):
-    confirm = root / "revision_v2/confirmation"
+def confirmation(root, study="revision_v2"):
+    confirm = root / study / "confirmation"
     manifest_path = confirm / "confirmation.json"
     manifest = VideoManifest(manifest_path)
     originals = [VideoManifest(root / f"pilot/{split}.json") for split in ("train", "val", "test")]
+    if study != "revision_v2":
+        originals.append(VideoManifest(root / "revision_v2/confirmation/confirmation.json"))
     validate_splits(originals + [manifest])
-    rows = read_json(root / "revision_v2/replications.json")
+    rows = read_json(root / study / "replications.json")
     output = []
     for row in rows:
         checkpoint = Path(row["checkpoint"])
         if checksum(checkpoint) != row["checkpoint_sha256"]:
             raise ValueError("Selected checkpoint changed")
         metrics = measure(checkpoint, manifest_path, confirm / "cache", confirm / "episodes.json",
-                          checkpoint.parent / "confirmation")
+                          root / study / "evaluations" / f"{row['method']}_seed{row['seed']}" / "confirmation")
         output.append({"method": row["method"], "seed": row["seed"], **metrics})
     summary = {}
-    for method in ("fixed", "gated", "none"):
+    for method in dict.fromkeys(row["method"] for row in rows):
         values = [r for r in output if r["method"] == method]
         summary[method] = {key: {"mean": statistics.mean(r[key] for r in values),
                                 "sample_std": statistics.stdev(r[key] for r in values)}
                            for key in ("AP", "AP50", "AP75")}
-    write_json(root / "revision_v2/confirmation_results.json", {"rows": output, "summary": summary})
+    write_json(root / study / "confirmation_results.json", {"rows": output, "summary": summary})
     print("FRESH CONFIRMATION SUMMARY", json.dumps(summary), flush=True)
 
 

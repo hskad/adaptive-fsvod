@@ -51,6 +51,7 @@ def main():
     output = Path(args.output)
     output.mkdir(parents=True, exist_ok=True)
     memory = None
+    memory_quality = None
     results, timings = [], []
     for path in paths:
         if str(args.device).startswith("cuda"):
@@ -60,8 +61,10 @@ def main():
             image = source.convert("RGB")
         frame = encoder.encode(image)
         detected = detector.forward_frame(frame["features"].float().to(args.device),
-                                           frame["boxes"].to(args.device), prototypes, memory)
+                                           frame["boxes"].to(args.device), prototypes, memory,
+                                           frame["objectness"].to(args.device), memory_quality)
         memory = detected["memory"]
+        memory_quality = detected["memory_quality"]
         predictions = decode(detected, classes, *image.size, args.score_threshold)
         if str(args.device).startswith("cuda"):
             torch.cuda.synchronize()

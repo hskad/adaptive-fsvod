@@ -22,11 +22,14 @@ def immutable(path, value):
         write_json(path, value)
 
 
-def prepare(root):
-    output = root / "revision_v2/confirmation"
+def prepare(root, study="revision_v2"):
+    output = root / study / "confirmation"
+    seed = 20261024 if study == "revision_v2" else 20261026
     annotation = root / "raw/fsytv-boxes.json"
     source = read_json(annotation)
     originals = [VideoManifest(root / f"pilot/{s}.json") for s in ("train", "val", "test")]
+    if study == "revision_v3":
+        originals.append(VideoManifest(root / "revision_v2/confirmation/confirmation.json"))
     excluded_classes = set().union(*(set(m.classes) for m in originals))
     excluded_videos = set().union(*(set(m.videos) for m in originals))
     categories = {str(c["id"]): c["name"] for c in source["categories"]}
@@ -62,7 +65,7 @@ def prepare(root):
                            "height": video["height"], "objects": objects})
         if any(f["objects"] for f in frames):
             eligible[next(iter(present))].append({"id": vid, "frames": frames})
-    rng = random.Random(20261024)
+    rng = random.Random(seed)
     classes = sorted(c for c, videos in eligible.items() if len(videos) >= 2)
     rng.shuffle(classes)
     classes = classes[:3]
@@ -80,7 +83,7 @@ def prepare(root):
     immutable(path, manifest)
     selected = VideoManifest(path)
     validate_splits(originals + [selected])
-    record = {"selection_seed": 20261024, "episode_seed": 20261025, "pool_seed": 42,
+    record = {"selection_seed": seed, "episode_seed": seed + 1, "pool_seed": 42,
               "annotation_sha256": checksum(annotation), "source": SOURCE,
               "original_manifest_sha256": {m.data["split"]: checksum(m.path) for m in originals},
               "classes": selected.classes, "video_ids": sorted(selected.videos),
@@ -93,13 +96,14 @@ def prepare(root):
     print("Image validation:", selected.validate_images(), flush=True)
 
 
-def cache(root):
-    output = root / "revision_v2/confirmation"
+def cache(root, study="revision_v2"):
+    output = root / study / "confirmation"
     manifest = VideoManifest(output / "confirmation.json")
     encoder = FrozenEncoder(device="cpu", revision="cfd3195ba4ea9592eec887ded089f4c08eff231d", candidates=128)
     print(build_cache(manifest, output / "cache", encoder, per_class=2, pool_seed=42), flush=True)
     pool = read_json(output / "cache/support_pool.json")
-    episodes = make_episodes(manifest, pool, count=30, n_way=2, k_shot=1, seed=20261025)
+    episodes = make_episodes(manifest, pool, count=30, n_way=2, k_shot=1,
+                             seed=20261025 if study == "revision_v2" else 20261027)
     immutable(output / "episodes.json", episodes)
     print("Fresh confirmation cache and 30 fixed episodes ready", flush=True)
 
@@ -108,7 +112,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--experiment-dir", type=Path, required=True)
     parser.add_argument("--stage", choices=("prepare", "cache"), required=True)
+    parser.add_argument("--study", choices=("revision_v2", "revision_v3"), default="revision_v2")
     parser.add_argument("--threads", type=int, default=4)
     args = parser.parse_args()
     torch.set_num_threads(args.threads)
-    {"prepare": prepare, "cache": cache}[args.stage](args.experiment_dir.resolve())
+    {"prepare": prepare, "cache": cache}[args.stage](args.experiment_dir.resolve(), args.study)
