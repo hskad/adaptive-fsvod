@@ -69,6 +69,15 @@ def verify(root):
 def measure(root, row, beta, execution):
     output = root / STUDY / "validation" / f"beta{round(beta * 100):03d}_seed{row['seed']}"
     inputs = root / "pilot"
+    if all((output / f"{name}.json").exists() for name in ("metrics", "ground_truth", "predictions")):
+        metrics = read_json(output / "metrics.json")
+        expected = {"checkpoint_sha256": row["checkpoint_sha256"], "objectness_beta": beta,
+                    "study_protocol_sha256": checksum(root / STUDY / "protocol.json"),
+                    "manifest_sha256": checksum(inputs / "val.json"),
+                    "episodes_sha256": checksum(inputs / "val_episodes.json")}
+        if any(metrics.get(k) != v for k, v in expected.items()):
+            raise ValueError("Existing evaluation uses a different protocol")
+        return {"seed": row["seed"], "beta": beta, "output": str(output), **metrics}
     cached = CachedEpisodes(VideoManifest(inputs / "val.json"), root / "cache/val")
     model, checkpoint = load_detector(row["checkpoint"])
     if checkpoint["cache_signature"] != cache_signature(cached.metadata):

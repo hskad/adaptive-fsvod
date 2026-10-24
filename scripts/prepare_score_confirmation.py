@@ -13,8 +13,8 @@ from adaptive_fsvod.cache import FrozenEncoder, build_cache
 from adaptive_fsvod.data import (VideoManifest, checksum, read_json, support_pool,
                                 validate_splits)
 from adaptive_fsvod.download_frames import SOURCE, RangeReader, download_frames, frame_index
-from prepare_confirmation import immutable
-from run_larger_confirmation import balanced_episodes, exclusions
+from prepare_confirmation import immutable, prior_confirmation_path
+from run_larger_confirmation import balanced_episodes
 from run_score_calibration import STUDY, verify
 
 
@@ -22,7 +22,14 @@ REVISION = "cfd3195ba4ea9592eec887ded089f4c08eff231d"
 
 
 def prior_manifests(root):
-    return exclusions(root) + [VideoManifest(root / "larger_confirmation/confirmation.json")]
+    repo = Path(__file__).resolve().parents[1]
+    result = [VideoManifest(root / f"pilot/{split}.json") for split in ("train", "val", "test")]
+    result.append(VideoManifest(prior_confirmation_path(root)))
+    for local, published in [("revision_v5/confirmation/confirmation.json", "results/revision_v5/confirmation_protocol/confirmation.json"),
+                             ("larger_confirmation/confirmation.json", "results/larger_confirmation/protocol/confirmation.json")]:
+        path = root / local
+        result.append(VideoManifest(path if path.exists() else repo / published))
+    return result
 
 
 def prepare(root, target):
@@ -139,6 +146,23 @@ def download(root):
 def cache(root, device):
     verify_fresh(root)
     directory = root / STUDY / "confirmation"
+    metadata_path = directory / "cache/metadata.json"
+    if metadata_path.exists() and read_json(metadata_path).get("complete"):
+        from adaptive_fsvod.data import frame_key
+        manifest = VideoManifest(directory / "confirmation.json")
+        existing = read_json(metadata_path)
+        expected = {"manifest_sha256": checksum(manifest.path), "encoder": "google/owlv2-base-patch16-ensemble",
+                    "revision": REVISION, "candidates": 128, "support_per_class": 4,
+                    "pool_seed": 42, "synthetic": False, "attention_backend": "sdpa"}
+        if any(existing.get(k) != v for k, v in expected.items()):
+            raise ValueError("Existing complete cache uses different settings")
+        pool = read_json(directory / "cache/support_pool.json")
+        needed = [directory / "cache/frames" / f"{frame_key(vid, frame)}.pt"
+                  for vid, video in manifest.videos.items() for frame in video["frames"]]
+        needed += [directory / "cache/support" / f"{item['key']}.pt" for values in pool.values() for item in values]
+        if all(p.is_file() for p in needed) and pool == read_json(directory / "support_pool.json"):
+            print("Complete matching cache already exists; preserve its metadata and tensors", flush=True)
+            return
     encoder = FrozenEncoder(device=device, revision=REVISION, candidates=128, attention_backend="sdpa")
     metadata = build_cache(VideoManifest(directory / "confirmation.json"), directory / "cache", encoder,
                            per_class=4, pool_seed=42)
