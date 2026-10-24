@@ -135,9 +135,11 @@ def train(args):
                           "best_val_ap": best_ap, "torch_rng": torch.get_rng_state(),
                           "python_rng": random.getstate(),
                           "cuda_rng": torch.cuda.get_rng_state_all() if torch.cuda.is_available() else []}
-            save_tensor(output / "last.pt", checkpoint)
             if improved:
                 save_tensor(output / "best.pt", checkpoint)
+            # Save best first. A disconnect must not leave last.pt claiming
+            # a best checkpoint that has not yet been written.
+            save_tensor(output / "last.pt", checkpoint)
             write_json(output / "validation_latest.json", metrics)
         with logs.open("a", encoding="utf-8") as stream:
             stream.write(json.dumps(record, allow_nan=False) + "\n")
