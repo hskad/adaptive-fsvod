@@ -72,6 +72,9 @@ Objectness-Aware Scoring for Few-Shot Video Object Detection}\\[4pt]
 
 \subsection*{I. Abstract (Maximum 100 Words)}
 \begin{enumerate}
+    % Consistent spacing between related points; font and page settings unchanged.
+    \setlength{\itemsep}{3pt}
+    \setlength{\parsep}{0pt}
     \item Few-shot video detection must locate new object classes from few labelled examples despite occlusion, motion blur, and changing appearance.
     \item Independent frame processing loses useful history; carrying all features forward can propagate background noise.
     \item Kumar and Mishra~[1] combine pretrained language-aligned visual features, support class prototypes, and attention to confident object features from the previous frame.
@@ -80,6 +83,9 @@ Objectness-Aware Scoring for Few-Shot Video Object Detection}\\[4pt]
 
 \subsection*{II. Proposed Novelty \& Technical Contribution}
 \begin{enumerate}
+    % Consistent spacing between related points; font and page settings unchanged.
+    \setlength{\itemsep}{3pt}
+    \setlength{\parsep}{0pt}
     \item We add an inference-time ranking rule to a \textbf{reduced adaptation} of~[1], using frozen OWLv2-Base features~[2] and a trained temporal head. Objectness-weighted scoring is established~[3]; our contribution is its controlled application and evaluation in this few-shot video pipeline.
     \item The baseline ranks foreground candidates by class confidence. We multiply this by the frozen encoder's objectness for the same candidate, \emph{before} class-wise non-maximum suppression (NMS). Each candidate's class label, background decision, and refined box remain fixed, as do temporal memory and all learned weights.
     \item Validation at seed~42 selects $\beta=1$ from $\{0,0.5,1\}$; this value is then fixed for seeds~43/44 and the fresh test. Both methods share the same checkpoints. No extra training, encoder pass, or trainable parameter is added.
@@ -87,6 +93,13 @@ Objectness-Aware Scoring for Few-Shot Video Object Detection}\\[4pt]
 
 \subsection*{III. Theoretical / Mathematical Justification}
 \begin{enumerate}
+    % Consistent spacing between related points; font and page settings unchanged.
+    \setlength{\itemsep}{3pt}
+    \setlength{\parsep}{0pt}
+    \setlength{\abovedisplayskip}{5pt}
+    \setlength{\belowdisplayskip}{5pt}
+    \setlength{\abovedisplayshortskip}{3pt}
+    \setlength{\belowdisplayshortskip}{3pt}
     \item Let $p_j$ be the maximum foreground softmax score and $q_j\in[0,1]$ the candidate's class-independent encoder objectness, measured before box refinement. We rank by
     \[
     s_j=p_jq_j^{\beta},\qquad \log s_j=\log p_j+\beta\log q_j\quad(p_j,q_j>0).
@@ -101,6 +114,9 @@ Objectness-Aware Scoring for Few-Shot Video Object Detection}\\[4pt]
 
 \subsection*{IV. Comparative Results \& Empirical Evaluation}
 \begin{enumerate}
+    % Consistent spacing between related points; font and page settings unchanged.
+    \setlength{\itemsep}{3pt}
+    \setlength{\parsep}{0pt}
     \item \textbf{Setup:} custom FSYTV-40 subset from YouTube-VIS 2019; train/validation: 6/3 classes, 18/9 videos, 131/50 frames. Frozen OWLv2-Base uses native $960\!\times\!960$ padded inputs and 128 candidates. Each head trains for 300 updates (AdamW, $10^{-4}$ learning rate); validation selects steps 250/250/300 for seeds 42/43/44.
     \item \textbf{Fresh test:} six classes unused in earlier studies, 24 videos, 192 distinct frames; 120 balanced 2-way 1-shot episodes (960 episode-frame instances). Support and query videos differ. Models, $\beta$, episodes, and shared features were fixed before scoring.
     \item Both methods use the same candidate boxes, score floor~0.001, NMS IoU~0.5, and at most 100 detections per frame. Report frame-level COCO box AP at IoU $0.50{:}0.05{:}0.95$, AP50, and AP75. All three paired runs and all six class means improve.
@@ -121,11 +137,11 @@ $\Delta$ (Ours -- Baseline) & +10.86 & +12.61 & +11.95 & 0\\
 \bottomrule
 \end{tabularx}
 \end{center}
-\vspace{-5pt}
 
 \textbf{Result Interpretation:}
 The paired mean gain is \textbf{10.86 AP points}. A 1,000-draw paired, class-stratified query-video bootstrap gives a 95\% interval of \textbf{[+5.96, +14.85]}, conditional on these classes, fixed support episodes, and trained seed pairs. Bear contributes most of the aggregate gain (+43.55 class AP); gains vary by class. Since weights and candidate boxes are shared, the measured change is due to scoring and its downstream filtering, not new feature learning. The rule adds linear score computation; no latency gain is claimed. These are reduced-subset results, not the paper's full benchmark scores.
 
+\smallskip
 \textbf{References:}
 [1] Kumar and Mishra, \href{https://ojs.aaai.org/index.php/AAAI/article/view/37497}{\emph{Temporal Object-Aware Vision Transformer for Few-Shot Video Object Detection}}, AAAI 2026.
 [2] Minderer et al., \href{https://arxiv.org/abs/2306.09683}{\emph{Scaling Open-Vocabulary Object Detection}}, NeurIPS 2023.

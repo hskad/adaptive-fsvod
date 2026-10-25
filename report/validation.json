@@ -12,8 +12,8 @@
   "abstract_words": 71,
   "template_preamble_byte_identical": true,
   "template_sha256": "b4c41140c5cd26989c7efa6da4a1883a377e8ddcef1ca464a69146c91671bdf3",
-  "source_sha256": "13ac35234a5dcf524fa4aa70395cc47a1fc3bb206d12afeae117c1cdde0a7646",
-  "PDF_sha256": "8b7c93eb6eeae4534638bf4833f930c93d63cc93642e017111f90a7e6bf9ebaa",
+  "source_sha256": "b31c7dc3c597bf9932506d3ac2a0f0f27b0f77b9df33aebe80beed79fd95244e",
+  "PDF_sha256": "7465ca777b79581131821f4779baecd04d55d29587defe66dce825ac9281c679",
   "all_six_mean_metrics_match_published_rounding": true,
   "gain_AP_points": 10.857877935423117,
   "paired_video_bootstrap_interval": [
@@ -24,5 +24,21 @@
   "latest_render_visually_reviewed": true,
   "compiler": "Tectonic 0.17.0, XeTeX",
   "render_tool": "Poppler 26.09.0",
-  "member_details_require_recompile": true
+  "member_details_require_recompile": true,
+  "scientific_content_unchanged_from_previous_draft": true,
+  "body_spacing_refinements": {
+    "list_itemsep_pt": 3,
+    "list_parsep_pt": 0,
+    "display_above_below_pt": 5,
+    "short_display_above_below_pt": 3,
+    "removed_table_negative_vspace_pt": 5,
+    "smallskip_before_references": true,
+    "fonts_margins_heading_and_table_style_unchanged": true
+  },
+  "text_bounds_points": [
+    39.60021,
+    11.126595,
+    555.684907,
+    794.960072
+  ]
 }

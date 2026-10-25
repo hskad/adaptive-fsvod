@@ -3,7 +3,12 @@
 The source in `main.tex` fills the instructor's template. Its entire preamble,
 including margins, font settings, spacing, packages, and table settings, is
 byte-for-byte identical to `template_original.tex`. The enumerated section
-structure and table style are retained. Table headings now report AP, AP50,
+structure and table style are retained. At the user's request, local body
+spacing was refined: 3 pt between list items, no extra paragraph gap inside
+items, 5 pt around full display equations (3 pt for short displays), normal
+separation below the results table, and a small gap before the references.
+Fonts, margins, section-heading settings, and table style are unchanged.
+The scientific text, equations, and result values are unchanged. Table headings now report AP, AP50,
 AP75, and trainable head size. No latency improvement was measured or claimed.
 
 The draft uses team name **Deep_Learners**. No team number was supplied. The
@@ -46,5 +51,5 @@ limits. It credits established objectness scoring and states that bear supplies
 most of the mean gain. It does not claim full-paper benchmark reproduction.
 
 The local PDF and Overleaf export are delivered under the workspace's
-`output/pdf/` directory. The report source is version-controlled here. The
+`output/pdf/revised/` directory. The report source is version-controlled here. The
 original instructor ZIP in the workspace remains unchanged.
