@@ -72,3 +72,35 @@ def test_feature_export_preserves_values_without_unused_storage(tmp_path, as_dic
     assert torch.equal(value, original)
     assert value.untyped_storage().nbytes() == value.numel() * value.element_size()
     assert len(compact_tensor_file(path)) < path.stat().st_size / 10
+
+
+def test_download_retries_temporary_network_failure(tmp_path, monkeypatch):
+    import requests
+
+    calls = []
+
+    class Response:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            return False
+
+        def raise_for_status(self):
+            pass
+
+        def iter_content(self, _):
+            yield b"verified bytes"
+
+    def get(*args, **kwargs):
+        calls.append(1)
+        if len(calls) < 3:
+            raise requests.ConnectionError("temporary disconnect")
+        return Response()
+
+    monkeypatch.setattr("scripts.download_artifacts.requests.get", get)
+    monkeypatch.setattr("scripts.download_artifacts.time.sleep", lambda _: None)
+    path = tmp_path / "model.zip"
+    download("https://example.test/weights.zip", path, hashlib.sha256(b"verified bytes").hexdigest())
+    assert len(calls) == 3
+    assert path.read_bytes() == b"verified bytes"

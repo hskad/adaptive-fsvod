@@ -3,6 +3,7 @@
 import argparse
 import hashlib
 import shutil
+import time
 import zipfile
 from pathlib import Path, PurePosixPath
 
@@ -18,21 +19,29 @@ def download(url, path, expected):
     if path.exists() and checksum(path) == expected:
         return
     temporary = path.with_suffix(".part")
-    digest = hashlib.sha256()
-    try:
-        with requests.get(url, stream=True, timeout=(30, 120)) as response:
-            response.raise_for_status()
-            with temporary.open("wb") as target:
-                for block in response.iter_content(1024 * 1024):
-                    if block:
-                        digest.update(block)
-                        target.write(block)
-        if digest.hexdigest() != expected:
-            raise ValueError(f"Download checksum failed: {path.name}")
-        temporary.replace(path)
-    finally:
-        if temporary.exists():
-            temporary.unlink()
+    for attempt in range(3):
+        digest = hashlib.sha256()
+        try:
+            with requests.get(url, stream=True, timeout=(30, 120)) as response:
+                response.raise_for_status()
+                with temporary.open("wb") as target:
+                    for block in response.iter_content(1024 * 1024):
+                        if block:
+                            digest.update(block)
+                            target.write(block)
+            if digest.hexdigest() != expected:
+                raise ValueError(f"Download checksum failed: {path.name}")
+            temporary.replace(path)
+            return
+        except requests.RequestException as error:
+            status = error.response.status_code if error.response is not None else None
+            if attempt == 2 or (status is not None and status not in (429, 500, 502, 503, 504)):
+                raise
+            print("Network error; retry", attempt + 2, "of 3:", path.name, flush=True)
+            time.sleep(attempt + 1)
+        finally:
+            if temporary.exists():
+                temporary.unlink()
 
 
 def extract(archive, destination):
