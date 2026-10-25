@@ -14,4 +14,6 @@ This page maps the course's non-report requirements to the final score study. Th
 
 The public heads are inference exports. They omit optimizer/RNG state. Executable training writes full resumable checkpoints and logs. The proposed scoring rule changes no trained tensor; therefore one shared head bundle covers both baseline and proposed evaluation.
 
+The [clean reproduction record](../results/reproducibility_20261025/README.md) verifies public downloads, all three fresh training runs, exact model tensors, all six prediction sets, all 18 AP metrics, the complete bootstrap, fresh RGB access, and raw-frame inference. The main instructions and release files are public. The report remains separate.
+
 The evidence is for a reduced custom FSYTV setup. It does not establish full-paper benchmark reproduction or a globally new scoring principle. The final report should state this scope and the larger bear-class effect.

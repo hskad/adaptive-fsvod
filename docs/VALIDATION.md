@@ -1,5 +1,37 @@
 # Software validation
 
+## Final submission checks: 25 October 2026
+
+A separate public clone and a new Python 3.12 virtual environment with system
+packages disabled passed installation and `pip check`. The public GitHub Release
+assets downloaded without credentials, and both archive hashes, all three head
+hashes, and 551 exported feature/metadata files passed verification.
+
+All three shared heads were retrained for 300 updates from the released features.
+The selected steps were 250/250/300. Every trained model tensor exactly matched
+the corresponding released head, and all 300 training losses per seed exactly
+matched the original logs. Repeating the training helper kept completed runs.
+
+All six saved-feature evaluations reproduced every detection record and all 18
+AP/AP50/AP75 values exactly. The public-prediction analysis recomputed all 1,000
+paired bootstrap draws and the interval [+5.960, +14.850] exactly, without original
+machine paths, models, or images. A fresh download verified all 192 RGB frame
+hashes against the frozen image records. Raw-frame inference from a public head
+also saved finite detections and two inspected annotated images.
+
+The clean environment passed 54 tests before the later export/retry additions;
+all nine artifact tests subsequently passed locally. The full updated suite and
+synthetic training/reload/evaluation checks passed in GitHub Actions. See the
+[machine-readable verification, full environment, and fresh training logs](../results/reproducibility_20261025/README.md).
+
+This verifies the saved-feature CPU reproduction path and a separate raw-frame
+inference sample. It does not establish a new end-to-end cloud notebook run or a
+fresh extraction of all 192 encoder frames. The public feature export removes
+unused tensor backing storage; each loaded value was checked exactly against
+the measured source, whose byte hashes are retained in the feature manifest.
+
+## Earlier checks
+
 Checks performed locally on 24 October 2026:
 
 - Windows, Python 3.12.3, PyTorch 2.9.1+cpu, Transformers 4.46.3, NumPy 1.26.4.
@@ -59,4 +91,4 @@ been tested end to end. [Full records](../results/score_calibration/README.md).
 
 31 tests passed after the new model and update-cap changes. Checks include class-balanced training-only centering, checkpoint mean storage, rejection of changed centers on resume, preservation of the learning-rate schedule prefix under a shorter actual budget, attention-quality ratios, zero-residual identity, and backward compatibility. A real saved baseline reproduced its validation AP exactly after the additions.
 
-Still pending: accessible checkpoint links and peak GPU memory. The final report is deferred at the user's request. Notebook cells are syntax checked locally. GitHub Actions uses CPU checks and does not download public model weights.
+The final method's checkpoints and measured features are public in [release v1.0-results](https://github.com/hskad/adaptive-fsvod/releases/tag/v1.0-results). Peak GPU memory was not measured; no GPU-memory improvement is claimed. The final report is deferred at the user's request. Notebook cells are syntax checked locally. GitHub Actions uses CPU checks and does not download public model weights; the separate local clean run verified the public head downloads.

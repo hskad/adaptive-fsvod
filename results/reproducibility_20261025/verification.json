@@ -1,0 +1,105 @@
+{
+  "date": "2026-10-25",
+  "source_repository": "https://github.com/hskad/adaptive-fsvod",
+  "source_revision_at_final_check": "6e842027541826af76ba24021bb1a9d5f2c6a140",
+  "clean_clone": true,
+  "system_site_packages": false,
+  "public_release": "https://github.com/hskad/adaptive-fsvod/releases/tag/v1.0-results",
+  "public_downloads_without_credentials": true,
+  "threads": 4,
+  "device": "cpu",
+  "artifacts": [
+    {
+      "file": "score_calibration_inference.zip",
+      "bytes": 23428711,
+      "sha256": "653e035c4aa02000fafec724f91f8e46da1e6680740d9baa4edee541a183bec1"
+    },
+    {
+      "file": "score_calibration_features.zip",
+      "bytes": 47328379,
+      "sha256": "c098b8a75952bd655b1e0cedccb5793cc62529b6370d5ee355914c53d7315487"
+    }
+  ],
+  "evaluation": {
+    "runs": 6,
+    "AP_AP50_AP75_values": 18,
+    "all_metric_differences_exactly_zero": true,
+    "all_saved_prediction_records_equal": true
+  },
+  "training": [
+    {
+      "seed": 42,
+      "completed_updates": 300,
+      "selected_step": 250,
+      "model_tensors_compared": 18,
+      "all_model_tensors_exactly_equal_to_public_head": true,
+      "maximum_training_loss_difference_from_source_log": 0.0,
+      "fresh_checkpoint_sha256": "b9730c48ea2e8965b28f3e5f4cdafd7a0cea19bc7d9ede2f6f79e99535848f95",
+      "public_checkpoint_sha256": "a5bb41268c8160d8b65cbbbd9c2fb0f158ae94a7c7639c165ef41a9d3f00331d",
+      "training_source_git": "21553640f3b6c7444c10a2c699456b08e2e5e2af"
+    },
+    {
+      "seed": 43,
+      "completed_updates": 300,
+      "selected_step": 250,
+      "model_tensors_compared": 18,
+      "all_model_tensors_exactly_equal_to_public_head": true,
+      "maximum_training_loss_difference_from_source_log": 0.0,
+      "fresh_checkpoint_sha256": "7418f707fa8370c5589e45b74ee94119a23957b04858ec95347417ff123a3b6e",
+      "public_checkpoint_sha256": "696817db842a83fdfd0662c078adf36c55db4f0cf6b1be7734cfa4e7f74d82c7",
+      "training_source_git": "21553640f3b6c7444c10a2c699456b08e2e5e2af"
+    },
+    {
+      "seed": 44,
+      "completed_updates": 300,
+      "selected_step": 300,
+      "model_tensors_compared": 18,
+      "all_model_tensors_exactly_equal_to_public_head": true,
+      "maximum_training_loss_difference_from_source_log": 0.0,
+      "fresh_checkpoint_sha256": "04b372c47aaf35e2a9d37485a371381e9a0ba8fdd6ac0edced7f517d490ca154",
+      "public_checkpoint_sha256": "8a76ab35e6eb5d522893d08f7a725cde82c588bf10ae4e12c3aac696c062faa1",
+      "training_source_git": "6e842027541826af76ba24021bb1a9d5f2c6a140"
+    }
+  ],
+  "bootstrap": {
+    "draws": 1000,
+    "seed": 20261102,
+    "all_multiplicities_and_AP_draws_exactly_equal": true,
+    "percentile_95_interval": [
+      5.960226643749342,
+      14.850412557099135
+    ]
+  },
+  "fresh_RGB_download": {
+    "verified_frames": 192,
+    "all_image_hashes_match_published": true,
+    "CRC_dimensions_and_decoding_checked": true
+  },
+  "raw_inference": {
+    "frames": 2,
+    "support_classes": [
+      "fox",
+      "horse"
+    ],
+    "support_query_videos_distinct": true,
+    "objectness_beta": 1,
+    "finite_detections_and_two_annotated_images": true,
+    "encoder": "google/owlv2-base-patch16-ensemble",
+    "revision": "cfd3195ba4ea9592eec887ded089f4c08eff231d",
+    "attention_backend": "eager",
+    "note": "Functional raw-frame check, not a new accuracy result or latency benchmark. Pinned public encoder files were already present in the model cache."
+  },
+  "software_checks": {
+    "clean_environment_tests_before_export_additions": 54,
+    "subsequent_artifact_tests_passed": 9,
+    "CI_URL": "https://github.com/hskad/adaptive-fsvod/actions/runs/40165418056",
+    "CI_status": "success",
+    "pip_check": "No broken requirements found",
+    "full_CI_tests_passed": 57
+  },
+  "limits": [
+    "Fresh cloud notebook execution was not tested.",
+    "Full 192-frame encoder extraction was not repeated in the clean environment; saved feature tensors and raw inference were checked separately.",
+    "Exact equality is established on this CPU environment, not across all hardware."
+  ]
+}

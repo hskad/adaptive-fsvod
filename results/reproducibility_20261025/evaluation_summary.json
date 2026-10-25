@@ -1,0 +1,98 @@
+{
+  "rows": [
+    {
+      "method": "baseline",
+      "seed": 42,
+      "checkpoint_sha256": "a5bb41268c8160d8b65cbbbd9c2fb0f158ae94a7c7639c165ef41a9d3f00331d",
+      "AP": 47.39498276861465,
+      "AP50": 62.34167979715941,
+      "AP75": 50.77818898785622,
+      "metric_differences": {
+        "AP": 0.0,
+        "AP50": 0.0,
+        "AP75": 0.0
+      }
+    },
+    {
+      "method": "objectness",
+      "seed": 42,
+      "checkpoint_sha256": "a5bb41268c8160d8b65cbbbd9c2fb0f158ae94a7c7639c165ef41a9d3f00331d",
+      "AP": 58.13050731920335,
+      "AP50": 74.79074581092607,
+      "AP75": 62.549198182382824,
+      "metric_differences": {
+        "AP": 0.0,
+        "AP50": 0.0,
+        "AP75": 0.0
+      }
+    },
+    {
+      "method": "baseline",
+      "seed": 43,
+      "checkpoint_sha256": "696817db842a83fdfd0662c078adf36c55db4f0cf6b1be7734cfa4e7f74d82c7",
+      "AP": 47.38014307637153,
+      "AP50": 62.4121059127144,
+      "AP75": 50.79407346440933,
+      "metric_differences": {
+        "AP": 0.0,
+        "AP50": 0.0,
+        "AP75": 0.0
+      }
+    },
+    {
+      "method": "objectness",
+      "seed": 43,
+      "checkpoint_sha256": "696817db842a83fdfd0662c078adf36c55db4f0cf6b1be7734cfa4e7f74d82c7",
+      "AP": 58.27146310947623,
+      "AP50": 75.02304550084,
+      "AP75": 62.79041999085182,
+      "metric_differences": {
+        "AP": 0.0,
+        "AP50": 0.0,
+        "AP75": 0.0
+      }
+    },
+    {
+      "method": "baseline",
+      "seed": 44,
+      "checkpoint_sha256": "8a76ab35e6eb5d522893d08f7a725cde82c588bf10ae4e12c3aac696c062faa1",
+      "AP": 47.54399573644946,
+      "AP50": 62.551840347628165,
+      "AP75": 50.9834573866418,
+      "metric_differences": {
+        "AP": 0.0,
+        "AP50": 0.0,
+        "AP75": 0.0
+      }
+    },
+    {
+      "method": "objectness",
+      "seed": 44,
+      "checkpoint_sha256": "8a76ab35e6eb5d522893d08f7a725cde82c588bf10ae4e12c3aac696c062faa1",
+      "AP": 58.49078495902541,
+      "AP50": 75.31759143322154,
+      "AP75": 63.0537854335789,
+      "metric_differences": {
+        "AP": 0.0,
+        "AP50": 0.0,
+        "AP75": 0.0
+      }
+    }
+  ],
+  "summary": {
+    "baseline": {
+      "AP": 47.439707193811884,
+      "AP50": 62.43520868583399,
+      "AP75": 50.85190661296912
+    },
+    "objectness": {
+      "AP": 58.297585129234996,
+      "AP50": 75.0437942483292,
+      "AP75": 62.79780120227118
+    }
+  },
+  "matches_published_within_tolerance": true,
+  "AP_point_tolerance": 1e-06,
+  "source_summary_sha256": "75f64cfd4ec119c1c8618e03d08708dc7e84198cecede947919e482ec027b0b5",
+  "note": "Saved-feature CPU evaluation. Raw image extraction is a separate check."
+}
