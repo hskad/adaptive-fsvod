@@ -12,7 +12,7 @@ separation below the results table, and a small gap before the references.
 Each reference starts on a separate line, with hanging indentation if it wraps.
 Fonts and font sizes remain unchanged. The table keeps five balanced columns,
 with AP/AP50/AP75 grouped under Detection performance and trainable head size
-kept separate. The scientific text, equations, and result values are unchanged.
+kept separate. The Method header and all entries are centered. The scientific text, equations, and result values are unchanged.
 No latency improvement was measured or claimed.
 
 The draft uses team name **Deep_Learners**. No team number was supplied. The
@@ -55,5 +55,5 @@ limits. It credits established objectness scoring and states that bear supplies
 most of the mean gain. It does not claim full-paper benchmark reproduction.
 
 The local PDF and Overleaf export are delivered under the workspace's
-`output/pdf/margin_revision/` directory. The report source is version-controlled here. The
+`output/pdf/centered_table/` directory. The report source is version-controlled here. The
 original instructor ZIP in the workspace remains unchanged.

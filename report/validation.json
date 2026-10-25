@@ -12,8 +12,8 @@
   "abstract_words": 71,
   "template_preamble_byte_identical": false,
   "template_sha256": "b4c41140c5cd26989c7efa6da4a1883a377e8ddcef1ca464a69146c91671bdf3",
-  "source_sha256": "58da326cb3fc6762ac0cb52df329587fd77a7e6af0a9a58627db46ce74816313",
-  "PDF_sha256": "3f9c726bbf1e3ece8b2ad14d569d89ee8aae85d00c6a67aa7e49588bcd250703",
+  "source_sha256": "311a8787b3e086c15af6801d65f39c3afe7d0cd26a941dbd7204c17b5e1b4240",
+  "PDF_sha256": "52ef2fc1cb2378a4a4732c73f0a2e5f4af9fa7f71870165a7d41686480060eef",
   "all_six_mean_metrics_match_published_rounding": true,
   "gain_AP_points": 10.857877935423117,
   "paired_video_bootstrap_interval": [
@@ -49,7 +49,8 @@
     "trainable_head_size_separate": true,
     "gain_row_separated_by_rule": true,
     "same_booktabs_style_and_font_size": true,
-    "all_values_and_non_table_content_unchanged": true
+    "all_values_and_non_table_content_unchanged": true,
+    "method_column_centered": true
   },
   "template_preamble_identical_except_requested_margins": true,
   "margins_inches": {
