@@ -5,8 +5,8 @@
 % Packages
 % ------------------------------------------------
 \usepackage[
-    top=0.15in,
-    bottom=0.15in,
+    top=0.30in,
+    bottom=0.30in,
     left=0.55in,
     right=0.55in
 ]{geometry}
@@ -73,7 +73,7 @@ Objectness-Aware Scoring for Few-Shot Video Object Detection}\\[4pt]
 \subsection*{I. Abstract (Maximum 100 Words)}
 \begin{enumerate}
     % Consistent spacing between related points; font and page settings unchanged.
-    \setlength{\itemsep}{3pt}
+    \setlength{\itemsep}{1.5pt}
     \setlength{\parsep}{0pt}
     \item Few-shot video detection must locate new object classes from few labelled examples despite occlusion, motion blur, and changing appearance.
     \item Independent frame processing loses useful history; carrying all features forward can propagate background noise.
@@ -84,7 +84,7 @@ Objectness-Aware Scoring for Few-Shot Video Object Detection}\\[4pt]
 \subsection*{II. Proposed Novelty \& Technical Contribution}
 \begin{enumerate}
     % Consistent spacing between related points; font and page settings unchanged.
-    \setlength{\itemsep}{3pt}
+    \setlength{\itemsep}{1.5pt}
     \setlength{\parsep}{0pt}
     \item We add an inference-time ranking rule to a \textbf{reduced adaptation} of~[1], using frozen OWLv2-Base features~[2] and a trained temporal head. Objectness-weighted scoring is established~[3]; our contribution is its controlled application and evaluation in this few-shot video pipeline.
     \item The baseline ranks foreground candidates by class confidence. We multiply this by the frozen encoder's objectness for the same candidate, \emph{before} class-wise non-maximum suppression (NMS). Each candidate's class label, background decision, and refined box remain fixed, as do temporal memory and all learned weights.
@@ -94,7 +94,7 @@ Objectness-Aware Scoring for Few-Shot Video Object Detection}\\[4pt]
 \subsection*{III. Theoretical / Mathematical Justification}
 \begin{enumerate}
     % Consistent spacing between related points; font and page settings unchanged.
-    \setlength{\itemsep}{3pt}
+    \setlength{\itemsep}{1.5pt}
     \setlength{\parsep}{0pt}
     \setlength{\abovedisplayskip}{5pt}
     \setlength{\belowdisplayskip}{5pt}
@@ -115,7 +115,7 @@ Objectness-Aware Scoring for Few-Shot Video Object Detection}\\[4pt]
 \subsection*{IV. Comparative Results \& Empirical Evaluation}
 \begin{enumerate}
     % Consistent spacing between related points; font and page settings unchanged.
-    \setlength{\itemsep}{3pt}
+    \setlength{\itemsep}{1.5pt}
     \setlength{\parsep}{0pt}
     \item \textbf{Setup:} custom FSYTV-40 subset from YouTube-VIS 2019; train/validation: 6/3 classes, 18/9 videos, 131/50 frames. Frozen OWLv2-Base uses native $960\!\times\!960$ padded inputs and 128 candidates. Each head trains for 300 updates (AdamW, $10^{-4}$ learning rate); validation selects steps 250/250/300 for seeds 42/43/44.
     \item \textbf{Fresh test:} six classes unused in earlier studies, 24 videos, 192 distinct frames; 120 balanced 2-way 1-shot episodes (960 episode-frame instances). Support and query videos differ. Models, $\beta$, episodes, and shared features were fixed before scoring.
@@ -144,9 +144,15 @@ $\Delta$ (Ours -- Baseline) & +10.86 & +12.61 & +11.95 & 0\\
 The paired mean gain is \textbf{10.86 AP points}. A 1,000-draw paired, class-stratified query-video bootstrap gives a 95\% interval of \textbf{[+5.96, +14.85]}, conditional on these classes, fixed support episodes, and trained seed pairs. Bear contributes most of the aggregate gain (+43.55 class AP); gains vary by class. Since weights and candidate boxes are shared, the measured change is due to scoring and its downstream filtering, not new feature learning. The rule adds linear score computation; no latency gain is claimed. These are reduced-subset results, not the paper's full benchmark scores.
 
 \smallskip
-\textbf{References:}
-[1] Kumar and Mishra, \href{https://ojs.aaai.org/index.php/AAAI/article/view/37497}{\emph{Temporal Object-Aware Vision Transformer for Few-Shot Video Object Detection}}, AAAI 2026.
-[2] Minderer et al., \href{https://arxiv.org/abs/2306.09683}{\emph{Scaling Open-Vocabulary Object Detection}}, NeurIPS 2023.
-[3] Redmon et al., \href{https://arxiv.org/abs/1506.02640}{\emph{You Only Look Once: Unified, Real-Time Object Detection}}, CVPR 2016.
+\textbf{References:}\par
+\begingroup
+\setlength{\parskip}{1pt}
+\hangindent=1.4em \hangafter=1
+[1] Kumar and Mishra, \href{https://ojs.aaai.org/index.php/AAAI/article/view/37497}{\emph{Temporal Object-Aware Vision Transformer for Few-Shot Video Object Detection}}, AAAI 2026.\par
+\hangindent=1.4em \hangafter=1
+[2] Minderer et al., \href{https://arxiv.org/abs/2306.09683}{\emph{Scaling Open-Vocabulary Object Detection}}, NeurIPS 2023.\par
+\hangindent=1.4em \hangafter=1
+[3] Redmon et al., \href{https://arxiv.org/abs/1506.02640}{\emph{You Only Look Once: Unified, Real-Time Object Detection}}, CVPR 2016.\par
+\endgroup
 
 \end{document}

@@ -115,7 +115,7 @@ Synthetic scores check software only. A [separate clean reproduction](results/re
 
 ## Report draft
 
-The [one-page LaTeX report source](report/README.md) uses the instructor's template with its preamble unchanged. It contains the paper summary, exact modification, mathematical justification, and measured comparison. The five member names and roll numbers must be added before submission. The reviewed draft fits one A4 page.
+The [one-page LaTeX report source](report/README.md) retains the instructor's fonts, headings, and table style. Margins and spacing were refined at the user's request; the original template is retained for comparison. It contains the paper summary, exact modification, mathematical justification, and measured comparison. The five member names and roll numbers must be added before submission. The reviewed draft fits one A4 page.
 
 ## Earlier studies
 

@@ -1,17 +1,19 @@
 # One-page report draft
 
-The source in `main.tex` fills the instructor's template. Its entire preamble,
-including margins, font settings, spacing, packages, and table settings, is
-byte-for-byte identical to `template_original.tex`. The enumerated section
-structure and table style are retained. At the user's request, local body
-spacing was refined: 3 pt between list items, no extra paragraph gap inside
+The source in `main.tex` uses the instructor's section structure, fonts,
+heading settings, and booktabs table style. The original template is retained
+in `template_original.tex`. At the user's request, the top and bottom margins
+are now 0.30 inch (originally 0.15 inch); side margins remain 0.55 inch.
+This is an explicit margin change from the original template.
+
+Local body spacing uses 1.5 pt between list items, no extra paragraph gap inside
 items, 5 pt around full display equations (3 pt for short displays), normal
 separation below the results table, and a small gap before the references.
-Fonts, margins, section-heading settings, and the original booktabs table style
-are unchanged. The five table columns now have balanced widths, with AP/AP50/AP75
-grouped under Detection performance and trainable head size kept separate.
-The scientific text, equations, and result values are unchanged. Table headings now report AP, AP50,
-AP75, and trainable head size. No latency improvement was measured or claimed.
+Each reference starts on a separate line, with hanging indentation if it wraps.
+Fonts and font sizes remain unchanged. The table keeps five balanced columns,
+with AP/AP50/AP75 grouped under Detection performance and trainable head size
+kept separate. The scientific text, equations, and result values are unchanged.
+No latency improvement was measured or claimed.
 
 The draft uses team name **Deep_Learners**. No team number was supplied. The
 five member names and roll numbers were deferred by the user. Replace the
@@ -25,8 +27,8 @@ page count again. The PDF file name is:
 Upload the supplied `Deep_Learners_26_DLCV_Project_Report_Overleaf.zip` as a new
 project, open `main.tex`, and select XeLaTeX to match the local build. Add the
 five names and roll numbers in the heading. Recompile, confirm exactly one A4
-page, and download the PDF with the required name. Do not change template
-margins, font sizes, or spacing. `template_original.tex` is a reference copy;
+page, and download the PDF with the required name. Preserve the font sizes
+and check the one-page layout after editing. `template_original.tex` is a reference copy;
 compile `main.tex`.
 
 The separate Overleaf export contains only `main.tex` and this README, so it
@@ -43,7 +45,7 @@ tectonic --keep-logs main.tex
 
 Rename `main.pdf` to the required name. The default `article` class ignores the
 instructor's `8pt` option; this original template behavior was retained. No
-font-size repair or layout override was added. `validation.json` records the
+font-size repair was added. Margin and spacing refinements are listed above. `validation.json` records the
 source/template/PDF hashes, page count, summary length, and metric checks.
 
 The draft has a 71-word paper summary, the exact score rule and ranking
@@ -53,5 +55,5 @@ limits. It credits established objectness scoring and states that bear supplies
 most of the mean gain. It does not claim full-paper benchmark reproduction.
 
 The local PDF and Overleaf export are delivered under the workspace's
-`output/pdf/table_revision/` directory. The report source is version-controlled here. The
+`output/pdf/margin_revision/` directory. The report source is version-controlled here. The
 original instructor ZIP in the workspace remains unchanged.

@@ -10,10 +10,10 @@
     841.89
   ],
   "abstract_words": 71,
-  "template_preamble_byte_identical": true,
+  "template_preamble_byte_identical": false,
   "template_sha256": "b4c41140c5cd26989c7efa6da4a1883a377e8ddcef1ca464a69146c91671bdf3",
-  "source_sha256": "58b6e956f37ff69f290bcd60710ad34900d0e6ceb8883b8263c930cc9262f90b",
-  "PDF_sha256": "43a4a26a9a4c1a0611f0e4afeb4d1fe7f4ced1505c1aa71bf26fa33c2732354e",
+  "source_sha256": "58da326cb3fc6762ac0cb52df329587fd77a7e6af0a9a58627db46ce74816313",
+  "PDF_sha256": "3f9c726bbf1e3ece8b2ad14d569d89ee8aae85d00c6a67aa7e49588bcd250703",
   "all_six_mean_metrics_match_published_rounding": true,
   "gain_AP_points": 10.857877935423117,
   "paired_video_bootstrap_interval": [
@@ -27,19 +27,19 @@
   "member_details_require_recompile": true,
   "scientific_content_unchanged_from_previous_draft": true,
   "body_spacing_refinements": {
-    "list_itemsep_pt": 3,
+    "list_itemsep_pt": 1.5,
     "list_parsep_pt": 0,
     "display_above_below_pt": 5,
     "short_display_above_below_pt": 3,
     "removed_table_negative_vspace_pt": 5,
     "smallskip_before_references": true,
-    "fonts_margins_heading_and_table_style_unchanged": true
+    "fonts_heading_and_table_style_unchanged": true
   },
   "text_bounds_points": [
     39.60021,
-    11.126595,
+    21.927245,
     555.684907,
-    799.767472
+    810.129752
   ],
   "table_layout": {
     "columns": 5,
@@ -50,5 +50,14 @@
     "gain_row_separated_by_rule": true,
     "same_booktabs_style_and_font_size": true,
     "all_values_and_non_table_content_unchanged": true
-  }
+  },
+  "template_preamble_identical_except_requested_margins": true,
+  "margins_inches": {
+    "top": 0.3,
+    "bottom": 0.3,
+    "left": 0.55,
+    "right": 0.55
+  },
+  "margin_changes_requested_by_user": true,
+  "references_separate_paragraphs": true
 }
