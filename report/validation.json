@@ -12,8 +12,8 @@
   "abstract_words": 71,
   "template_preamble_byte_identical": true,
   "template_sha256": "b4c41140c5cd26989c7efa6da4a1883a377e8ddcef1ca464a69146c91671bdf3",
-  "source_sha256": "b31c7dc3c597bf9932506d3ac2a0f0f27b0f77b9df33aebe80beed79fd95244e",
-  "PDF_sha256": "7465ca777b79581131821f4779baecd04d55d29587defe66dce825ac9281c679",
+  "source_sha256": "58b6e956f37ff69f290bcd60710ad34900d0e6ceb8883b8263c930cc9262f90b",
+  "PDF_sha256": "43a4a26a9a4c1a0611f0e4afeb4d1fe7f4ced1505c1aa71bf26fa33c2732354e",
   "all_six_mean_metrics_match_published_rounding": true,
   "gain_AP_points": 10.857877935423117,
   "paired_video_bootstrap_interval": [
@@ -39,6 +39,16 @@
     39.60021,
     11.126595,
     555.684907,
-    794.960072
-  ]
+    799.767472
+  ],
+  "table_layout": {
+    "columns": 5,
+    "method_width_fraction": 0.32,
+    "numeric_columns_equal_width": true,
+    "grouped_AP_AP50_AP75_header": true,
+    "trainable_head_size_separate": true,
+    "gain_row_separated_by_rule": true,
+    "same_booktabs_style_and_font_size": true,
+    "all_values_and_non_table_content_unchanged": true
+  }
 }

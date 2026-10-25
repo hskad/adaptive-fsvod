@@ -126,9 +126,11 @@ Objectness-Aware Scoring for Few-Shot Video Object Detection}\\[4pt]
 \captionof{table}{Comparison on the fresh six-class subset. AP values are means over three training seeds; SD is the sample standard deviation across seeds. Best scores are bold.}
 \label{tab:results}
 \small
-\begin{tabularx}{\linewidth}{@{}X c c c c@{}}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{0.32\linewidth} *{4}{>{\centering\arraybackslash}X}@{}}
 \toprule
-\textbf{Method} & \makecell{\textbf{AP} ($\uparrow$)\\(mean $\pm$ SD)} & \makecell{\textbf{AP50}\\($\uparrow$)} & \makecell{\textbf{AP75}\\($\uparrow$)} & \makecell{\textbf{Trainable head}\\\textbf{params (M)}}\\
+\textbf{Method} & \multicolumn{3}{c}{\textbf{Detection performance} ($\uparrow$)} & \textbf{Trainable head}\\
+\cmidrule(lr){2-4}
+ & AP (mean $\pm$ SD) & AP50 & AP75 & Params (M)\\
 \midrule
 Reduced baseline ($\beta=0$) & $47.44\pm0.09$ & 62.44 & 50.85 & 2.104\\
 \textbf{Objectness score ($\beta=1$)} & $\mathbf{58.30\pm0.18}$ & \textbf{75.04} & \textbf{62.80} & 2.104\\
