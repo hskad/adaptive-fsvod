@@ -139,6 +139,14 @@ Preprocessing normalizes pixel boxes to the native padded square, keeps encoder 
 - [Predeclared score study](SCORE_CALIBRATION_PLAN.md); beta was chosen only on validation from 0/0.5/1. Its selected value is 1. The six-class confirmation was fixed before scoring.
 - `scripts/analyse_score_confirmation.py` contains the paired video-bootstrap analysis. All 1,000 draw multiplicities and AP values are already saved in `results/score_calibration/bootstrap_draws.json`; the conditional 95% interval is [+5.960, +14.850] AP points. It does not cover new classes, support selection, or the full model-development process. Bear gives the largest gain.
 
+Recompute all six AP sets, class/video diagnostics, and the 1,000-draw interval directly from the public saved detections, without model weights or original machine paths:
+
+```bash
+python scripts/analyse_score_confirmation.py --published-results results/score_calibration --output ../fsvod-reproduction/uncertainty
+```
+
+This verifies the source file hashes and recomputes the statistics; it does not run the detector. Use section 2 to reproduce detector outputs. The full cloud notebook should start in a new experiment directory, separate from downloaded measured bundles.
+
 ```bash
 python -m pytest -q
 python -m adaptive_fsvod.smoke --output ../fsvod-reproduction/synthetic_check --steps 4

@@ -18,10 +18,20 @@ from prepare_score_confirmation import verify_fresh
 from run_score_calibration import STUDY
 
 
-def analyse(root, target):
-    protocol = verify_fresh(root)
-    source = root / STUDY
-    confirmation = source / "confirmation"
+def analyse(root, target, published=False):
+    if published:
+        source = root
+        confirmation = source / "confirmation_protocol"
+        protocol = read_json(confirmation / "selection.json")
+        for name, digest in read_json(source / "confirmation_artifact_sha256.json").items():
+            if checksum(source / name) != digest:
+                raise ValueError("Published source detections or metrics changed")
+        if target.resolve() == source.resolve():
+            raise ValueError("Use a separate output directory to preserve published source evidence")
+    else:
+        protocol = verify_fresh(root)
+        source = root / STUDY
+        confirmation = source / "confirmation"
     result = read_json(source / "confirmation_results.json")
     manifest = VideoManifest(confirmation / "confirmation.json")
     episodes = read_json(confirmation / "episodes.json")
@@ -183,7 +193,10 @@ def plot(target, summary, effects):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--experiment-dir", type=Path, required=True)
+    inputs = parser.add_mutually_exclusive_group(required=True)
+    inputs.add_argument("--experiment-dir", type=Path)
+    inputs.add_argument("--published-results", type=Path, help="Recompute AP and bootstrap from public source predictions; no weights, images, or original machine paths required")
     parser.add_argument("--output", type=Path, default=Path("results/score_calibration"))
     args = parser.parse_args()
-    analyse(args.experiment_dir.resolve(), args.output)
+    analyse((args.published_results or args.experiment_dir).resolve(), args.output,
+            published=args.published_results is not None)
