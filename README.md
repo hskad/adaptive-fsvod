@@ -113,4 +113,10 @@ python -m adaptive_fsvod.smoke --output ../fsvod-reproduction/synthetic_check --
 
 Synthetic scores check software only. A [separate clean reproduction](results/reproducibility_20261025/README.md) retrained all three heads to exactly equal model tensors and reproduced all six detection records, all 18 AP/AP50/AP75 values, and all 1,000 bootstrap draws exactly. [Validation records](docs/VALIDATION.md) state tested paths and platform limits. Commit history, versions, configuration/data hashes, and seeds preserve provenance. Weights, images, and caches stay out of Git; release assets supply measured artifacts. The [course requirement checklist](docs/SUBMISSION_READINESS.md) maps every non-report requirement to its files.
 
-Earlier studies: [adaptive threshold](results/pilot_20261024/README.md), [small centering test](results/revision_v5/README.md), and [larger centering check](results/larger_confirmation/README.md). Their negative results remain. The historical [runbook](docs/RUNBOOK.md) contains their commands.
+## Report draft
+
+The [one-page LaTeX report source](report/README.md) uses the instructor's template with its preamble unchanged. It contains the paper summary, exact modification, mathematical justification, and measured comparison. The five member names and roll numbers must be added before submission. The reviewed draft fits one A4 page.
+
+## Earlier studies
+
+[Adaptive threshold](results/pilot_20261024/README.md), [small centering test](results/revision_v5/README.md), and [larger centering check](results/larger_confirmation/README.md) records remain available, including negative results. The historical [runbook](docs/RUNBOOK.md) contains their commands.

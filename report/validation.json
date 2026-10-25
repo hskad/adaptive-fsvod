@@ -1,0 +1,28 @@
+{
+  "status": "one-page draft; five member names and roll numbers pending",
+  "team_name": "Deep_Learners",
+  "filename": "Deep_Learners_26_DLCV_Project_Report.pdf",
+  "page_count": 1,
+  "page_size_points": [
+    0.0,
+    0.0,
+    595.28,
+    841.89
+  ],
+  "abstract_words": 71,
+  "template_preamble_byte_identical": true,
+  "template_sha256": "b4c41140c5cd26989c7efa6da4a1883a377e8ddcef1ca464a69146c91671bdf3",
+  "source_sha256": "13ac35234a5dcf524fa4aa70395cc47a1fc3bb206d12afeae117c1cdde0a7646",
+  "PDF_sha256": "8b7c93eb6eeae4534638bf4833f930c93d63cc93642e017111f90a7e6bf9ebaa",
+  "all_six_mean_metrics_match_published_rounding": true,
+  "gain_AP_points": 10.857877935423117,
+  "paired_video_bootstrap_interval": [
+    5.960226643749342,
+    14.850412557099135
+  ],
+  "no_overfull_boxes": true,
+  "latest_render_visually_reviewed": true,
+  "compiler": "Tectonic 0.17.0, XeTeX",
+  "render_tool": "Poppler 26.09.0",
+  "member_details_require_recompile": true
+}

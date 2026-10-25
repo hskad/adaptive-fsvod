@@ -1,0 +1,202 @@
+
+\documentclass[8pt,a4paper]{article}
+
+% ------------------------------------------------
+% Packages
+% ------------------------------------------------
+\usepackage[
+    top=0.15in,
+    bottom=0.15in,
+    left=0.55in,
+    right=0.55in
+]{geometry}
+
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{caption}
+\usepackage{hyperref}
+\usepackage{titlesec}
+
+% ------------------------------------------------
+% Formatting
+% ------------------------------------------------
+
+% Black-and-white hyperlinks
+\hypersetup{
+    colorlinks=true,
+    allcolors=black
+}
+
+% Reduce line spacing
+\linespread{0.52}
+
+% Reduce paragraph spacing
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1pt}
+
+% Reduce section heading spacing
+\titlespacing*{\subsection}
+{0pt}{7pt}{3pt}
+
+% Table formatting
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.05}
+
+\captionsetup[table]{
+    font=small,
+    labelfont=bf,
+    position=top,
+    skip=3pt
+}
+
+% ------------------------------------------------
+% Document
+% ------------------------------------------------
+\begin{document}
+\thispagestyle{empty}
+
+% ------------------------------------------------
+% Title and Team Information
+% ------------------------------------------------
+\begin{center}
+
+{\large\bfseries
+[Project Title]}\\[4pt]
+
+\textbf{Team No:} XX
+\quad | \quad
+\textbf{Members:}
+Student 1 (Roll No), Student 2 (Roll No)\\[3pt]
+
+\textbf{GitHub:}
+\url{https://github.com/username/project-repo}
+
+\end{center}
+
+\vspace{-5pt}
+
+% ------------------------------------------------
+\subsection*{I. Abstract (Maximum 100 Words)}
+% ------------------------------------------------
+\begin{enumerate}
+    \item State the fundamental challenge, limitation, or failure mode in existing literature that this paper targets.
+    \item Explain why conventional paradigms fall short and why a new formulation or perspective is critically needed.
+    \item Describe the authors' core conceptual idea and mechanism designed to overcome this bottleneck.
+    \item Summarize your technical interpretation of what this approach conceptually enables beyond baseline methods.
+\end{enumerate}
+
+% ------------------------------------------------
+\subsection*{II. Proposed Novelty \& Technical Contribution}
+% ------------------------------------------------
+\begin{enumerate}
+    \item Define the exact technical novelty introduced by your team into the assigned research paper.
+    \item Specify whether the novelty is an architectural modification, a new module, an altered loss function, or an algorithmic enhancement.
+    \item Explicitly articulate how your contribution fundamentally differs from the baseline methodology.
+\end{enumerate}
+
+% ------------------------------------------------
+\subsection*{III. Theoretical / Mathematical Justification}
+% ------------------------------------------------
+\begin{enumerate}
+    \item Formulate the core mathematical equation, loss term, or operation governing your proposed modification.
+    \item Define each variable and provide theoretical reasoning or a derivation showing why this modification improves feature representation or optimization.
+    \item Explicitly establish the causal link between your mathematical formulation and the expected performance gain without making unsupported claims.
+\end{enumerate}
+
+% ------------------------------------------------
+\subsection*{IV. Comparative Results \& Empirical Evaluation}
+% ------------------------------------------------
+\begin{enumerate}
+    \item Specify the benchmark dataset, data split, and resolution or setup used for training and testing.
+    \item Present a comparative table contrasting your method against the reproduced baseline across standard evaluation metrics.
+    \item State the primary empirical takeaway highlighting the exact performance delta achieved by your proposed contribution.
+\end{enumerate}
+
+% ------------------------------------------------
+% Results Table
+% ------------------------------------------------
+\begin{center}
+
+\captionof{table}{
+Quantitative comparison of the baseline and
+proposed method on [Dataset Name].
+Best results are highlighted in bold.
+}
+
+\label{tab:results}
+
+\small
+
+\begin{tabularx}{\linewidth}{
+    @{}X c c c c@{}
+}
+
+\toprule
+
+\textbf{Method}
+&
+\makecell{\textbf{Metric 1}\\($\uparrow$)}
+&
+\makecell{\textbf{Metric 2}\\($\uparrow$)}
+&
+\makecell{\textbf{Params}\\(M)}
+&
+\makecell{\textbf{Latency}\\(ms $\downarrow$)}
+\\
+
+\midrule
+
+Baseline
+&
+0.00
+&
+0.00
+&
+0.0
+&
+0.0
+\\
+
+\textbf{Ours}
+&
+\textbf{0.00}
+&
+\textbf{0.00}
+&
+0.0
+&
+0.0
+\\
+
+\midrule
+
+$\Delta$ (Ours -- Baseline)
+&
++0.00
+&
++0.00
+&
++0.0
+&
++0.0
+\\
+
+\bottomrule
+
+\end{tabularx}
+
+\end{center}
+
+\vspace{-5pt}
+
+\textbf{Result Interpretation:}
+Briefly explain the observed improvements
+or performance trade-offs.
+
+Explain how the proposed novelty contributed
+to the experimental results and support
+the interpretation with relevant evidence.
+
+\end{document}
