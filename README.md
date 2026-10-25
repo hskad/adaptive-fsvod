@@ -72,7 +72,7 @@ The proposed method uses these heads unchanged. Set beta=0 for baseline and beta
 **[Public release v1.0-results](https://github.com/hskad/adaptive-fsvod/releases/tag/v1.0-results)**:
 
 - [Trained heads and score presets, 23.4 MB](https://github.com/hskad/adaptive-fsvod/releases/download/v1.0-results/score_calibration_inference.zip): seeds 42/43/44, selected steps 250/250/300, shared by both methods. [SHA-256 manifest](results/score_calibration/inference_bundle.manifest.json).
-- [Measured train/validation/confirmation features and episodes, 211.8 MB](https://github.com/hskad/adaptive-fsvod/releases/download/v1.0-results/score_calibration_features.zip). [SHA-256 manifest](results/score_calibration/features_bundle.manifest.json). Derived features retain dataset research-use terms.
+- [Measured train/validation/confirmation features and episodes, 47.3 MB](https://github.com/hskad/adaptive-fsvod/releases/download/v1.0-results/score_calibration_features.zip). [SHA-256 manifest](results/score_calibration/features_bundle.manifest.json). Derived features retain dataset research-use terms.
 - Training configurations/logs: [seed 42](results/revision_v2/source_runs/fixed_tau060_seed42/), [43](results/revision_v2/source_runs/fixed_tau060_seed43/), [44](results/revision_v2/source_runs/fixed_tau060_seed44/).
 - [Validation search](results/score_calibration/validation.csv), [six final evaluations](results/score_calibration/evaluations/), [mean comparison](results/score_calibration/comparison.csv), [per-class results](results/score_calibration/per_class.csv), [bootstrap records](results/score_calibration/bootstrap_draws.json), [frozen data/episodes/cache](results/score_calibration/confirmation_protocol/).
 

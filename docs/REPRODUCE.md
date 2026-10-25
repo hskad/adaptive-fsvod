@@ -6,7 +6,7 @@ Run commands from the repository root. The final comparison uses the SAME traine
 
 The measured head training and final evaluation used Python 3.12.3, PyTorch 2.9.1+cpu, Transformers 4.46.3, NumPy 1.26.4, SciPy 1.13.0, Pillow 10.3.0, and pycocotools 2.0.11 on Windows 11, Intel i5-1340P, 16 GB RAM, four CPU threads. CUDA was not used for these heads or the final confirmation features. Initial pilot features were extracted on a Tesla T4 with PyTorch 2.11.0+cu130 and CUDA 13.0. Recorded environments are in the [training configurations](../results/revision_v2/source_runs/) and [confirmation environment](../results/score_calibration/confirmation_environment.json).
 
-Linux/macOS shell (Python 3.12):
+Linux shell (Python 3.12):
 
 ```bash
 git clone https://github.com/hskad/adaptive-fsvod.git
@@ -40,7 +40,7 @@ python scripts/reproduce_results.py --experiment-dir ../fsvod-reproduction --thr
 These commands work in PowerShell too. They download public assets without an account or token, verify archive SHA-256, reject unsafe archive paths, check extracted files, evaluate all three heads twice, and compare AP/AP50/AP75 against the published values. Existing different files are not overwritten. Use a new experiment directory if needed.
 
 - [Shared trained heads, 23.4 MB](https://github.com/hskad/adaptive-fsvod/releases/download/v1.0-results/score_calibration_inference.zip): three inference checkpoints, model configurations, both score presets, source checkpoint hashes, and selected training steps.
-- [Measured frozen features, 211.8 MB](https://github.com/hskad/adaptive-fsvod/releases/download/v1.0-results/score_calibration_features.zip): original train/validation features and episodes, plus the exact confirmation features and episodes. No RGB images or encoder weights are included. Dataset terms still apply.
+- [Measured frozen features, 47.3 MB](https://github.com/hskad/adaptive-fsvod/releases/download/v1.0-results/score_calibration_features.zip): original train/validation features and episodes, plus the exact confirmation features and episodes. No RGB images or encoder weights are included. Tensor storage is compacted without changing values; each tensor was checked after export and reload, and the manifest maps compact file hashes to the measured source byte hashes. Dataset terms still apply.
 - [Release and checksum records](https://github.com/hskad/adaptive-fsvod/releases/tag/v1.0-results). Repository copies: [head manifest](../results/score_calibration/inference_bundle.manifest.json), [feature manifest](../results/score_calibration/features_bundle.manifest.json).
 
 Expect these mean scores across seeds 42, 43, and 44:

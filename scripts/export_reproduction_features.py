@@ -1,10 +1,27 @@
 """Bundle the measured frozen features for CPU-only reproduction; no RGB images."""
 
 import argparse
+import io
 import zipfile
 from pathlib import Path
 
 from adaptive_fsvod.data import VideoManifest, checksum, frame_key, read_json, write_json
+
+import torch
+
+
+def compact_tensor_file(path):
+    """Remove unused backing storage while retaining every tensor value exactly."""
+    original = torch.load(path, map_location="cpu", weights_only=True)
+    compact = ({key: value.clone() for key, value in original.items()}
+               if isinstance(original, dict) else original.clone())
+    stream = io.BytesIO()
+    torch.save(compact, stream)
+    restored = torch.load(io.BytesIO(stream.getvalue()), map_location="cpu", weights_only=True)
+    pairs = [(original, restored)] if isinstance(original, torch.Tensor) else [(original[k], restored[k]) for k in original]
+    if not all(torch.equal(a, b) for a, b in pairs):
+        raise ValueError(f"Feature compaction changed tensor values: {path}")
+    return stream.getvalue()
 
 
 def export(root):
@@ -51,18 +68,23 @@ def export(root):
         if checksum(path) != checksum(repo / "results/score_calibration/confirmation_protocol" / name):
             raise ValueError(f"Published confirmation input changed: {name}")
         files[path.relative_to(root).as_posix()] = path
-    records = {name: {"sha256": checksum(path), "bytes": path.stat().st_size}
-               for name, path in sorted(files.items())}
+    records = {}
     manifest = {"description": "Measured frozen OWLv2 features, manifests, and fixed episodes; no RGB images or encoder weights",
                 "dataset_terms": "https://youtube-vos.org/dataset/term/",
                 "source": "https://huggingface.co/datasets/JiaHuang01/Youtubevos_train",
+                "storage": "Tensor files are lossless storage-compacted exports. Every loaded tensor was checked with torch.equal after serialization. Source byte hashes preserve the link to the measured cache.",
                 "files": records}
     archive = root / "exports/score_calibration_features.zip"
     archive.parent.mkdir(parents=True, exist_ok=True)
     import json
+    import hashlib
     with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED, compresslevel=1) as bundle:
         for name, path in sorted(files.items()):
-            bundle.write(path, name)
+            data = compact_tensor_file(path) if path.suffix == ".pt" else path.read_bytes()
+            records[name] = {"sha256": hashlib.sha256(data).hexdigest(), "bytes": len(data),
+                             "source_sha256": checksum(path), "source_bytes": path.stat().st_size,
+                             "tensor_values_verified_equal": path.suffix == ".pt"}
+            bundle.writestr(name, data)
         bundle.writestr("feature_manifest.json", json.dumps(manifest, indent=2) + "\n")
     record = {"file": archive.name, "bytes": archive.stat().st_size, "sha256": checksum(archive), **manifest}
     write_json(archive.with_suffix(".manifest.json"), record)
@@ -72,4 +94,5 @@ def export(root):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--experiment-dir", type=Path, required=True)
+    torch.set_num_threads(1)
     export(parser.parse_args().experiment_dir.resolve())

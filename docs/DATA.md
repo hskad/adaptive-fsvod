@@ -1,5 +1,7 @@
 # Dataset preparation
 
+For the final submission, the [reproduction guide](REPRODUCE.md) provides measured train/validation/confirmation feature bundles, a fixed directory layout, and commands to rebuild the final 192-frame RGB selection. The commands below explain annotation conversion and the original subset. The final score study adds six further unused classes, 24 videos, and 192 frames; its exact labels and episodes are in [the frozen protocol](../results/score_calibration/confirmation_protocol/).
+
 ## Selected first experiment
 
 Use a custom FSYTV-40 subset, derived from YouTube-VIS 2019. This is a new subset protocol, not the paper's original benchmark protocol. The initial budget is 6 train classes, 3 validation classes, and 3 test classes, with about 3 videos per class and every fourth available frame. The exact counts are recorded in `subset.json`.

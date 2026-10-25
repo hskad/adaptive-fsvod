@@ -6,6 +6,7 @@ import zipfile
 import pytest
 
 from scripts.download_artifacts import download, extract
+from scripts.export_reproduction_features import compact_tensor_file
 
 
 def test_verified_archive_extracts_and_reuses_without_overwrite(tmp_path):
@@ -56,3 +57,18 @@ def test_bad_download_is_rejected_and_original_file_preserved(tmp_path, monkeypa
         download("https://example.test/weights.zip", path, hashlib.sha256(b"expected").hexdigest())
     assert path.read_bytes() == b"existing file"
     assert not path.with_suffix(".part").exists()
+
+
+@pytest.mark.parametrize("as_dictionary", [False, True])
+def test_feature_export_preserves_values_without_unused_storage(tmp_path, as_dictionary):
+    import io
+    import torch
+
+    original = torch.arange(51200, dtype=torch.float32)[:512]
+    path = tmp_path / "features.pt"
+    torch.save({"features": original} if as_dictionary else original, path)
+    restored = torch.load(io.BytesIO(compact_tensor_file(path)), weights_only=True)
+    value = restored["features"] if as_dictionary else restored
+    assert torch.equal(value, original)
+    assert value.untyped_storage().nbytes() == value.numel() * value.element_size()
+    assert len(compact_tensor_file(path)) < path.stat().st_size / 10
