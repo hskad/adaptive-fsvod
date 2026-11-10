@@ -108,7 +108,7 @@ def evaluate(model, cached, episode_file, device="cpu", score_floor=0.001, nms_i
     metrics.update({"frames": len(truth["images"]), "episodes": len(episode_file["episodes"]),
                     "seconds": elapsed, "cached_pipeline_fps": len(truth["images"]) / max(elapsed, 1e-8),
                     "timing_scope": "cached feature IO, trainable heads, decoding; encoder excluded",
-                    "mean_memory_tokens": sum(memory_counts) / len(memory_counts),
+                    "mean_memory_tokens": sum(memory_counts) / len(memory_counts) if memory_counts else 0.0,
                     "mean_threshold": sum(thresholds) / len(thresholds),
                     "synthetic": cached.metadata.get("synthetic", False),
                     "score_floor": score_floor, "nms_iou": nms_iou,
