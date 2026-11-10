@@ -47,6 +47,7 @@ def diagnose(root, seed, device):
                 scores, labels = probabilities.max(-1)
                 correct = torch.zeros(len(selected), dtype=torch.bool, device=device)
                 covered = torch.zeros(len(objects), dtype=torch.bool, device=device)
+                # Match selected memory tokens against ground-truth objects at IoU >= 0.5
                 if len(objects) and len(selected):
                     boxes = pixel_boxes(output["boxes"][selected], frame["width"], frame["height"])
                     target_boxes = boxes.new_tensor([obj["bbox"] for obj in objects])
@@ -66,6 +67,7 @@ def diagnose(root, seed, device):
                     thresholds, thresholds.new_tensor(module.config.threshold_min), atol=1e-6).sum())
                 counts["consumed_frames"] += 1
 
+        # Run validation with the forward hook active to record per-frame memory stats
         handle = model.register_forward_hook(inspect)
         metrics, _, _ = evaluate(model, cached, episodes, device)
         handle.remove()
@@ -77,6 +79,7 @@ def diagnose(root, seed, device):
             counts["below_0_7_correct"] / counts["below_0_7"] if counts["below_0_7"] else None)
         counts["lower_bound_fraction"] = counts["thresholds_at_lower_bound"] / max(1, counts["thresholds"])
         print(method, "validation with memory:", metrics["AP"], "token diagnostics:", counts, flush=True)
+        # Re-evaluate the same checkpoint with temporal memory disabled
         model.config.memory_mode = "none"
         without, _, _ = evaluate(model, cached, episodes, device)
         results[method] = {"seed": seed, "checkpoint_step": checkpoint["step"],
