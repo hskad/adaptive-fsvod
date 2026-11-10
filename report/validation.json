@@ -1,64 +1,26 @@
 {
-  "status": "one-page draft; five member names and roll numbers pending",
-  "team_name": "Deep_Learners",
+  "status": "final one-page report",
+  "team_no": "26",
+  "members": [
+    "Daksh Agarwal (230101123)",
+    "Kartik Maheshwari (230101116)",
+    "Aditya Shukla (230101115)",
+    "Suryadev Vinod (230121059)",
+    "Sanket Prakash (230103121)"
+  ],
   "filename": "Deep_Learners_26_DLCV_Project_Report.pdf",
   "page_count": 1,
   "page_size_points": [
-    0.0,
-    0.0,
     595.28,
     841.89
   ],
   "abstract_words": 71,
-  "template_preamble_byte_identical": false,
+  "template_preamble_identical": true,
+  "local_spacing_overrides_removed": true,
+  "table_column_spec_matches_template": true,
+  "no_overfull_or_underfull_boxes": true,
   "template_sha256": "b4c41140c5cd26989c7efa6da4a1883a377e8ddcef1ca464a69146c91671bdf3",
-  "source_sha256": "311a8787b3e086c15af6801d65f39c3afe7d0cd26a941dbd7204c17b5e1b4240",
-  "PDF_sha256": "52ef2fc1cb2378a4a4732c73f0a2e5f4af9fa7f71870165a7d41686480060eef",
-  "all_six_mean_metrics_match_published_rounding": true,
-  "gain_AP_points": 10.857877935423117,
-  "paired_video_bootstrap_interval": [
-    5.960226643749342,
-    14.850412557099135
-  ],
-  "no_overfull_boxes": true,
-  "latest_render_visually_reviewed": true,
-  "compiler": "Tectonic 0.17.0, XeTeX",
-  "render_tool": "Poppler 26.09.0",
-  "member_details_require_recompile": true,
-  "scientific_content_unchanged_from_previous_draft": true,
-  "body_spacing_refinements": {
-    "list_itemsep_pt": 1.5,
-    "list_parsep_pt": 0,
-    "display_above_below_pt": 5,
-    "short_display_above_below_pt": 3,
-    "removed_table_negative_vspace_pt": 5,
-    "smallskip_before_references": true,
-    "fonts_heading_and_table_style_unchanged": true
-  },
-  "text_bounds_points": [
-    39.60021,
-    21.927245,
-    555.684907,
-    810.129752
-  ],
-  "table_layout": {
-    "columns": 5,
-    "method_width_fraction": 0.32,
-    "numeric_columns_equal_width": true,
-    "grouped_AP_AP50_AP75_header": true,
-    "trainable_head_size_separate": true,
-    "gain_row_separated_by_rule": true,
-    "same_booktabs_style_and_font_size": true,
-    "all_values_and_non_table_content_unchanged": true,
-    "method_column_centered": true
-  },
-  "template_preamble_identical_except_requested_margins": true,
-  "margins_inches": {
-    "top": 0.3,
-    "bottom": 0.3,
-    "left": 0.55,
-    "right": 0.55
-  },
-  "margin_changes_requested_by_user": true,
-  "references_separate_paragraphs": true
+  "source_sha256": "05630407c4afebce11bebe118cc39e0b7d7d2c88f01edfe2d3e589427eb54c97",
+  "PDF_sha256": "6e4729c18ce63d322a06badadc3bf01d291e4284b7a215b31a6c935729a4a005",
+  "compiler": "Tectonic 0.17.0, XeTeX"
 }
