@@ -11,7 +11,9 @@ from tqdm.auto import tqdm
 from .data import VideoManifest, checksum, frame_key, read_json, support_pool, write_json
 from .geometry import normalize_boxes
 
-
+# ==============================================================================
+# File I/O & Serialization Utilities
+# ==============================================================================
 def save_tensor(path, value):
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -20,6 +22,10 @@ def save_tensor(path, value):
     temporary.replace(path)
 
 
+
+# ==============================================================================
+# Feature Extraction: Frozen OWLv2 Backbone
+# ==============================================================================
 class FrozenEncoder:
     def __init__(self, model_id="google/owlv2-base-patch16-ensemble", device="cpu",
                  revision=None, candidates=128, model=None, processor=None, attention_backend="eager"):
