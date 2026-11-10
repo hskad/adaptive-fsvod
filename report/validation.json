@@ -17,10 +17,16 @@
   "abstract_words": 71,
   "template_preamble_identical": true,
   "local_spacing_overrides_removed": true,
-  "table_column_spec_matches_template": true,
+  "table_column_spec": "template @{}X c ...@{} layout with makecell headers; AP, AP50, AP75, Params, Latency",
+  "table_uses_template_layout": true,
+  "new_numbers_sources": {
+    "latency_ms": "results/score_calibration/latency.json (scripts/benchmark_latency.py)",
+    "objectness_separation": "results/score_calibration/objectness_separation.json (scripts/objectness_separation.py)",
+    "gain_excluding_bear": "results/score_calibration/per_class.csv (mean of the other five class differences)"
+  },
   "no_overfull_or_underfull_boxes": true,
   "template_sha256": "b4c41140c5cd26989c7efa6da4a1883a377e8ddcef1ca464a69146c91671bdf3",
-  "source_sha256": "05630407c4afebce11bebe118cc39e0b7d7d2c88f01edfe2d3e589427eb54c97",
-  "PDF_sha256": "6e4729c18ce63d322a06badadc3bf01d291e4284b7a215b31a6c935729a4a005",
+  "source_sha256": "38889860bcfdb7e31f910fe4208df80ba016244b1c7f0483f9c4ae863e8817a9",
+  "PDF_sha256": "6fbfcb8e694392777832f6bb28d945a72149109ddb9cdeac003770b28fe1c2f0",
   "compiler": "Tectonic 0.17.0, XeTeX"
 }

@@ -78,6 +78,13 @@ The proposed method uses these heads unchanged. Set beta=0 for baseline and beta
 
 Inference exports omit optimizer/RNG state. Fresh training writes full resumable `best.pt` and `last.pt`. No separate proposed training log exists because the score needs no extra training.
 
+**Why it works and what it costs.** Over all pre-NMS foreground candidates of the three heads (correct: IoU >= 0.5 with a same-class box), objectness separates correct from incorrect candidates far better than class confidence: AUROC 0.85 vs 0.68 on validation and 0.89 vs 0.77 on the final test ([record](results/score_calibration/objectness_separation.json)). Excluding bear, the mean gain is +4.32 AP. With features preloaded and the shared encoder excluded, heads plus decoding take 9.22 ms/frame (baseline) and 9.19 ms/frame (objectness) on CPU, equal within timing noise ([record](results/score_calibration/latency.json)). Both records use the downloaded artifacts:
+
+```bash
+python scripts/objectness_separation.py --experiment-dir ../fsvod-reproduction
+python scripts/benchmark_latency.py --experiment-dir ../fsvod-reproduction --threads 4
+```
+
 `python -m adaptive_fsvod.evaluate` accepts the manifest, cache, episodes, checkpoint, score exponent, output path, and device. `python -m adaptive_fsvod.infer` processes ordered frames and support crops, and writes annotated frames, `detections.json`, and `timing.json`. [Exact executable commands](docs/REPRODUCE.md#4-evaluate-or-infer-with-an-individual-checkpoint). Cached FPS excludes the encoder; no end-to-end speed gain is claimed.
 
 ## Code organization and verification
@@ -100,6 +107,8 @@ scripts/
   analyse_score_confirmation.py                   Verification, uncertainty, plots
   export_score_models.py                         Shared inference head export
   export_reproduction_features.py                 Measured feature export
+  objectness_separation.py                        p vs q separation of correct candidates
+  benchmark_latency.py                            Controlled CPU latency, both scores
 notebooks/score_calibration.ipynb                  Full cloud preparation/training
 results/score_calibration/                        Final evidence and protocols
 tests/                                           Software and metric checks

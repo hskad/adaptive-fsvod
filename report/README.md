@@ -4,8 +4,14 @@
 (`template_original.tex`) without changes to its formatting: the preamble
 (document class, margins, packages, line spacing, heading spacing, table and
 caption settings) is identical to the template, list spacing uses the template
-defaults, and the results table keeps the template's `@{}X c c c c@{}` layout
-with `\makecell` headers. Only the placeholder content was replaced.
+defaults, and the results table keeps the template's `@{}X c ...@{}` layout
+with `\makecell` headers (columns: AP, AP50, AP75, Params, Latency). Only the
+placeholder content was replaced.
+
+Numbers beyond the main score study come from committed records:
+latency from `results/score_calibration/latency.json`, the objectness/class-confidence
+separation (Section III) from `results/score_calibration/objectness_separation.json`,
+and the gain excluding bear from `results/score_calibration/per_class.csv`.
 
 - Team No: 26
 - Members: Daksh Agarwal (230101123), Kartik Maheshwari (230101116),

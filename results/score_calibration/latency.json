@@ -1,0 +1,67 @@
+{
+  "scope": "CPU ms/frame: trainable heads + decoding; features preloaded; encoder excluded",
+  "frames": 960,
+  "episodes": 120,
+  "repeats": 5,
+  "threads": 4,
+  "per_seed": {
+    "42": {
+      "checkpoint_sha256": "a5bb41268c8160d8b65cbbbd9c2fb0f158ae94a7c7639c165ef41a9d3f00331d",
+      "head_ms": 4.308118020586941,
+      "decode_ms": {
+        "0.0": 3.8375109372888496,
+        "1.0": 3.8667144793483508
+      },
+      "total_ms": {
+        "0.0": 8.145628957875791,
+        "1.0": 8.174832499935292
+      }
+    },
+    "43": {
+      "checkpoint_sha256": "696817db842a83fdfd0662c078adf36c55db4f0cf6b1be7734cfa4e7f74d82c7",
+      "head_ms": 5.507051770716013,
+      "decode_ms": {
+        "0.0": 4.559202500119379,
+        "1.0": 4.49546562552617
+      },
+      "total_ms": {
+        "0.0": 10.066254270835392,
+        "1.0": 10.002517396242183
+      }
+    },
+    "44": {
+      "checkpoint_sha256": "8a76ab35e6eb5d522893d08f7a725cde82c588bf10ae4e12c3aac696c062faa1",
+      "head_ms": 5.186101145166806,
+      "decode_ms": {
+        "0.0": 4.261055833558203,
+        "1.0": 4.208125311985593
+      },
+      "total_ms": {
+        "0.0": 9.447156978725008,
+        "1.0": 9.3942264571524
+      }
+    }
+  },
+  "mean_total_ms": {
+    "0.0": 9.219680069145397,
+    "1.0": 9.190525451109957
+  },
+  "difference_ms": -0.02915461803543984,
+  "trainable_parameters": 2103815,
+  "environment": {
+    "python": "3.12.3",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "packages": {
+      "torch": "2.9.1",
+      "transformers": "4.46.3",
+      "numpy": "1.26.4",
+      "scipy": "1.13.0",
+      "Pillow": "10.3.0",
+      "pycocotools": "2.0.11"
+    },
+    "cuda": null,
+    "gpu": null,
+    "git": "3b47f4dc2a543da024a4773c68a6bdf0c02d719f",
+    "git_dirty": true
+  }
+}
