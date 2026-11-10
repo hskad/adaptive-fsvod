@@ -17,6 +17,9 @@ from adaptive_fsvod.evaluate import evaluate, load_detector
 from adaptive_fsvod.geometry import box_iou, pixel_boxes
 
 
+# ==============================================================================
+# Memory Token Agreement & Ablation Diagnostics
+# ==============================================================================
 def diagnose(root, seed, device):
     manifest = VideoManifest(root / "pilot/val.json")
     episodes = read_json(root / "pilot/val_episodes.json")
@@ -83,6 +86,9 @@ def diagnose(root, seed, device):
             "note": "Same trained weights with memory disabled at inference; not a retrained no-memory baseline. Token agreement is many-to-one IoU50 and correct class, not detection precision."}
 
 
+# ==============================================================================
+# CLI Entrypoint
+# ==============================================================================
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--experiment-dir", type=Path, required=True)
