@@ -6,8 +6,7 @@
 
 We use a documented smaller adaptation with a frozen OWLv2 encoder and trained temporal heads. We do not reproduce the paper's full model or benchmark scores. Our contribution is the implementation and controlled test of an objectness score in this reduced pipeline. Objectness scoring is an established detection idea; we do not claim to have invented it. Earlier unsuccessful experiments remain available.
 
-## Method and results
-
+## Method
 For candidate j, the baseline ranks detections by foreground class confidence p_j. Our change uses **`s_j = p_j * q_j^beta`**, where q_j is the frozen encoder's objectness for the same candidate. Validation selected beta=1 from {0, 0.5, 1}. We apply the product before the existing score filter and class-wise NMS. Foreground/background decisions, boxes, temporal memory, encoder, and trained weights stay fixed. Both methods use the **same three checkpoints**; the proposed score adds no training, encoder pass, or trainable parameter.
 
 For positive scores, `log(s_j) = log(p_j) + beta * log(q_j)`: proposals with weak evidence of an object receive a lower rank. This is a ranking heuristic, not a calibrated joint probability. See [the study plan](docs/SCORE_CALIBRATION_PLAN.md) and [modified decoder](src/adaptive_fsvod/evaluate.py).
