@@ -34,6 +34,7 @@ class FrozenEncoder:
             from transformers import Owlv2ForObjectDetection, Owlv2Processor
             processor = Owlv2Processor.from_pretrained(model_id, revision=revision)
             model = Owlv2ForObjectDetection.from_pretrained(model_id, revision=revision, use_safetensors=True)
+        # Enforce evaluation mode and freeze weights
         self.model = model.to(device).eval()
         self.model.requires_grad_(False)
         if attention_backend not in ("eager", "sdpa"):
@@ -50,6 +51,7 @@ class FrozenEncoder:
 
     @torch.inference_mode()
     def encode(self, image, support=False):
+        """Extract candidate boxes & features for full frames, or class embeddings for support crops."""
         inputs = self.processor(images=image, return_tensors="pt")
         values = inputs["pixel_values"].to(self.device)
         feature_map = self.model.image_embedder(pixel_values=values)[0]
@@ -67,6 +69,7 @@ class FrozenEncoder:
 
 
 def build_cache(manifest, output, encoder, per_class=32, pool_seed=42):
+    """Precompute and store frame/crop features to disk for rapid training iterations."""
     output = Path(output)
     output.mkdir(parents=True, exist_ok=True)
     pool = support_pool(manifest, per_class, pool_seed)
@@ -120,6 +123,7 @@ def build_cache(manifest, output, encoder, per_class=32, pool_seed=42):
 
 
 class CachedEpisodes:
+    """Loads precomputed tensor embeddings directly from the feature cache."""
     def __init__(self, manifest, cache_root):
         self.manifest = manifest
         self.root = Path(cache_root)
