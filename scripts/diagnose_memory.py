@@ -21,6 +21,7 @@ from adaptive_fsvod.geometry import box_iou, pixel_boxes
 # Memory Token Agreement & Ablation Diagnostics
 # ==============================================================================
 def diagnose(root, seed, device):
+    """Evaluate validation memory token agreement and memory-disabled AP across methods."""
     manifest = VideoManifest(root / "pilot/val.json")
     episodes = read_json(root / "pilot/val_episodes.json")
     cached = CachedEpisodes(manifest, root / "cache/val")
@@ -34,6 +35,7 @@ def diagnose(root, seed, device):
         cursor = [0]
 
         def inspect(module, inputs, outputs):
+            """Forward hook accumulating token-to-object IoU50 agreement and threshold stats."""
             episode = episodes["episodes"][cursor[0]]
             cursor[0] += 1
             video = manifest.videos[episode["video_id"]]
