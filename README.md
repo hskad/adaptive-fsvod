@@ -20,7 +20,7 @@ The mean paired gain is **10.858 AP points**. All three training-seed pairs and 
 
 The fresh confirmation has six previously unused classes, 24 videos, 192 distinct frames, and 120 two-way one-shot episodes (960 episode/frame instances). Metrics are frame-level COCO **box** AP at IoU 0.50:0.05:0.95, AP50, and AP75, maxDets=100. Models, settings, data, episodes, and shared features were frozen before scoring. [Raw results, class effects, uncertainty, and checksums](results/score_calibration/README.md).
 
-## Install and reproduce
+## Install and reproduce.
 
 Use Python 3.12. The measured final environment used PyTorch 2.9.1+cpu, Transformers 4.46.3, NumPy 1.26.4, SciPy 1.13.0, Pillow 10.3.0, and pycocotools 2.0.11 on Windows 11, Intel i5-1340P, 16 GB RAM, four CPU threads. **No CUDA is required for saved-feature evaluation or shared-head training.** Initial pilot features used a Tesla T4, PyTorch 2.11.0+cu130, CUDA 13.0; final confirmation features used CPU SDPA. Each run includes its recorded environment.
 
