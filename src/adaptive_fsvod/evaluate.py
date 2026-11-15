@@ -109,7 +109,7 @@ def evaluate(model, cached, episode_file, device="cpu", score_floor=0.001, nms_i
                     "seconds": elapsed, "cached_pipeline_fps": len(truth["images"]) / max(elapsed, 1e-8),
                     "timing_scope": "cached feature IO, trainable heads, decoding; encoder excluded",
                     "mean_memory_tokens": sum(memory_counts) / len(memory_counts) if memory_counts else 0.0,
-                    "mean_threshold": sum(thresholds) / len(thresholds),
+                    "mean_threshold": sum(thresholds) / len(thresholds) if thresholds else 0.0,
                     "synthetic": cached.metadata.get("synthetic", False),
                     "score_floor": score_floor, "nms_iou": nms_iou,
                     "objectness_beta": objectness_beta,
