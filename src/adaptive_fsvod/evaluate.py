@@ -18,6 +18,7 @@ from .model import ModelConfig, TemporalDetector
 @torch.no_grad()
 def decode(output, classes, width, height, score_floor=0.001, nms_iou=0.5, max_detections=100,
            objectness=None, objectness_beta=0.0):
+    """Decode model logits and normalized boxes into NMS-filtered pixel detections."""
     if not math.isfinite(objectness_beta) or objectness_beta < 0:
         raise ValueError("Objectness exponent must be finite and nonnegative")
     probabilities = output["logits"].softmax(-1)
